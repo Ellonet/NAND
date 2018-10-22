@@ -1,0 +1,32 @@
+ellonet, zoharb
+===============================================================================
+Ella Duvdevan, ID 305564866, ella.duvdevan@mail.huji.ac.il
+Zohar Bouchnik, ID 311142293, zohar.bouchnik@mail.huji.ac.il
+===============================================================================
+
+                           Project 1 - Boolean Logic
+                           ------------------------- 
+  
+
+Submitted Files
+---------------
+README - This file. A description of the project
+And.hdl - Implements an "AND" logical gate between two given bits.
+AndAnd16.hdl - Implements an "AND" logical gate between two 16-bit values.
+DMux.hdl - Implements a "Demultiplexer" logical gate.
+DMux4Way.hdl - A Demultiplexer of a single 1-bit input and 4 1-bit outputs.
+DMux8Way.hdl - A Demultiplexer of a single 1-bit input and 8 1-bit outputs.
+Mux.hdl - Implements a "Multiplexer" logical gate.
+Mux16.hdl - Implements a 16-bit Multiplexer logical gate.
+Mux4Way16.hdl - Implements a 16-bit Multiplexer logical gate with 4 16-bit inputs and a single 16-bit output.
+Mux8Way16.hdl - Implements a 16-bit Multiplexer logical gate with 8 16-bit inputs and a single 16-bit output.
+Not.hdl - Implements a "NOT" logical gate. 
+Not16.hdl - Implements a 16-bit "NOT" logical gate. 
+Or.hdl - Implements an "Or" logical gate.
+Or16.hdl - Implements a 16-bit "Or" logical gate.
+Or8Way.hdl - Implements the "Or" logical gate with 8 1-bit inputs and 1 1-bit outputs.
+Xor.hdl - Implements the "XOR" logical gate.
+
+
+Remarks
+-------
