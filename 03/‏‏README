@@ -11,15 +11,16 @@ Zohar Bouchnik, ID 311142293, zohar.bouchnik@mail.huji.ac.il
 Submitted Files
 ---------------
 README - This file. A description of the project
-Bit.hdl - A 1-bit Flip Flop chip.
-Register.hdl - A 16-bit Flip Flop chip.
+Bit.hdl - 1-bit register. saves information from last time unit and transfers it to the next one.
+Register.hdl - A 16-bit Register.
 RAM8.hdl - An implementation of an 8-register RAM.
 RAM64.hdl - An implementation of an 64-register RAM.
 RAM512.hdl - An implementation of an 512-register RAM.
 RAM4K.hdl - An implementation of an 4k-bit-register RAM.
 RAM16K.hdl - An implementation of an 16k-bit-register RAM.
-PC.hdl - ?????????
+PC.hdl - An implementation of a program counter. Supports reset and loading a new val.
 
 
 Remarks
 -------
+None
