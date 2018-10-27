@@ -11,61 +11,54 @@
 // "white" in every pixel;
 // the screen should remain fully clear as long as no key is pressed.
 
-@color
-M=0 // init color
 
-@8191
+(OUTERLOOP)
+
+@KBD
+D=M
+@R2
+M=D
+@BLACK
+D;JNE
+
+(WHITE)
+@color
+M=0
+@GO
+0;JMP
+
+(BLACK)
+@color
+M=-1
+
+(GO)
+@8192
 D=A
 @iter
-M=D  // the number of iterations in the loop (flaten screen size)
-
-(INPUTLOOP)
-
+M=D
 @i
-M=0  // init iterations counter
+M=0
 
 @SCREEN
 D=A
 @address
-M=D  // init the address to the screen address
-
-@KBD
-D=M  //get input
-
-@WHITE
-D;JEQ // no input from the user
-
-(BLACK)
-@color
-M=-1 // set color = black
-@LOOP
-0;JMP
-
-(WHITE)
-@color
-M=0  //set color = 0
+M=D
 
 (LOOP)
-@i
-D=M
-@iter
-D=D-M
-@INPUTLOOP
-D;JEQ  // case i=n (finished coloring the screen)
-
-@i
-D=M
-@address  // address += i
-M=M+D
-
 @color
 D=M
 @address
-A=M // color 16 bit
-M=D
-
-@i
-M=M+1  //i += 1
+A=M
+M=D	// coloring the relevant byte
+@address
+M=M+1	// moving to the next byte
+@iter
+M=M-1
+D=M
 
 @LOOP
+D;JNE
+
+
+@OUTERLOOP
 0;JMP
