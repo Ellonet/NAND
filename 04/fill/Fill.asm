@@ -14,37 +14,33 @@
 
 (OUTERLOOP)
 
-@KBD
+@KBD	// getting input from the keyboard
 D=M
-@R2
-M=D
 @BLACK
 D;JNE
 
-(WHITE)
+(WHITE) // in case of no input
 @color
 M=0
-@GO
+@INITIALIZE
 0;JMP
 
-(BLACK)
+(BLACK)	// in case of any input
 @color
 M=-1
 
-(GO)
+(INITIALIZE)	// intialize the iteration counter 
 @8192
 D=A
 @iter
 M=D
-@i
-M=0
 
-@SCREEN
+@SCREEN		// intialize the screen address to be colored
 D=A
 @address
 M=D
 
-(LOOP)
+(LOOP)		// the screen coloing loop
 @color
 D=M
 @address
@@ -53,12 +49,11 @@ M=D	// coloring the relevant byte
 @address
 M=M+1	// moving to the next byte
 @iter
-M=M-1
+M=M-1	// reducing the iteration counter by 1
 D=M
 
-@LOOP
+@LOOP	
 D;JNE
 
-
-@OUTERLOOP
+@OUTERLOOP	// return to the beginning for next input
 0;JMP
