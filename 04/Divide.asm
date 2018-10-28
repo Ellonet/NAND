@@ -16,6 +16,13 @@ M=0  // init the answer register
 
 @R14
 D=M
+@R13
+D=D-M  // R14 - R13
+@FINAL
+D;JGT  // R14 > R13 so the final answer is 0
+
+@R14
+D=M
 @temp 
 M=D  // set the temp value to the value of the divisor
 
@@ -27,10 +34,17 @@ D=D-M
 @CONTINUE
 D;JGT  // in case that temp > R13 (the divident)
 
+@temp
+D=M<<  // calc temp * 2
+
+@NO_STEP_BACK
+D;JLT  // jump if temp * 2 is a negative num (out of bounds)
+
+@temp
+M=D  // temp = temp * 2
+
 @counter
 M=M<<  // counter *= 2
-@temp
-M=M<<  // temp = temp * 2
 
 @WHILE
 0;JMP
@@ -41,6 +55,7 @@ M=M>>  // counter /= 2
 @temp
 M=M>>  // temp /= 2
 
+(NO_STEP_BACK)
 @counter
 D=M
 @R15
@@ -51,7 +66,7 @@ D=M
 @temp
 D=D-M
 @remainder
-M=D  // remainder = divident - temp (when: temp > divident )
+M=D  // remainder = divident - temp
 
 (WHILE_REMINDER)
 @temp
@@ -79,3 +94,4 @@ M=M+D  // result += counter
 @WHILE_REMINDER
 D;JGT  // while the counter > 0
 
+(FINAL)
