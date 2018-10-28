@@ -74,7 +74,3 @@ M=M+1  //i=i+1
 D=M
 @R2  //R2 = R0*R1
 M=D
-
-(END)
-@END
-0;JMP
