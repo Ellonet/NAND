@@ -43,7 +43,7 @@ M=-1 // set color = black
 
 (WHITE)
 @color
-M=0  //set color = 0
+M=-1  //set color = 0
 
 (LOOP)
 @i
