@@ -27,8 +27,12 @@ CHIP Memory {
     OUT out[16];
 
     PARTS:
-    RAM16K(in=in,load=load,address=address[0..13],out=out1);
-	Screen(in=in,load=load,address=address[2..14],out=out2);
+	// match load to right case:
+	DMux4Way(in=load, sel=address[13..14], a=toRAM1, b=toRAM2, c=toSCREEN, d=toKBD);
+	Or(a=toRAM1, b=toRAM2, out=toRAM);
+	// sends the in to the right destination
+    RAM16K(in=in,load=toRAM,address=address[0..13],out=out1);
+	Screen(in=in,load=toSCREEN,address=address[0..12],out=out2);
 	Keyboard(out=out3);
-	Mux4Way16(a=out1,b=out1,c=out2,d=out3,sel=address[13..14],out=out);
+	Mux4Way16(a=out1,b=out1,c=out2,d=out3,sel=address[13..14],out=out);	
 	}

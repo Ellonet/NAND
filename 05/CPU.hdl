@@ -38,6 +38,59 @@ CHIP CPU {
         addressM[15],    // Address in data memory (of M)
         pc[15];          // address of next instruction
 
-    PARTS:
-    // Put your code here:
+    PARTS:		
+	// writeM
+	And(a=instruction[3], b=instruction[15], out=writeM);
+
+	// first MUX
+	Mux16(a=instruction, b=ALUout, sel=instruction[15], out=mux1out);
+	
+	// A register
+	Not(in=instruction[15], out=instrucA);
+	Or(a=instruction[5] ,b=instrucA ,out=ARegLoad);
+	ARegister(in=mux1out ,load=ARegLoad ,out=Aout, out[0..14]=addressM);
+	
+	// second MUX
+	Mux16(a=Aout, b=inM, sel=instruction[12], out=mux2out);
+	
+	// D register
+	And(a=instruction[4] ,b=instruction[15] ,out=DRegLoad);
+	DRegister(in=ALUout ,load=DRegLoad ,out=Dout);
+	
+	// ALU
+	ALU(x=Dout ,y=mux2out ,zx=instruction[11] ,nx=instruction[10] ,zy=instruction[9] ,ny=instruction[8] ,f=instruction[7] ,no=instruction[6] , zr=ZR, ng=NG, out=ALUout, out=outM);
+	
+	// PC
+	PC(in=Aout ,load=res6, inc=true, reset=reset, out[0..14]=pc);
+	
+	// Dmux for pc load
+	DMux8Way(in=instruction[15] , sel=instruction[0..2] ,a=Null ,b=JGT ,c=JEQ ,d=JGE ,e=JLT ,f=JNE ,g=JLE ,h=JMP);
+	// case null - do nothing
+	// case JGT
+	Or(a=ZR, b=NG, out=zrORgn);
+	Not(in=zrORgn, out=NOTzrORgn);
+	And(a=JGT, b=NOTzrORgn, out=JGTout);
+	// case JEQ
+	And(a=JEQ, b=ZR, out=JEQout);
+	// case JGE
+	Not(in=NG, out=notNG);
+	And(a=notNG, b=JGE, out=JGEout);
+	// case JLT
+	And(a=JLT, b=NG, out=JLTout);
+	// case JNE
+	Not(in=ZR, out=notZR);
+	And(a=notZR, b=JNE, out=JNEout);
+	// case JLE
+	And(a=JLE, b=zrORgn, out=JLEout);
+	// case JMP - send  1
+		
+	// OR logic for PC load
+	Or(a=JGTout ,b=JEQout ,out=res1);
+	Or(a=JGEout ,b=JLTout ,out=res2);
+	Or(a=res1 ,b=res2 ,out=res3);
+	Or(a=JNEout ,b=JLEout ,out=res4);
+	Or(a=JMP ,b=res4 ,out=res5);
+	Or(a=res3,b=res5,out=res6);
+	
+		
 }
