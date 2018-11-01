@@ -20,6 +20,7 @@ class Assembler:
 
     def read_commands(self):
 
+<<<<<<< HEAD
         for command in self.commands:
             if command.startswith("@"):
                 self.case_A_command(command[1:])
@@ -44,3 +45,5 @@ class Assembler:
 
     def case_C_command(self, command):
         return
+=======
+>>>>>>> 8a7371ca681c918e1ba8c17579cab2a521272d7a
