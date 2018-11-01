@@ -18,4 +18,3 @@ class Assembler:
 				self.line_counter += 1
 
 
-	
