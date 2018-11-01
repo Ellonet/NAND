@@ -7,11 +7,19 @@
 // be stored at R15. Don't change the input registers.
 // The remainder should be discarded.
 
+
 @counter
 M=1  // init the counter to zero
 
 @R15
 M=0  // init the answer register
+
+@R14
+D=M
+@R13
+D=D-M  // R14 - R13
+@FINAL
+D;JGT  // R14 > R13 so the final answer is 0
 
 @R14
 D=M
@@ -26,61 +34,64 @@ D=D-M
 @CONTINUE
 D;JGT  // in case that temp > R13 (the divident)
 
+@temp
+D=M<<  // calc temp * 2
+
+@NO_STEP_BACK
+D;JLT  // jump if temp * 2 is a negative num (out of bounds)
+
+@temp
+M=D  // temp = temp * 2
+
 @counter
 M=M<<  // counter *= 2
-@temp
-M=M<<  // temp = temp * 2
 
 @WHILE
 0;JMP
 
-(CONTINUE)
+(CONTINUE)  // return the counter and the temp to the biggest legal value
 @counter
 M=M>>  // counter /= 2
 @temp
 M=M>>  // temp /= 2
 
-
+(NO_STEP_BACK)
 @counter
 D=M
-@END
-D;JEQ  // the case that R14 > R13 (the result is 0 )
+@R15
+M=D  // result = counter 
 
 @R13
 D=M
 @temp
-D=M-D
-@remainder
-M=D  // remainder = temp - divident (when: temp > divident )
-
-@R14
-D=M
-@temp
-M=D  // temp = R14 (divisor)
-
-(REMINDER_WHILE)
-@temp
-D=M
-@remainder
 D=D-M
-@END
-D;JGT  // in case that temp > remainder
+@remainder
+M=D  // remainder = divident - temp
 
-@counter
-M=M<<  // counter += 1
+(WHILE_REMINDER)
 @temp
-M=M<<  // temp = temp * 2
+M=M>>  // temp /= 2
+@counter
+M=M>>  // counter /= 2
 
-@REMINDER_WHILE
-0;JMP
+@remainder
+D=M
+@temp
+D=M-D  // temp - remainder
+@counter
+@WHILE_REMINDER
+D;JGT  // remainder < temp
 
-(END)
+@temp
+D=M
+@remainder
+M=M-D  // remainder = remainder - temp
 @counter
 D=M
 @R15
-M=D  // R15 = counter
+M=M+D  // result += counter
 
+@WHILE_REMINDER
+D;JGT  // while the counter > 0
 
-(FINALE)
-@FINALE
-0;JMP
+(FINAL)
