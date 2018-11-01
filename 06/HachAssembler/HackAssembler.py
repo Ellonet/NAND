@@ -9,4 +9,5 @@ if __name__ == '__main__':
 			bla = Assembler(file, "output")
 	else:
 		bla = Assembler(progrm_input, "output")
-		bla.extract_lables()
+		bla.extract_labels()
+		bla.read_commands()
