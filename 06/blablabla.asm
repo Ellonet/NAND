@@ -40,7 +40,7 @@ D=M-D
 M=0
 @35
 D;JLE
-@n
+@0
 A=M-1
 M=-1
 @15				// bla bla bla

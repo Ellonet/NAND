@@ -1,13 +1,17 @@
-import sys, os, glob
+"""imports"""
+import glob
+import os
+import sys
 from Assembler import Assembler
 
+"""this is the main function that runs the program"""
 if __name__ == '__main__':
-	progrm_input = sys.argv[1]
-	if (os.path.isdir(progrm_input)):
-		os.chdir(progrm_input)
-		for file in glob.glob("*.asm"):
-			bla = Assembler(file, "output")
-	else:
-		bla = Assembler(progrm_input, "output")
-		bla.extract_labels()
-		bla.read_commands()
+    program_input = sys.argv[1]
+    if (os.path.isdir(program_input)):
+        os.chdir(program_input)
+        for file in glob.glob("*.asm"):
+            bla = Assembler(file, "output")
+    else:
+        bla = Assembler(program_input, "output")
+        bla.extract_labels()
+        bla.read_commands()
