@@ -17,19 +17,22 @@ CLOSE_PARENTHESES = ")"
 
 class Assembler:
 
-    def __init__(self, in_path, out_path):
+    def __init__(self, in_path):
         """
         this is the init function. we crate the new symbol table with the constant symbols, extract from the file
         all the commands, initializing the variable address counter and building a binary commands empty list.
         :param in_path: the path of the file we want to read from
         :param out_path: the path where we want to write the new binary code file
         """
-        self.symbol_table = {"SP": 0, "LCL": 1, "ARG": 2, "THIS": 3, "THAT": 4, "R1": 1, "R2": 2, "R3": 3, "R4": 4,
+        self.symbol_table = {"SP": 0, "LCL": 1, "ARG": 2, "THIS": 3, "THAT": 4, "R0": 0, "R1": 1, "R2": 2, "R3": 3,
+                             "R4": 4,
                              "R5": 5, "R6": 6, "R7": 7, "R8": 8, "R9": 9, "R10": 10, "R11": 11, "R12": 12, "R13": 13,
                              "R14": 14, "R15": 15, "SCREEN": 16384, "KBD": 24576}
         self.commands = Parser(in_path).get_all_commands()
+        self.out_path = in_path.replace(".asm", ".hack")
         self.next_var_address = 16
         self.binary_commands = []
+        self.read_commands()
 
     def extract_labels(self):
         """
@@ -39,8 +42,7 @@ class Assembler:
         line_counter = 0
         for command in self.commands:
             if command.startswith(OPEN_PARENTHESES) and command.endswith(CLOSE_PARENTHESES):
-                self.symbol_table[command[1:-1]] = (line_counter + 1)
-                self.commands.remove(command)
+                self.symbol_table[command[1:-1]] = line_counter
             else:
                 line_counter += 1
 
@@ -49,14 +51,18 @@ class Assembler:
         this function reads the commands one by one and translates them to binary language
         :return: no return value
         """
+        self.extract_labels()
         for command in self.commands:
             if command.startswith(A_INSTRUCTION):
                 self.case_a_command(command[1:])
+            elif command.startswith(OPEN_PARENTHESES):
+                continue
             else:
                 self.case_c_command(command)
-        # TODO erase this line
-        for line in self.binary_commands:
-            print(line)
+
+        with open(self.out_path, "w") as hack_file:
+            for line in self.binary_commands:
+                hack_file.write(line + "\n")
 
     def case_a_command(self, command):
         """
@@ -115,4 +121,8 @@ class Assembler:
             binary_comp = BinaryTables.CTable_a1.get(comp)
             a = ON
         binary_jump = BinaryTables.JTable.get(jump)
-        self.binary_commands.append(ON + ON + ON + a + binary_comp + binary_dest + binary_jump)
+        if comp.find("<<") != -1 or comp.find(">>") != -1:
+            prefix = "101"
+        else:
+            prefix = "111"
+        self.binary_commands.append(prefix + a + binary_comp + binary_dest + binary_jump)
