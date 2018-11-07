@@ -1,0 +1,21 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/07/MemoryAccess/PointerTest/PointerTest.vm
+
+// Executes pop and push commands using the 
+// pointer, this, and that segments.
+push constant 7
+push constant 3
+push constant 2
+push constant 4
+pop local 1
+pop local 2
+pop local 3
+push local 1
+push constant 100
+push constant 100
+push constant 100
+push constant 99
+pop static 1
+
