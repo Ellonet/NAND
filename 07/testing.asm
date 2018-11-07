@@ -123,3 +123,19 @@ A=M
 D=M
 @testing.1
 M=D
+// push static 1
+@testing.1
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// push static 1
+@testing.1
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
