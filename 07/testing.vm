@@ -5,20 +5,9 @@
 
 // Executes pop and push commands using the 
 // pointer, this, and that segments.
-push constant 7
+
+push constant 9
+push constant 10
+sub
 push constant 3
-push constant 2
-push constant 4
-pop local 1
-pop local 2
-pop local 3
-push local 1
-push constant 100
-push constant 100
-push constant 100
-push constant 99
-pop static 1
-push static 1
-push static 1
-
-
+gt

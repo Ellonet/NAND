@@ -1,141 +1,75 @@
-// push constant 7
-@7
+// push constant 9
+@9
 D=A
 @SP
-A=M
+AM=M+1
+A=A-1
 M=D
+// push constant 10
+@10
+D=A
 @SP
-M=M+1
+AM=M+1
+A=A-1
+M=D
+// sub
+@SP
+AM=M-1
+D=M
+A=A-1
+M=M-D
 // push constant 3
 @3
 D=A
 @SP
-A=M
+AM=M+1
+A=A-1
 M=D
+// gt
 @SP
-M=M+1
-// push constant 2
-@2
-D=A
+AM=M-1
+@NEG_Y
+M;JLT
+A=A-1
+@NEG_X_POS_Y
+M;JLT
 @SP
-A=M
-M=D
-@SP
-M=M+1
-// push constant 4
-@4
-D=A
-@SP
-A=M
-M=D
-@SP
-M=M+1
-// pop local 1
-@1
-D=A
-@LCL
-D=M+D
-@R13
-M=D
-@SP
-M=M-1
 A=M
 D=M
-@R13
-A=M
-M=D
-// pop local 2
-@2
-D=A
-@LCL
-D=M+D
-@R13
-M=D
+A=A-1
+D=M-D
+@GRATER
+D;JGT
+@SMALLER
+0;JMP
+(NEG_Y)
 @SP
-M=M-1
+A=M-1
+@NEG_Y_POS_X
+M;JGT
+@SP
 A=M
 D=M
-@R13
-A=M
-M=D
-// pop local 3
-@3
-D=A
-@LCL
-D=M+D
-@R13
-M=D
+A=A-1
+D=M-D
+@GRATER
+D;JLT
+@SMALLER
+0;JMP
+(NEG_X_POS_Y)
+@SMALLER
+0;JMP
+(NEG_Y_POS_X)
+@GRATER
+0;JMP
+(GRATER)
 @SP
-M=M-1
-A=M
-D=M
-@R13
-A=M
-M=D
-// push local 1
-@1
-D=A
-@LCL
-D=M+D
-A=D
-D=M
+A=M-1
+M=-1
+@END
+0;JMP
+(SMALLER)
 @SP
-A=M
-M=D
-@SP
-M=M+1
-// push constant 100
-@100
-D=A
-@SP
-A=M
-M=D
-@SP
-M=M+1
-// push constant 100
-@100
-D=A
-@SP
-A=M
-M=D
-@SP
-M=M+1
-// push constant 100
-@100
-D=A
-@SP
-A=M
-M=D
-@SP
-M=M+1
-// push constant 99
-@99
-D=A
-@SP
-A=M
-M=D
-@SP
-M=M+1
-// pop static 1
-@SP
-M=M-1
-A=M
-D=M
-@testing.1
-M=D
-// push static 1
-@testing.1
-D=M
-@SP
-A=M
-M=D
-@SP
-M=M+1
-// push static 1
-@testing.1
-D=M
-@SP
-A=M
-M=D
-@SP
-M=M+1
+A=M-1
+M=0
+(END)
