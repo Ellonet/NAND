@@ -28,20 +28,20 @@ CONSTANT = "constant"
 
 
 class CodeWriter:
-	"""
-	this class performs the translation of the vm file into a asm file
-	"""
+    """
+    this class performs the translation of the vm file into a asm file
+    """
 
-	def __init__(self, in_path):
-		self.all_commands = Parser(in_path).get_commands()
-		self.all_asm_commands = []
-		self.file_name = os.path.basename(in_path).split(".")[0]
-		self.out_path = in_path.replace(VM_ENDING, ASM_ENDING)
-		self.label_counter = 0
-		self.handle_commands()
+    def __init__(self, in_path):
+        self.all_commands = Parser(in_path).get_commands()
+        self.all_asm_commands = []
+        self.file_name = os.path.basename(in_path).split(".")[0]
+        self.out_path = in_path.replace(VM_ENDING, ASM_ENDING)
+        self.label_counter = 0
+        self.handle_commands()
 
-<<<<<<< HEAD
     def handle_commands(self):
+
         """
         this function goes throw all the commands in vm language and converts them into assembles
         that is with using the single command translator helper function
@@ -52,77 +52,76 @@ class CodeWriter:
             self.all_asm_commands.extend(self.handle_single_command(command))
             # write to file - the command in comment, and then the array of asm commands
             self.write_to_file()
-=======
-	def handle_commands(self):
-		"""
-		this function goes throw all the commands in vm language and converts them into assembles
-		thats with using the single command translator helper function
-		:return: None
-		"""
-		for command in self.all_commands:
-			self.all_asm_commands.append(COMMENT + command)
-			self.all_asm_commands.extend(self.handle_single_command(command))
-			# write to file - the command in comment, and then the array of asm commands
-			self.write_to_file()
->>>>>>> ffc28d508d07ceb74e74519767b0dd3a5ff72fd1
 
-	def handle_single_command(self, command):
-		"""
-		this function handles a single command. translates it to assembler and returns a list of strings with
-		the new command
-		:param command: the command we want to translate
-		:return: the command in assembler language
-		"""
-		if command.startswith(PUSH):
-			return self.push_command(command)
-		elif command.startswith(POP):
-			return self.pop_command(command)
-		elif command in label_arithmetic:
-			self.label_counter += 1
-			return help_tables.asm_commands[command](self.label_counter)
-		else:
-			return help_tables.asm_commands[command]
+    def handle_commands(self):
+        """
+        this function goes throw all the commands in vm language and converts them into assembles
+        thats with using the single command translator helper function
+        :return: None
+        """
+        for command in self.all_commands:
+            self.all_asm_commands.append(COMMENT + command)
+            self.all_asm_commands.extend(self.handle_single_command(command))
+            # write to file - the command in comment, and then the array of asm commands
+            self.write_to_file()
 
-	def push_command(self, command):
-		"""
-		this function handles only commands from type: "push segment i".
-		:param command: the vm command
-		:return: None
-		"""
-		order, segment, i = command.split(SPACE)
-		new_command = []
-		if segment == STATIC:
-			new_command.extend(help_tables.asm_commands[segment + CONNECTOR + order](self.file_name, i))
-		elif segment == TEMP or segment == POINTER:
-			new_command.extend(help_tables.asm_commands[segment + CONNECTOR + order](i))
-		else:
-			# command: addr = i
-			new_command.extend(help_tables.asm_commands[GET_NUM](i))
+    def handle_single_command(self, command):
+        """
+        this function handles a single command. translates it to assembler and returns a list of strings with
+        the new command
+        :param command: the command we want to translate
+        :return: the command in assembler language
+        """
+        if command.startswith(PUSH):
+            return self.push_command(command)
+        elif command.startswith(POP):
+            return self.pop_command(command)
+        elif command in label_arithmetic:
+            self.label_counter += 1
+            return help_tables.asm_commands[command](self.label_counter)
+        else:
+            return help_tables.asm_commands[command]
 
-			if segment != CONSTANT:
-				# command: addr = i + segment pointer;
-				new_command.extend(help_tables.asm_commands["seg_i_push"](segment))
+    def push_command(self, command):
+        """
+        this function handles only commands from type: "push segment i".
+        :param command: the vm command
+        :return: None
+        """
+        order, segment, i = command.split(SPACE)
+        new_command = []
+        if segment == STATIC:
+            new_command.extend(help_tables.asm_commands[segment + CONNECTOR + order](self.file_name, i))
+        elif segment == TEMP or segment == POINTER:
+            new_command.extend(help_tables.asm_commands[segment + CONNECTOR + order](i))
+        else:
+            # command: addr = i
+            new_command.extend(help_tables.asm_commands[GET_NUM](i))
 
-			# command: *sp = *addr; SP ++
-			new_command.extend(help_tables.asm_commands["push"])
-		return new_command
+            if segment != CONSTANT:
+                # command: addr = i + segment pointer;
+                new_command.extend(help_tables.asm_commands["seg_i_push"](segment))
 
-	def pop_command(self, command):
-		order, segment, i = command.split(" ")
-		new_command = []
-		if segment == STATIC:
-			new_command.extend(help_tables.asm_commands["static_pop"](self.file_name, i))
-		elif segment in [TEMP, POINTER]:
-			new_command.extend(help_tables.asm_commands[segment + CONNECTOR + order](i))
-		else:
-			# command: addr = seg + i;`
-			new_command.extend(help_tables.asm_commands["get_i"](i))
-			new_command.extend(help_tables.asm_commands["seg_i_pop"](segment))
-			# command: SP --; *sp = *addr
-			new_command.extend(help_tables.asm_commands["pop"])
-		return new_command
+            # command: *sp = *addr; SP ++
+            new_command.extend(help_tables.asm_commands["push"])
+        return new_command
 
-	def write_to_file(self):
-		with open(self.out_path, "w") as out_file:
-			for line in self.all_asm_commands:
-				out_file.write(line + "\n")
+    def pop_command(self, command):
+        order, segment, i = command.split(" ")
+        new_command = []
+        if segment == STATIC:
+            new_command.extend(help_tables.asm_commands["static_pop"](self.file_name, i))
+        elif segment in [TEMP, POINTER]:
+            new_command.extend(help_tables.asm_commands[segment + CONNECTOR + order](i))
+        else:
+            # command: addr = seg + i;`
+            new_command.extend(help_tables.asm_commands["get_i"](i))
+            new_command.extend(help_tables.asm_commands["seg_i_pop"](segment))
+            # command: SP --; *sp = *addr
+            new_command.extend(help_tables.asm_commands["pop"])
+        return new_command
+
+    def write_to_file(self):
+        with open(self.out_path, "w") as out_file:
+            for line in self.all_asm_commands:
+                out_file.write(line + "\n")
