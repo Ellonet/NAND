@@ -2,9 +2,10 @@
 @10
 D=A
 @SP
-AM=M+1
-A=A-1
+A=M
 M=D
+@SP
+M=M+1
 // pop local 0
 @0
 D=A
@@ -13,7 +14,8 @@ D=M+D
 @R13
 M=D
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @R13
 A=M
@@ -22,16 +24,18 @@ M=D
 @21
 D=A
 @SP
-AM=M+1
-A=A-1
+A=M
 M=D
+@SP
+M=M+1
 // push constant 22
 @22
 D=A
 @SP
-AM=M+1
-A=A-1
+A=M
 M=D
+@SP
+M=M+1
 // pop argument 2
 @2
 D=A
@@ -40,7 +44,8 @@ D=M+D
 @R13
 M=D
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @R13
 A=M
@@ -53,7 +58,8 @@ D=M+D
 @R13
 M=D
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @R13
 A=M
@@ -62,9 +68,10 @@ M=D
 @36
 D=A
 @SP
-AM=M+1
-A=A-1
+A=M
 M=D
+@SP
+M=M+1
 // pop this 6
 @6
 D=A
@@ -73,7 +80,8 @@ D=M+D
 @R13
 M=D
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @R13
 A=M
@@ -82,16 +90,18 @@ M=D
 @42
 D=A
 @SP
-AM=M+1
-A=A-1
+A=M
 M=D
+@SP
+M=M+1
 // push constant 45
 @45
 D=A
 @SP
-AM=M+1
-A=A-1
+A=M
 M=D
+@SP
+M=M+1
 // pop that 5
 @5
 D=A
@@ -100,7 +110,8 @@ D=M+D
 @R13
 M=D
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @R13
 A=M
@@ -113,7 +124,8 @@ D=M+D
 @R13
 M=D
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @R13
 A=M
@@ -122,108 +134,7 @@ M=D
 @510
 D=A
 @SP
-AM=M+1
-A=A-1
+A=M
 M=D
-// pop temp 6
 @SP
-AM=M-1
-D=M
-@11
-M=D
-// push local 0
-@0
-D=A
-@LCL
-D=M+D
-A=D
-D=M
-@SP
-AM=M+1
-A=A-1
-M=D
-// push that 5
-@5
-D=A
-@THAT
-D=M+D
-A=D
-D=M
-@SP
-AM=M+1
-A=A-1
-M=D
-// add
-@SP
-AM=M-1
-D=M
-A=A-1
-M=D+M
-// push argument 1
-@1
-D=A
-@ARG
-D=M+D
-A=D
-D=M
-@SP
-AM=M+1
-A=A-1
-M=D
-// sub
-@SP
-AM=M-1
-D=M
-A=A-1
-M=M-D
-// push this 6
-@6
-D=A
-@THIS
-D=M+D
-A=D
-D=M
-@SP
-AM=M+1
-A=A-1
-M=D
-// push this 6
-@6
-D=A
-@THIS
-D=M+D
-A=D
-D=M
-@SP
-AM=M+1
-A=A-1
-M=D
-// add
-@SP
-AM=M-1
-D=M
-A=A-1
-M=D+M
-// sub
-@SP
-AM=M-1
-D=M
-A=A-1
-M=M-D
-// push temp 6
-@11
-D=M
-@SP
-AM=M+1
-A=A-1
-M=D
-// add
-@SP
-AM=M-1
-D=M
-A=A-1
-M=D+M
-// neg
-@SP
-A=M-1
-M=-M
+M=M+1
