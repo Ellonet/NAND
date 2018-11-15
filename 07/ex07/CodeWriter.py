@@ -25,6 +25,7 @@ TEMP = "temp"
 POINTER = "pointer"
 GET_NUM = "get_i"
 CONSTANT = "constant"
+SEG_I = "seg_i"
 
 
 class CodeWriter:
@@ -87,10 +88,10 @@ class CodeWriter:
 
 			if segment != CONSTANT:
 				# adding command: addr = i + segment pointer;
-				new_command.extend(help_tables.asm_commands["seg_i_push"](segment))
+				new_command.extend(help_tables.asm_commands[SEG_I + CONNECTOR + order](segment))
 
 			# adding command: *sp = *addr; SP ++
-			new_command.extend(help_tables.asm_commands["push"])
+			new_command.extend(help_tables.asm_commands[PUSH])
 		return new_command
 
 	def pop_command(self, command):
@@ -103,9 +104,9 @@ class CodeWriter:
 		else:
 			# adding command: addr = seg + i;`
 			new_command.extend(help_tables.asm_commands[GET_NUM](i))
-			new_command.extend(help_tables.asm_commands["seg_i_pop"](segment))
+			new_command.extend(help_tables.asm_commands[SEG_I + CONNECTOR + order](segment))
 			# adding command: SP --; *sp = *addr
-			new_command.extend(help_tables.asm_commands["pop"])
+			new_command.extend(help_tables.asm_commands[POP])
 		return new_command
 
 	def write_to_file(self):

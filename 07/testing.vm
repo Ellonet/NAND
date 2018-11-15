@@ -6,7 +6,4 @@
 // Executes pop and push commands using the 
 // pointer, this, and that segments.
 
-push constant 3000
-push constant 3000
-neg
-gt
+push local 5
