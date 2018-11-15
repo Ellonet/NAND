@@ -22,8 +22,6 @@ class CodeWriter:
         self.all_commands = Parser(in_path).get_commands()
         self.all_asm_commands = []
         self.file_name = os.path.basename(in_path).split(".")[0]
-        # self.file_name = os.path.splitext(in_path)[0]
-        print(self.file_name)
         self.out_path = in_path.replace(".vm", ".asm")
         self.handle_commands()
 
@@ -40,13 +38,18 @@ class CodeWriter:
         elif command.startswith(POP):
             return self.pop_command(command)
         else:
-            return []
+            return help_tables.asm_commands[command]
 
     def push_command(self, command):
         order, segment, i = command.split(" ")
         new_command = []
         if segment == "static":
             new_command.extend(help_tables.asm_commands["static_push"](self.file_name, i))
+        elif segment == "temp":
+            new_command.extend(help_tables.asm_commands["temp_push"](i))
+        elif segment == "pointer":
+            new_command.extend(help_tables.asm_commands["pointer_push"](int(i)))
+            new_command.extend(help_tables.asm_commands["push"])
         else:
             # addr = i;
             new_command.extend(help_tables.asm_commands["get_i"](i))
@@ -64,6 +67,10 @@ class CodeWriter:
         new_command = []
         if segment == "static":
             new_command.extend(help_tables.asm_commands["static_pop"](self.file_name, i))
+        elif segment == "temp":
+            new_command.extend(help_tables.asm_commands["temp_pop"](i))
+        elif segment == "pointer":
+            new_command.extend(help_tables.asm_commands["pointer_pop"](int(i)))
         else:
             # addr = seg + i;`
             new_command.extend(help_tables.asm_commands["get_i"](i))
@@ -71,6 +78,7 @@ class CodeWriter:
             # SP --; *sp = *addr
             new_command.extend(help_tables.asm_commands["pop"])
         return new_command
+
 
     def write_to_file(self):
         with open(self.out_path, "w") as out_file:
