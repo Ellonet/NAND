@@ -15,11 +15,14 @@ M=D
 // eq
 @SP
 AM=M-1
+D=M
 @NEG_Y_1
-M;JLT
-A=A-1
+D;JLT
+@SP
+A=M-1
+D=M
 @NEG_X_POS_Y_1
-M;JLT
+D;JLT
 @SP
 A=M
 D=M
@@ -32,8 +35,9 @@ D;JEQ
 (NEG_Y_1)
 @SP
 A=M-1
+D=M
 @NEG_Y_POS_X_1
-M;JGT
+D;JGT
 @SP
 A=M
 D=M
@@ -77,11 +81,14 @@ M=D
 // eq
 @SP
 AM=M-1
+D=M
 @NEG_Y_2
-M;JLT
-A=A-1
+D;JLT
+@SP
+A=M-1
+D=M
 @NEG_X_POS_Y_2
-M;JLT
+D;JLT
 @SP
 A=M
 D=M
@@ -94,8 +101,9 @@ D;JEQ
 (NEG_Y_2)
 @SP
 A=M-1
+D=M
 @NEG_Y_POS_X_2
-M;JGT
+D;JGT
 @SP
 A=M
 D=M
@@ -139,11 +147,14 @@ M=D
 // eq
 @SP
 AM=M-1
+D=M
 @NEG_Y_3
-M;JLT
-A=A-1
+D;JLT
+@SP
+A=M-1
+D=M
 @NEG_X_POS_Y_3
-M;JLT
+D;JLT
 @SP
 A=M
 D=M
@@ -156,8 +167,9 @@ D;JEQ
 (NEG_Y_3)
 @SP
 A=M-1
+D=M
 @NEG_Y_POS_X_3
-M;JGT
+D;JGT
 @SP
 A=M
 D=M
@@ -201,11 +213,14 @@ M=D
 // lt
 @SP
 AM=M-1
+D=M
 @NEG_Y_4
-M;JLT
-A=A-1
+D;JLT
+@SP
+A=M-1
+D=M
 @NEG_X_POS_Y_4
-M;JLT
+D;JLT
 @SP
 A=M
 D=M
@@ -218,8 +233,9 @@ D;JLT
 (NEG_Y_4)
 @SP
 A=M-1
+D=M
 @NEG_Y_POS_X_4
-M;JGT
+D;JGT
 @SP
 A=M
 D=M
@@ -263,11 +279,14 @@ M=D
 // lt
 @SP
 AM=M-1
+D=M
 @NEG_Y_5
-M;JLT
-A=A-1
+D;JLT
+@SP
+A=M-1
+D=M
 @NEG_X_POS_Y_5
-M;JLT
+D;JLT
 @SP
 A=M
 D=M
@@ -280,8 +299,9 @@ D;JLT
 (NEG_Y_5)
 @SP
 A=M-1
+D=M
 @NEG_Y_POS_X_5
-M;JGT
+D;JGT
 @SP
 A=M
 D=M
@@ -325,11 +345,14 @@ M=D
 // lt
 @SP
 AM=M-1
+D=M
 @NEG_Y_6
-M;JLT
-A=A-1
+D;JLT
+@SP
+A=M-1
+D=M
 @NEG_X_POS_Y_6
-M;JLT
+D;JLT
 @SP
 A=M
 D=M
@@ -342,8 +365,9 @@ D;JLT
 (NEG_Y_6)
 @SP
 A=M-1
+D=M
 @NEG_Y_POS_X_6
-M;JGT
+D;JGT
 @SP
 A=M
 D=M
@@ -387,11 +411,14 @@ M=D
 // gt
 @SP
 AM=M-1
+D=M
 @NEG_Y_7
-M;JLT
-A=A-1
+D;JLT
+@SP
+A=M-1
+D=M
 @NEG_X_POS_Y_7
-M;JLT
+D;JLT
 @SP
 A=M
 D=M
@@ -404,8 +431,9 @@ D;JGT
 (NEG_Y_7)
 @SP
 A=M-1
+D=M
 @NEG_Y_POS_X_7
-M;JGT
+D;JGT
 @SP
 A=M
 D=M
@@ -449,11 +477,14 @@ M=D
 // gt
 @SP
 AM=M-1
+D=M
 @NEG_Y_8
-M;JLT
-A=A-1
+D;JLT
+@SP
+A=M-1
+D=M
 @NEG_X_POS_Y_8
-M;JLT
+D;JLT
 @SP
 A=M
 D=M
@@ -466,8 +497,9 @@ D;JGT
 (NEG_Y_8)
 @SP
 A=M-1
+D=M
 @NEG_Y_POS_X_8
-M;JGT
+D;JGT
 @SP
 A=M
 D=M
@@ -511,11 +543,14 @@ M=D
 // gt
 @SP
 AM=M-1
+D=M
 @NEG_Y_9
-M;JLT
-A=A-1
+D;JLT
+@SP
+A=M-1
+D=M
 @NEG_X_POS_Y_9
-M;JLT
+D;JLT
 @SP
 A=M
 D=M
@@ -528,8 +563,9 @@ D;JGT
 (NEG_Y_9)
 @SP
 A=M-1
+D=M
 @NEG_Y_POS_X_9
-M;JGT
+D;JGT
 @SP
 A=M
 D=M
