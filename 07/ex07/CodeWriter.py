@@ -43,7 +43,7 @@ class CodeWriter:
     def handle_commands(self):
         """
         this function goes throw all the commands in vm language and converts them into assembles
-        thats with using the single command translator helper function
+        that is with using the single command translator helper function
         :return: None
         """
         for command in self.all_commands:
