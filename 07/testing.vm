@@ -6,8 +6,14 @@
 // Executes pop and push commands using the 
 // pointer, this, and that segments.
 
-push constant 9
-push constant 10
+push constant 57
+push constant 31
+push constant 53
+add
+push constant 112
 sub
-push constant 3
-gt
+neg
+and
+push constant 82
+or
+not
