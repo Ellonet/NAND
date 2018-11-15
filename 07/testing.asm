@@ -1,12 +1,32 @@
-// push constant 9
-@9
+// push constant 57
+@57
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
-// push constant 10
-@10
+// push constant 31
+@31
+D=A
+@SP
+AM=M+1
+A=A-1
+M=D
+// push constant 53
+@53
+D=A
+@SP
+AM=M+1
+A=A-1
+M=D
+// add
+@SP
+AM=M-1
+D=M
+A=A-1
+M=D+M
+// push constant 112
+@112
 D=A
 @SP
 AM=M+1
@@ -18,58 +38,36 @@ AM=M-1
 D=M
 A=A-1
 M=M-D
-// push constant 3
-@3
+// neg
+@SP
+A=M-1
+M=-M
+// and
+@SP
+AM=M-1
+D=M
+A=A-1
+D=M&D
+@SP
+A=M-1
+M=D
+// push constant 82
+@82
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
-// gt
+// or
 @SP
 AM=M-1
-@NEG_Y
-M;JLT
-A=A-1
-@NEG_X_POS_Y
-M;JLT
-@SP
-A=M
 D=M
 A=A-1
-D=M-D
-@GRATER
-D;JGT
-@SMALLER
-0;JMP
-(NEG_Y)
+D=M|D
 @SP
 A=M-1
-@NEG_Y_POS_X
-M;JGT
-@SP
-A=M
-D=M
-A=A-1
-D=M-D
-@GRATER
-D;JLT
-@SMALLER
-0;JMP
-(NEG_X_POS_Y)
-@SMALLER
-0;JMP
-(NEG_Y_POS_X)
-@GRATER
-0;JMP
-(GRATER)
+M=D
+// not
 @SP
 A=M-1
-M=-1
-@END
-0;JMP
-(SMALLER)
-@SP
-A=M-1
-M=0
-(END)
+M=!M
