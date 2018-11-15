@@ -1,3 +1,5 @@
+"""this file holds the dictionaries that do the translation between vm language to assembler language"""
+
 asm_commands = {
     "pointer_push": lambda i: ["@THAT", "D=M", "@SP", "AM=M+1", "A=A-1", "M=D"] if int(i) else ["@THIS", "D=M", "@SP",
                                                                                                 "AM=M+1", "A=A-1",

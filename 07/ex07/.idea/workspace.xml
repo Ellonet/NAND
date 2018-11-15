@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="925063dd-749d-487d-9343-33cd90c23530" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/README" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../MemoryAccess/BasicTest/BasicTest.asm" beforeDir="false" afterPath="$PROJECT_DIR$/../MemoryAccess/BasicTest/BasicTest.asm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../MemoryAccess/BasicTest/BasicTest.out" beforeDir="false" afterPath="$PROJECT_DIR$/../MemoryAccess/BasicTest/BasicTest.out" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../MemoryAccess/StaticTest/StaticTest.asm" beforeDir="false" afterPath="$PROJECT_DIR$/../MemoryAccess/StaticTest/StaticTest.asm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeWriter.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWriter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/Parser.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/help_tables.py" beforeDir="false" afterPath="$PROJECT_DIR$/help_tables.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../testing.asm" beforeDir="false" afterPath="$PROJECT_DIR$/../testing.asm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../testing.vm" beforeDir="false" afterPath="$PROJECT_DIR$/../testing.vm" afterDir="false" />
@@ -62,23 +61,26 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="2388" />
-          <entry key="txt" value="5" />
+          <entry key="README" value="71" />
+          <entry key="py" value="2515" />
+          <entry key="txt" value="20" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="5" />
-          <entry key="Python" value="2388" />
+          <entry key="PLAIN_TEXT" value="91" />
+          <entry key="Python" value="2515" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="README" value="1" />
           <entry key="py" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="PLAIN_TEXT" value="1" />
           <entry key="Python" value="2" />
         </counts>
       </usages-collector>
@@ -86,35 +88,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Parser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="30" column="36" lean-forward="true" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="36" />
+            <state>
+              <caret column="51" selection-start-column="3" selection-end-column="51" />
               <folding>
-                <marker date="1542300231067" expanded="true" signature="124:129" ph="..." />
-                <marker date="1542300231067" expanded="true" signature="157:224" ph="..." />
-                <marker date="1542300231067" expanded="true" signature="253:1071" ph="..." />
-                <marker date="1542300231067" expanded="true" signature="1066:1071" ph="..." />
+                <marker date="1542300372314" expanded="true" signature="124:129" ph="..." />
+                <marker date="1542300372314" expanded="true" signature="157:224" ph="..." />
+                <marker date="1542300372314" expanded="true" signature="253:965" ph="..." />
+                <marker date="1542300372314" expanded="true" signature="960:965" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/codecs.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="266" selection-start-line="266" selection-end-line="266" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/_bootlocale.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="11" selection-start-line="11" selection-end-line="11" />
+            <state relative-caret-position="238">
+              <caret line="14" column="115" selection-start-line="14" selection-start-column="115" selection-end-line="14" selection-end-column="115" />
             </state>
           </provider>
         </entry>
@@ -122,8 +115,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CodeWriter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="79" column="29" lean-forward="true" selection-start-line="79" selection-start-column="29" selection-end-line="79" selection-end-column="29" />
+            <state>
+              <caret column="63" selection-start-column="3" selection-end-column="63" />
               <folding>
                 <element signature="e#82#91#0" expanded="true" />
                 <marker date="1542299814402" expanded="true" signature="4026:4031" ph="..." />
@@ -135,8 +128,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/help_tables.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="38" column="53" lean-forward="true" selection-start-line="38" selection-start-column="53" selection-end-line="38" selection-end-column="53" />
+            <state>
+              <caret column="3" lean-forward="true" selection-start-column="3" selection-end-column="101" />
             </state>
           </provider>
         </entry>
@@ -145,7 +138,7 @@
         <entry file="file://$PROJECT_DIR$/Main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="24" selection-start-column="24" selection-end-column="24" />
+              <caret column="3" lean-forward="true" selection-start-column="3" selection-end-column="21" />
               <folding>
                 <element signature="e#25#35#0" expanded="true" />
               </folding>
@@ -183,9 +176,10 @@
         <option value="$PROJECT_DIR$/venv/CodeWriter.py" />
         <option value="$PROJECT_DIR$/Main.py" />
         <option value="$PROJECT_DIR$/asm_commands.py" />
-        <option value="$PROJECT_DIR$/help_tables.py" />
         <option value="$PROJECT_DIR$/CodeWriter.py" />
         <option value="$PROJECT_DIR$/Parser.py" />
+        <option value="$PROJECT_DIR$/help_tables.py" />
+        <option value="$PROJECT_DIR$/README" />
       </list>
     </option>
   </component>
@@ -197,7 +191,7 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
@@ -216,7 +210,17 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="ex07" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -285,25 +289,32 @@
       <option name="project" value="LOCAL" />
       <updated>1542295126709</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="ex 07- done!!!!!">
+      <created>1542300458254</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1542300458254</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1645469" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="1" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.1645469" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27935943" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.27935943" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39679715" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.21174377" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.21174377" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -335,18 +346,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ex 07" />
-    <option name="LAST_COMMIT_MESSAGE" value="ex 07" />
+    <MESSAGE value="ex 07- done!!!!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="ex 07- done!!!!!" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/CodeWriter.py</url>
-          <line>77</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="self.get_commands()" language="Python" />
@@ -400,20 +403,10 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="24" selection-start-column="24" selection-end-column="24" />
-          <folding>
-            <element signature="e#25#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/_bootlocale.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        <state relative-caret-position="153">
+          <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -426,8 +419,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CodeWriter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="79" column="29" lean-forward="true" selection-start-line="79" selection-start-column="29" selection-end-line="79" selection-end-column="29" />
+        <state>
+          <caret column="63" selection-start-column="3" selection-end-column="63" />
           <folding>
             <element signature="e#82#91#0" expanded="true" />
             <marker date="1542299814402" expanded="true" signature="4026:4031" ph="..." />
@@ -435,23 +428,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/help_tables.py">
+    <entry file="file://$PROJECT_DIR$/Parser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="38" column="53" lean-forward="true" selection-start-line="38" selection-start-column="53" selection-end-line="38" selection-end-column="53" />
+        <state>
+          <caret column="51" selection-start-column="3" selection-end-column="51" />
+          <folding>
+            <marker date="1542300372314" expanded="true" signature="124:129" ph="..." />
+            <marker date="1542300372314" expanded="true" signature="157:224" ph="..." />
+            <marker date="1542300372314" expanded="true" signature="253:965" ph="..." />
+            <marker date="1542300372314" expanded="true" signature="960:965" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Parser.py">
+    <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="30" column="36" lean-forward="true" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="36" />
+        <state>
+          <caret column="3" lean-forward="true" selection-start-column="3" selection-end-column="21" />
           <folding>
-            <marker date="1542300231067" expanded="true" signature="124:129" ph="..." />
-            <marker date="1542300231067" expanded="true" signature="157:224" ph="..." />
-            <marker date="1542300231067" expanded="true" signature="253:1071" ph="..." />
-            <marker date="1542300231067" expanded="true" signature="1066:1071" ph="..." />
+            <element signature="e#25#35#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/help_tables.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="3" lean-forward="true" selection-start-column="3" selection-end-column="101" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="115" selection-start-line="14" selection-start-column="115" selection-end-line="14" selection-end-column="115" />
         </state>
       </provider>
     </entry>
