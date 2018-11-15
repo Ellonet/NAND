@@ -40,6 +40,19 @@ class CodeWriter:
 		self.label_counter = 0
 		self.handle_commands()
 
+<<<<<<< HEAD
+    def handle_commands(self):
+        """
+        this function goes throw all the commands in vm language and converts them into assembles
+        that is with using the single command translator helper function
+        :return: None
+        """
+        for command in self.all_commands:
+            self.all_asm_commands.append(COMMENT + command)
+            self.all_asm_commands.extend(self.handle_single_command(command))
+            # write to file - the command in comment, and then the array of asm commands
+            self.write_to_file()
+=======
 	def handle_commands(self):
 		"""
 		this function goes throw all the commands in vm language and converts them into assembles
@@ -51,6 +64,7 @@ class CodeWriter:
 			self.all_asm_commands.extend(self.handle_single_command(command))
 			# write to file - the command in comment, and then the array of asm commands
 			self.write_to_file()
+>>>>>>> ffc28d508d07ceb74e74519767b0dd3a5ff72fd1
 
 	def handle_single_command(self, command):
 		"""
