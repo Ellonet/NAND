@@ -21,9 +21,12 @@ class Parser:
         with open(in_path) as file:
             lines = file.read().splitlines()
             for line in lines:
-                line.replace(SPACE, EMPTY_STR)
-                line.replace(TAB, EMPTY_STR)
+                line = line.strip()
                 if not line.startswith(COMMENT) and line != EMPTY_STR:
+                    comment_index = line.find(COMMENT)
+                    if comment_index != -1:
+                        line = line[:comment_index]
+                        line = line.strip()
                     self.__commands.append(line)
 
     def get_commands(self):

@@ -75,7 +75,7 @@ class CodeWriter:
         :param command: the vm command
         :return: None
         """
-        order, segment, i = command.split(SPACE)
+        order, segment, i = command.split()
         new_command = []
         if segment == STATIC:
             new_command.extend(help_tables.asm_commands[segment + CONNECTOR + order](self.file_name, i))
