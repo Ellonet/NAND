@@ -79,7 +79,7 @@ class CodeWriter:
 		new_command = []
 		if segment == STATIC:
 			new_command.extend(help_tables.asm_commands[segment + CONNECTOR + order](self.file_name, i))
-		elif segment == TEMP or segment == POINTER:
+		elif segment in [TEMP, POINTER]:
 			new_command.extend(help_tables.asm_commands[segment + CONNECTOR + order](i))
 		else:
 			# command: addr = i
