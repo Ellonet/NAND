@@ -33,15 +33,16 @@ class CodeWriter:
 	this class performs the translation of the vm file into a asm file
 	"""
 
-	def __init__(self, in_path):
+	def __init__(self, in_path, write_to_File_flag=True, counter=0):
 		self.all_commands = Parser(in_path).get_commands()
 		self.all_asm_commands = []
 		self.file_name = os.path.basename(in_path).split(".")[0]
 		self.out_path = in_path.replace(VM_ENDING, ASM_ENDING)
-		self.label_counter = 0
-		self.handle_commands()
+		self.label_counter = counter
+		self.handle_commands(write_to_File_flag)
+		self.write_to_File_flag = write_to_File_flag
 
-	def handle_commands(self):
+	def handle_commands(self, write_to_File_flag):
 		"""
 		this function goes throw all the commands in vm language and converts them into assembles
 		thats with using the single command translator helper function
@@ -51,7 +52,8 @@ class CodeWriter:
 			self.all_asm_commands.append(COMMENT + command)
 			self.all_asm_commands.extend(self.handle_single_command(command))
 			# write to file - the command in comment, and then the array of asm commands
-			self.write_to_file()
+			if (write_to_File_flag):
+				self.write_to_file()
 
 	def handle_single_command(self, command):
 		"""
@@ -113,3 +115,6 @@ class CodeWriter:
 		with open(self.out_path, "w") as out_file:
 			for line in self.all_asm_commands:
 				out_file.write(line + "\n")
+
+	def get_all_commands(self):
+		return self.all_asm_commands
