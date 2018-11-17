@@ -15,6 +15,8 @@ CodeWriter.py : writes the assembler code that implements the parsed command
 help_tables.py : this file holds the dictionaries that do the translation between vm language to assembler language
 Main.py : drives the process
 Parser.py : parses each VM command into its lexical elements
+MakeFile : the make file of the project
+VMtranslator : runs the main function
 
 Remarks
 -------
