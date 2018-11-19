@@ -242,7 +242,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_4
-D;JGT
+D;JLT
 @GREATER_4
 0;JMP
 (NEG_X_POS_Y_4)
@@ -308,7 +308,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_5
-D;JGT
+D;JLT
 @GREATER_5
 0;JMP
 (NEG_X_POS_Y_5)
@@ -374,7 +374,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_6
-D;JGT
+D;JLT
 @GREATER_6
 0;JMP
 (NEG_X_POS_Y_6)
@@ -440,7 +440,7 @@ D=M
 A=A-1
 D=M-D
 @GREATER_7
-D;JLT
+D;JGT
 @SMALLER_7
 0;JMP
 (NEG_X_POS_Y_7)
@@ -506,7 +506,7 @@ D=M
 A=A-1
 D=M-D
 @GREATER_8
-D;JLT
+D;JGT
 @SMALLER_8
 0;JMP
 (NEG_X_POS_Y_8)
@@ -572,7 +572,7 @@ D=M
 A=A-1
 D=M-D
 @GREATER_9
-D;JLT
+D;JGT
 @SMALLER_9
 0;JMP
 (NEG_X_POS_Y_9)
@@ -711,7 +711,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_10
-D;JGT
+D;JLT
 @GREATER_10
 0;JMP
 (NEG_X_POS_Y_10)
@@ -777,7 +777,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_11
-D;JGT
+D;JLT
 @GREATER_11
 0;JMP
 (NEG_X_POS_Y_11)
@@ -843,7 +843,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_12
-D;JGT
+D;JLT
 @GREATER_12
 0;JMP
 (NEG_X_POS_Y_12)
@@ -913,7 +913,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_13
-D;JGT
+D;JLT
 @GREATER_13
 0;JMP
 (NEG_X_POS_Y_13)
@@ -983,7 +983,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_14
-D;JGT
+D;JLT
 @GREATER_14
 0;JMP
 (NEG_X_POS_Y_14)
@@ -1057,7 +1057,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_15
-D;JGT
+D;JLT
 @GREATER_15
 0;JMP
 (NEG_X_POS_Y_15)
@@ -1123,7 +1123,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_16
-D;JGT
+D;JLT
 @GREATER_16
 0;JMP
 (NEG_X_POS_Y_16)
@@ -1193,7 +1193,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_17
-D;JGT
+D;JLT
 @GREATER_17
 0;JMP
 (NEG_X_POS_Y_17)
@@ -1263,7 +1263,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_18
-D;JGT
+D;JLT
 @GREATER_18
 0;JMP
 (NEG_X_POS_Y_18)
@@ -1337,7 +1337,7 @@ D=M
 A=A-1
 D=M-D
 @GREATER_19
-D;JLT
+D;JGT
 @SMALLER_19
 0;JMP
 (NEG_X_POS_Y_19)
@@ -1403,7 +1403,7 @@ D=M
 A=A-1
 D=M-D
 @GREATER_20
-D;JLT
+D;JGT
 @SMALLER_20
 0;JMP
 (NEG_X_POS_Y_20)
@@ -1469,7 +1469,7 @@ D=M
 A=A-1
 D=M-D
 @GREATER_21
-D;JLT
+D;JGT
 @SMALLER_21
 0;JMP
 (NEG_X_POS_Y_21)
@@ -1535,7 +1535,7 @@ D=M
 A=A-1
 D=M-D
 @GREATER_22
-D;JLT
+D;JGT
 @SMALLER_22
 0;JMP
 (NEG_X_POS_Y_22)
@@ -1605,7 +1605,7 @@ D=M
 A=A-1
 D=M-D
 @GREATER_23
-D;JLT
+D;JGT
 @SMALLER_23
 0;JMP
 (NEG_X_POS_Y_23)
@@ -1675,7 +1675,7 @@ D=M
 A=A-1
 D=M-D
 @GREATER_24
-D;JLT
+D;JGT
 @SMALLER_24
 0;JMP
 (NEG_X_POS_Y_24)
@@ -1749,7 +1749,7 @@ D=M
 A=A-1
 D=M-D
 @GREATER_25
-D;JLT
+D;JGT
 @SMALLER_25
 0;JMP
 (NEG_X_POS_Y_25)
@@ -2607,6 +2607,72 @@ M=D
 @SP
 AM=M-1
 D=M
+@NEG_Y_30
+D;JLT
+@SP
+A=M-1
+D=M
+@NEG_X_POS_Y_30
+D;JLT
+@SP
+A=M
+D=M
+A=A-1
+D=M-D
+@EQUAL_30
+D;JEQ
+@NOT_EQUAL_30
+0;JMP
+(NEG_Y_30)
+@SP
+A=M-1
+D=M
+@NEG_Y_POS_X_30
+D;JGT
+@SP
+A=M
+D=M
+A=A-1
+D=M-D
+@EQUAL_30
+D;JEQ
+@NOT_EQUAL_30
+0;JMP
+(NEG_X_POS_Y_30)
+@NOT_EQUAL_30
+0;JMP
+(NEG_Y_POS_X_30)
+@NOT_EQUAL_30
+0;JMP
+(EQUAL_30)
+@SP
+A=M-1
+M=-1
+@END_30
+0;JMP
+(NOT_EQUAL_30)
+@SP
+A=M-1
+M=0
+(END_30)
+// push constant 17
+@17
+D=A
+@SP
+AM=M+1
+A=A-1
+M=D
+// push constant 16
+@16
+D=A
+@SP
+AM=M+1
+A=A-1
+M=D
+// eq
+@SP
+AM=M-1
+D=M
 @NEG_Y_31
 D;JLT
 @SP
@@ -2655,15 +2721,15 @@ M=-1
 A=M-1
 M=0
 (END_31)
-// push constant 17
-@17
+// push    constant     16
+@16
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
-// push constant 16
-@16
+// push constant 17
+@17
 D=A
 @SP
 AM=M+1
@@ -2721,21 +2787,21 @@ M=-1
 A=M-1
 M=0
 (END_32)
-// push    constant     16
-@16
+// push 		constant  	 	 	 892
+@892
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
-// push constant 17
-@17
+// push constant 891
+@891
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
-// eq
+// lt
 @SP
 AM=M-1
 D=M
@@ -2751,9 +2817,9 @@ A=M
 D=M
 A=A-1
 D=M-D
-@EQUAL_33
-D;JEQ
-@NOT_EQUAL_33
+@LOWER_33
+D;JLT
+@GREATER_33
 0;JMP
 (NEG_Y_33)
 @SP
@@ -2766,36 +2832,36 @@ A=M
 D=M
 A=A-1
 D=M-D
-@EQUAL_33
-D;JEQ
-@NOT_EQUAL_33
+@LOWER_33
+D;JLT
+@GREATER_33
 0;JMP
 (NEG_X_POS_Y_33)
-@NOT_EQUAL_33
+@LOWER_33
 0;JMP
 (NEG_Y_POS_X_33)
-@NOT_EQUAL_33
+@GREATER_33
 0;JMP
-(EQUAL_33)
-@SP
-A=M-1
-M=-1
-@END_33
-0;JMP
-(NOT_EQUAL_33)
+(GREATER_33)
 @SP
 A=M-1
 M=0
+@END_33
+0;JMP
+(LOWER_33)
+@SP
+A=M-1
+M=-1
 (END_33)
-// push 		constant  	 	 	 892
-@892
+// push constant 891
+@891
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
-// push constant 891
-@891
+// push constant 892
+@892
 D=A
 @SP
 AM=M+1
@@ -2833,7 +2899,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_34
-D;JGT
+D;JLT
 @GREATER_34
 0;JMP
 (NEG_X_POS_Y_34)
@@ -2860,8 +2926,8 @@ D=A
 AM=M+1
 A=A-1
 M=D
-// push constant 892
-@892
+// push constant 891
+@891
 D=A
 @SP
 AM=M+1
@@ -2899,7 +2965,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_35
-D;JGT
+D;JLT
 @GREATER_35
 0;JMP
 (NEG_X_POS_Y_35)
@@ -2919,21 +2985,21 @@ M=0
 A=M-1
 M=-1
 (END_35)
-// push constant 891
-@891
+// push constant 32767
+@32767
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
-// push constant 891
-@891
+// push constant 32766
+@32766
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
-// lt
+// gt
 @SP
 AM=M-1
 D=M
@@ -2949,9 +3015,9 @@ A=M
 D=M
 A=A-1
 D=M-D
-@LOWER_36
-D;JLT
 @GREATER_36
+D;JGT
+@SMALLER_36
 0;JMP
 (NEG_Y_36)
 @SP
@@ -2964,12 +3030,12 @@ A=M
 D=M
 A=A-1
 D=M-D
-@LOWER_36
-D;JGT
 @GREATER_36
+D;JGT
+@SMALLER_36
 0;JMP
 (NEG_X_POS_Y_36)
-@LOWER_36
+@SMALLER_36
 0;JMP
 (NEG_Y_POS_X_36)
 @GREATER_36
@@ -2977,23 +3043,23 @@ D;JGT
 (GREATER_36)
 @SP
 A=M-1
-M=0
+M=-1
 @END_36
 0;JMP
-(LOWER_36)
+(SMALLER_36)
 @SP
 A=M-1
-M=-1
+M=0
 (END_36)
-// push constant 32767
-@32767
+// push constant 32766
+@32766
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
-// push constant 32766
-@32766
+// push constant 32767
+@32767
 D=A
 @SP
 AM=M+1
@@ -3031,7 +3097,7 @@ D=M
 A=A-1
 D=M-D
 @GREATER_37
-D;JLT
+D;JGT
 @SMALLER_37
 0;JMP
 (NEG_X_POS_Y_37)
@@ -3058,8 +3124,8 @@ D=A
 AM=M+1
 A=A-1
 M=D
-// push constant 32767
-@32767
+// push constant 32766
+@32766
 D=A
 @SP
 AM=M+1
@@ -3097,7 +3163,7 @@ D=M
 A=A-1
 D=M-D
 @GREATER_38
-D;JLT
+D;JGT
 @SMALLER_38
 0;JMP
 (NEG_X_POS_Y_38)
@@ -3117,72 +3183,6 @@ M=-1
 A=M-1
 M=0
 (END_38)
-// push constant 32766
-@32766
-D=A
-@SP
-AM=M+1
-A=A-1
-M=D
-// push constant 32766
-@32766
-D=A
-@SP
-AM=M+1
-A=A-1
-M=D
-// gt
-@SP
-AM=M-1
-D=M
-@NEG_Y_39
-D;JLT
-@SP
-A=M-1
-D=M
-@NEG_X_POS_Y_39
-D;JLT
-@SP
-A=M
-D=M
-A=A-1
-D=M-D
-@GREATER_39
-D;JGT
-@SMALLER_39
-0;JMP
-(NEG_Y_39)
-@SP
-A=M-1
-D=M
-@NEG_Y_POS_X_39
-D;JGT
-@SP
-A=M
-D=M
-A=A-1
-D=M-D
-@GREATER_39
-D;JLT
-@SMALLER_39
-0;JMP
-(NEG_X_POS_Y_39)
-@SMALLER_39
-0;JMP
-(NEG_Y_POS_X_39)
-@GREATER_39
-0;JMP
-(GREATER_39)
-@SP
-A=M-1
-M=-1
-@END_39
-0;JMP
-(SMALLER_39)
-@SP
-A=M-1
-M=0
-(END_39)
 // push constant 57
 @57
 D=A
@@ -3274,6 +3274,72 @@ M=D
 @SP
 AM=M-1
 D=M
+@NEG_Y_39
+D;JLT
+@SP
+A=M-1
+D=M
+@NEG_X_POS_Y_39
+D;JLT
+@SP
+A=M
+D=M
+A=A-1
+D=M-D
+@LOWER_39
+D;JLT
+@GREATER_39
+0;JMP
+(NEG_Y_39)
+@SP
+A=M-1
+D=M
+@NEG_Y_POS_X_39
+D;JGT
+@SP
+A=M
+D=M
+A=A-1
+D=M-D
+@LOWER_39
+D;JLT
+@GREATER_39
+0;JMP
+(NEG_X_POS_Y_39)
+@LOWER_39
+0;JMP
+(NEG_Y_POS_X_39)
+@GREATER_39
+0;JMP
+(GREATER_39)
+@SP
+A=M-1
+M=0
+@END_39
+0;JMP
+(LOWER_39)
+@SP
+A=M-1
+M=-1
+(END_39)
+// push constant 891
+@891
+D=A
+@SP
+AM=M+1
+A=A-1
+M=D
+// push constant 892
+@892
+D=A
+@SP
+AM=M+1
+A=A-1
+M=D
+// lt
+@SP
+AM=M-1
+D=M
 @NEG_Y_40
 D;JLT
 @SP
@@ -3302,7 +3368,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_40
-D;JGT
+D;JLT
 @GREATER_40
 0;JMP
 (NEG_X_POS_Y_40)
@@ -3322,15 +3388,15 @@ M=0
 A=M-1
 M=-1
 (END_40)
-// push constant 891
-@891
+// push constant 892
+@892
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
-// push constant 892
-@892
+// push constant 891
+@891
 D=A
 @SP
 AM=M+1
@@ -3368,7 +3434,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_41
-D;JGT
+D;JLT
 @GREATER_41
 0;JMP
 (NEG_X_POS_Y_41)
@@ -3388,13 +3454,17 @@ M=0
 A=M-1
 M=-1
 (END_41)
-// push constant 892
-@892
+// push constant 891
+@891
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
+// neg
+@SP
+A=M-1
+M=-M
 // push constant 891
 @891
 D=A
@@ -3434,7 +3504,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_42
-D;JGT
+D;JLT
 @GREATER_42
 0;JMP
 (NEG_X_POS_Y_42)
@@ -3461,17 +3531,17 @@ D=A
 AM=M+1
 A=A-1
 M=D
-// neg
-@SP
-A=M-1
-M=-M
-// push constant 891
-@891
+// push constant 892
+@892
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
+// neg
+@SP
+A=M-1
+M=-M
 // lt
 @SP
 AM=M-1
@@ -3504,7 +3574,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_43
-D;JGT
+D;JLT
 @GREATER_43
 0;JMP
 (NEG_X_POS_Y_43)
@@ -3524,15 +3594,19 @@ M=0
 A=M-1
 M=-1
 (END_43)
-// push constant 891
-@891
+// push constant 892
+@892
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
-// push constant 892
-@892
+// neg
+@SP
+A=M-1
+M=-M
+// push constant 891
+@891
 D=A
 @SP
 AM=M+1
@@ -3574,7 +3648,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_44
-D;JGT
+D;JLT
 @GREATER_44
 0;JMP
 (NEG_X_POS_Y_44)
@@ -3594,28 +3668,20 @@ M=0
 A=M-1
 M=-1
 (END_44)
-// push constant 892
-@892
+// push constant 30000
+@30000
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
-// neg
-@SP
-A=M-1
-M=-M
-// push constant 891
-@891
+// push constant 30000
+@30000
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
-// neg
-@SP
-A=M-1
-M=-M
 // lt
 @SP
 AM=M-1
@@ -3648,7 +3714,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_45
-D;JGT
+D;JLT
 @GREATER_45
 0;JMP
 (NEG_X_POS_Y_45)
@@ -3675,6 +3741,10 @@ D=A
 AM=M+1
 A=A-1
 M=D
+// neg
+@SP
+A=M-1
+M=-M
 // push constant 30000
 @30000
 D=A
@@ -3714,7 +3784,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_46
-D;JGT
+D;JLT
 @GREATER_46
 0;JMP
 (NEG_X_POS_Y_46)
@@ -3741,10 +3811,6 @@ D=A
 AM=M+1
 A=A-1
 M=D
-// neg
-@SP
-A=M-1
-M=-M
 // push constant 30000
 @30000
 D=A
@@ -3752,6 +3818,10 @@ D=A
 AM=M+1
 A=A-1
 M=D
+// neg
+@SP
+A=M-1
+M=-M
 // lt
 @SP
 AM=M-1
@@ -3784,7 +3854,7 @@ D=M
 A=A-1
 D=M-D
 @LOWER_47
-D;JGT
+D;JLT
 @GREATER_47
 0;JMP
 (NEG_X_POS_Y_47)
@@ -3804,76 +3874,6 @@ M=0
 A=M-1
 M=-1
 (END_47)
-// push constant 30000
-@30000
-D=A
-@SP
-AM=M+1
-A=A-1
-M=D
-// push constant 30000
-@30000
-D=A
-@SP
-AM=M+1
-A=A-1
-M=D
-// neg
-@SP
-A=M-1
-M=-M
-// lt
-@SP
-AM=M-1
-D=M
-@NEG_Y_48
-D;JLT
-@SP
-A=M-1
-D=M
-@NEG_X_POS_Y_48
-D;JLT
-@SP
-A=M
-D=M
-A=A-1
-D=M-D
-@LOWER_48
-D;JLT
-@GREATER_48
-0;JMP
-(NEG_Y_48)
-@SP
-A=M-1
-D=M
-@NEG_Y_POS_X_48
-D;JGT
-@SP
-A=M
-D=M
-A=A-1
-D=M-D
-@LOWER_48
-D;JGT
-@GREATER_48
-0;JMP
-(NEG_X_POS_Y_48)
-@LOWER_48
-0;JMP
-(NEG_Y_POS_X_48)
-@GREATER_48
-0;JMP
-(GREATER_48)
-@SP
-A=M-1
-M=0
-@END_48
-0;JMP
-(LOWER_48)
-@SP
-A=M-1
-M=-1
-(END_48)
 // push		   				 		 	 	 constant			 	 892
 @892
 D=A
@@ -3896,6 +3896,72 @@ M=D
 @SP
 A=M-1
 M=-M
+// gt
+@SP
+AM=M-1
+D=M
+@NEG_Y_48
+D;JLT
+@SP
+A=M-1
+D=M
+@NEG_X_POS_Y_48
+D;JLT
+@SP
+A=M
+D=M
+A=A-1
+D=M-D
+@GREATER_48
+D;JGT
+@SMALLER_48
+0;JMP
+(NEG_Y_48)
+@SP
+A=M-1
+D=M
+@NEG_Y_POS_X_48
+D;JGT
+@SP
+A=M
+D=M
+A=A-1
+D=M-D
+@GREATER_48
+D;JGT
+@SMALLER_48
+0;JMP
+(NEG_X_POS_Y_48)
+@SMALLER_48
+0;JMP
+(NEG_Y_POS_X_48)
+@GREATER_48
+0;JMP
+(GREATER_48)
+@SP
+A=M-1
+M=-1
+@END_48
+0;JMP
+(SMALLER_48)
+@SP
+A=M-1
+M=0
+(END_48)
+// push constant 891
+@891
+D=A
+@SP
+AM=M+1
+A=A-1
+M=D
+// push constant 891
+@891
+D=A
+@SP
+AM=M+1
+A=A-1
+M=D
 // gt
 @SP
 AM=M-1
@@ -3928,7 +3994,7 @@ D=M
 A=A-1
 D=M-D
 @GREATER_49
-D;JLT
+D;JGT
 @SMALLER_49
 0;JMP
 (NEG_X_POS_Y_49)
@@ -3955,8 +4021,8 @@ D=A
 AM=M+1
 A=A-1
 M=D
-// push constant 891
-@891
+// push constant 892
+@892
 D=A
 @SP
 AM=M+1
@@ -3994,7 +4060,7 @@ D=M
 A=A-1
 D=M-D
 @GREATER_50
-D;JLT
+D;JGT
 @SMALLER_50
 0;JMP
 (NEG_X_POS_Y_50)
@@ -4014,15 +4080,15 @@ M=-1
 A=M-1
 M=0
 (END_50)
-// push constant 891
-@891
+// push constant 892
+@892
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
-// push constant 892
-@892
+// push constant 891
+@891
 D=A
 @SP
 AM=M+1
@@ -4060,7 +4126,7 @@ D=M
 A=A-1
 D=M-D
 @GREATER_51
-D;JLT
+D;JGT
 @SMALLER_51
 0;JMP
 (NEG_X_POS_Y_51)
@@ -4080,13 +4146,17 @@ M=-1
 A=M-1
 M=0
 (END_51)
-// push constant 892
-@892
+// push constant 891
+@891
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
+// neg
+@SP
+A=M-1
+M=-M
 // push constant 891
 @891
 D=A
@@ -4126,7 +4196,7 @@ D=M
 A=A-1
 D=M-D
 @GREATER_52
-D;JLT
+D;JGT
 @SMALLER_52
 0;JMP
 (NEG_X_POS_Y_52)
@@ -4153,17 +4223,17 @@ D=A
 AM=M+1
 A=A-1
 M=D
-// neg
-@SP
-A=M-1
-M=-M
-// push constant 891
-@891
+// push constant 892
+@892
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
+// neg
+@SP
+A=M-1
+M=-M
 // gt
 @SP
 AM=M-1
@@ -4196,7 +4266,7 @@ D=M
 A=A-1
 D=M-D
 @GREATER_53
-D;JLT
+D;JGT
 @SMALLER_53
 0;JMP
 (NEG_X_POS_Y_53)
@@ -4216,15 +4286,19 @@ M=-1
 A=M-1
 M=0
 (END_53)
-// push constant 891
-@891
+// push constant 892
+@892
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
-// push constant 892
-@892
+// neg
+@SP
+A=M-1
+M=-M
+// push constant 891
+@891
 D=A
 @SP
 AM=M+1
@@ -4266,7 +4340,7 @@ D=M
 A=A-1
 D=M-D
 @GREATER_54
-D;JLT
+D;JGT
 @SMALLER_54
 0;JMP
 (NEG_X_POS_Y_54)
@@ -4286,8 +4360,8 @@ M=-1
 A=M-1
 M=0
 (END_54)
-// push constant 892
-@892
+// push constant 30000
+@30000
 D=A
 @SP
 AM=M+1
@@ -4297,18 +4371,14 @@ M=D
 @SP
 A=M-1
 M=-M
-// push constant 891
-@891
+// push constant 30000
+@30000
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
-// neg
-@SP
-A=M-1
-M=-M
-// gt
+// eq
 @SP
 AM=M-1
 D=M
@@ -4324,9 +4394,9 @@ A=M
 D=M
 A=A-1
 D=M-D
-@GREATER_55
-D;JGT
-@SMALLER_55
+@EQUAL_55
+D;JEQ
+@NOT_EQUAL_55
 0;JMP
 (NEG_Y_55)
 @SP
@@ -4339,23 +4409,23 @@ A=M
 D=M
 A=A-1
 D=M-D
-@GREATER_55
-D;JLT
-@SMALLER_55
+@EQUAL_55
+D;JEQ
+@NOT_EQUAL_55
 0;JMP
 (NEG_X_POS_Y_55)
-@SMALLER_55
+@NOT_EQUAL_55
 0;JMP
 (NEG_Y_POS_X_55)
-@GREATER_55
+@NOT_EQUAL_55
 0;JMP
-(GREATER_55)
+(EQUAL_55)
 @SP
 A=M-1
 M=-1
 @END_55
 0;JMP
-(SMALLER_55)
+(NOT_EQUAL_55)
 @SP
 A=M-1
 M=0
@@ -4367,10 +4437,6 @@ D=A
 AM=M+1
 A=A-1
 M=D
-// neg
-@SP
-A=M-1
-M=-M
 // push constant 30000
 @30000
 D=A
@@ -4378,6 +4444,10 @@ D=A
 AM=M+1
 A=A-1
 M=D
+// neg
+@SP
+A=M-1
+M=-M
 // eq
 @SP
 AM=M-1
@@ -4437,6 +4507,10 @@ D=A
 AM=M+1
 A=A-1
 M=D
+// neg
+@SP
+A=M-1
+M=-M
 // push constant 30000
 @30000
 D=A
@@ -4507,10 +4581,6 @@ D=A
 AM=M+1
 A=A-1
 M=D
-// neg
-@SP
-A=M-1
-M=-M
 // push constant 30000
 @30000
 D=A
@@ -4518,10 +4588,6 @@ D=A
 AM=M+1
 A=A-1
 M=D
-// neg
-@SP
-A=M-1
-M=-M
 // eq
 @SP
 AM=M-1
@@ -4574,72 +4640,6 @@ M=-1
 A=M-1
 M=0
 (END_58)
-// push constant 30000
-@30000
-D=A
-@SP
-AM=M+1
-A=A-1
-M=D
-// push constant 30000
-@30000
-D=A
-@SP
-AM=M+1
-A=A-1
-M=D
-// eq
-@SP
-AM=M-1
-D=M
-@NEG_Y_59
-D;JLT
-@SP
-A=M-1
-D=M
-@NEG_X_POS_Y_59
-D;JLT
-@SP
-A=M
-D=M
-A=A-1
-D=M-D
-@EQUAL_59
-D;JEQ
-@NOT_EQUAL_59
-0;JMP
-(NEG_Y_59)
-@SP
-A=M-1
-D=M
-@NEG_Y_POS_X_59
-D;JGT
-@SP
-A=M
-D=M
-A=A-1
-D=M-D
-@EQUAL_59
-D;JEQ
-@NOT_EQUAL_59
-0;JMP
-(NEG_X_POS_Y_59)
-@NOT_EQUAL_59
-0;JMP
-(NEG_Y_POS_X_59)
-@NOT_EQUAL_59
-0;JMP
-(EQUAL_59)
-@SP
-A=M-1
-M=-1
-@END_59
-0;JMP
-(NOT_EQUAL_59)
-@SP
-A=M-1
-M=0
-(END_59)
 // push constant 1234
 @1234
 D=A

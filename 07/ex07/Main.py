@@ -15,7 +15,6 @@ if __name__ == '__main__':
 			final_file.extend(code_writer.get_all_commands())
 			counter = code_writer.label_counter
 		with open(os.path.basename(user_input) + ".asm", "w") as file:
-			# file.writelines(final_file)
 			for asm in final_file:
 				file.writelines(asm + "\n")
 		file.close()

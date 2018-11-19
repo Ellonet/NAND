@@ -1,0 +1,68 @@
+push constant 17000
+push constant 17001
+lt
+push constant 38
+push constant 12
+add
+push constant 49
+gt
+push constant 2
+neg
+push constant 2
+add
+push constant 0
+eq
+push constant 4
+push constant 2
+sub
+eq
+push constant 4
+push constant 2
+sub
+gt
+push constant 5
+push constant 1
+lt
+push constant 0
+not
+push constant 1
+neg
+and
+push constant 1
+add
+push constant 0
+eq
+push constant 0
+push constant 1
+neg
+or
+push constant 17
+pop argument 0
+push argument 0
+pop local 0
+push local 0
+pop static 2
+push static 2
+push constant 4000
+pop pointer 0
+push constant 18
+pop this 0
+push this 0
+push constant 5000
+pop pointer 1
+push constant 21
+pop that 0
+push that 0
+push constant 22
+pop temp 3
+push temp 3
+push constant 30000
+push constant 30000
+neg
+gt
+push constant 30000
+push constant 30000
+neg
+sub
+push constant 0
+gt
