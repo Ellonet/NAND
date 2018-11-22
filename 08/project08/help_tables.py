@@ -64,12 +64,12 @@ extended_asm = {"save_address": lambda count: ["@RETURN_ADDRESS" + "_" + str(cou
                 "goto_address": lambda address: ["@" + address, "A=M", "0;JMP"],
                 "set_counted_label": lambda label_name, count: ["(" + label_name + "_" + str(count) + ")"],
                 "set_label": lambda label_name: ["(" + label_name + ")"],
-                "init_args": lambda i: ["@" + i, "D=A", "@LCL", "D=D+M", "A=D", "M=0"],
-                "save_endFrame": ["@LCL", "D=M", "@endFrame", "M=D"],
-                "restore_pointer": lambda i, pointer: ["@" + i, "D=A", "@endFrame", "D=M-D", "A=D", "D=M",
+                "save_endFrame": ["@LCL", "D=M", "@R14", "M=D"],
+                "restore_pointer": lambda i, pointer: ["@" + i, "D=A", "@R14", "D=M-D", "A=D", "D=M",
                                                        pointer, "M=D"],
                 "return_sp": ["@ARG", "D=M+1", "@SP", "M=D"],
-                "init": ["@256", "D=A", "@SP", "M=D"]
+                "init": ["@256", "D=A", "@SP", "M=D"],
+                "if_goto": lambda label: ["@SP", "AM=M-1", "D=M", "@" + label, "D;JNE"]
                 }
 
 pointer_list = ["@LCL", "@ARG", "@THIS", "@THAT"]

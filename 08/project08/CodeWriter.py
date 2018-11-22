@@ -39,15 +39,17 @@ class CodeWriter:
     this class performs the translation of the vm file into a asm file
     """
 
-    def __init__(self, in_path, write_to_File_flag=True, counter=0):
+    def __init__(self, in_path, write_to_file_flag=True, counter=0, is_first=False):
         self.label_counter = counter
         self.all_commands = Parser(in_path).get_commands()
-        self.all_asm_commands = []
-        # self.all_asm_commands = self.write_init()
+        if write_to_file_flag or is_first:
+            self.all_asm_commands = self.write_init()
+        else:
+            self.all_asm_commands = []
         self.file_name = os.path.basename(in_path).split(".")[0]
         self.out_path = in_path.replace(VM_ENDING, ASM_ENDING)
-        self.handle_commands(write_to_File_flag)
-        self.write_to_File_flag = write_to_File_flag
+        self.handle_commands(write_to_file_flag)
+        self.write_to_File_flag = write_to_file_flag
 
     def handle_commands(self, write_to_File_flag):
         """
@@ -147,7 +149,8 @@ class CodeWriter:
         writes the assembly introduction that effects the bootstop code that initializes the VM.
         :return:
         """
-        asm_command = help_tables.extended_asm["init"]
+        asm_command = ["// init"]
+        asm_command.extend(help_tables.extended_asm["init"])
         asm_command.extend(self.write_call("Sys.init", "0"))
         return asm_command
 
@@ -173,10 +176,7 @@ class CodeWriter:
         :param label: the string of the label name
         :return:
         """
-        asm_command = ["@cond", "D=A"]
-        asm_command.extend(help_tables.asm_commands["pop"])
-        asm_command.extend(["@cond", "D=M", "@" + label, "D;JNE"])
-        return asm_command
+        return help_tables.extended_asm["if_goto"](label)
 
     def write_function(self, function_name, num_vars):
         """
@@ -187,7 +187,7 @@ class CodeWriter:
         """
         asm_command = help_tables.extended_asm["set_label"](function_name)
         for i in range(int(num_vars)):
-            asm_command.extend(help_tables.extended_asm["init_args"](str(i)))
+            asm_command.extend(self.push_command("push constant 0"))
         return asm_command
 
     def write_call(self, function_name, num_args):
@@ -220,13 +220,11 @@ class CodeWriter:
         :return:
         """
         asm_command = help_tables.extended_asm["save_endFrame"]
-        asm_command.extend(help_tables.extended_asm["restore_pointer"](str(5), "@retAddress"))
-        asm_command.extend(help_tables.asm_commands[GET_NUM]("0"))
-        asm_command.extend(help_tables.asm_commands[SEG_I + CONNECTOR + POP]("argument"))
-        asm_command.extend(help_tables.asm_commands[POP])
+        asm_command.extend(help_tables.extended_asm["restore_pointer"](str(5), "@R15"))
+        asm_command.extend(["@SP", "M=M-1", "@SP", "A=M", "D=M", "@ARG", "A=M", "M=D"])
         asm_command.extend(help_tables.extended_asm["return_sp"])
         for i in range(1, 5):
             asm_command.extend(help_tables.extended_asm["restore_pointer"](str(i), help_tables.pointer_list[-i]))
-        asm_command.extend(help_tables.extended_asm["goto_address"]("retAddress"))
+        asm_command.extend(help_tables.extended_asm["goto_address"]("R15"))
 
         return asm_command
