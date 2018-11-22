@@ -69,7 +69,8 @@ extended_asm = {"save_address": lambda count: ["@RETURN_ADDRESS" + "_" + str(cou
                                                        pointer, "M=D"],
                 "return_sp": ["@ARG", "D=M+1", "@SP", "M=D"],
                 "init": ["@256", "D=A", "@SP", "M=D"],
-                "if_goto": lambda label: ["@SP", "AM=M-1", "D=M", "@" + label, "D;JNE"]
+                "if-goto": lambda label: ["@SP", "AM=M-1", "D=M", "@" + label, "D;JNE"],
+                "pop_to_arg": ["@SP", "M=M-1", "@SP", "A=M", "D=M", "@ARG", "A=M", "M=D"]
                 }
 
 pointer_list = ["@LCL", "@ARG", "@THIS", "@THAT"]

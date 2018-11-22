@@ -32,6 +32,23 @@ RETURN = "return"
 LABEL = "label"
 IF_GOTO = "if-goto"
 GOTO = "goto"
+GOTO_FUNC = "goto_function"
+GOTO_ADDRESS = "goto_address"
+INIT_FUNC = "Sys.init"
+INIT = "init"
+SET_LABEL = "set_label"
+PUSH_0 = "push constant 0"
+SAVE_ADDRESS = "save_address"
+SAVE_POINTERS = "save_pointers"
+SET_ARG = "set_arg"
+SET_LCL = "set_lcl"
+SET_LABEL_COUNT = "set_counted_label"
+RETURN_LABEL = "RETURN_ADDRESS"
+SAVE_END_FRAME = "save_endFrame"
+RESTORE_POINTER = "restore_pointer"
+R15 = "@R15"
+POP_TO_ARG = "pop_to_arg"
+RETURN_SP = "return_sp"
 
 
 class CodeWriter:
@@ -54,7 +71,7 @@ class CodeWriter:
     def handle_commands(self, write_to_File_flag):
         """
         this function goes throw all the commands in vm language and converts them into assembles
-        thats with using the single command translator helper function
+        that is with using the single command translator helper function
         :return: None
         """
         for command in self.all_commands:
@@ -149,9 +166,8 @@ class CodeWriter:
         writes the assembly introduction that effects the bootstop code that initializes the VM.
         :return:
         """
-        asm_command = ["// init"]
-        asm_command.extend(help_tables.extended_asm["init"])
-        asm_command.extend(self.write_call("Sys.init", "0"))
+        asm_command = help_tables.extended_asm[INIT]
+        asm_command.extend(self.write_call(INIT_FUNC, "0"))
         return asm_command
 
     def write_label(self, label):
@@ -160,7 +176,7 @@ class CodeWriter:
         :param label: the string of the label name
         :return:
         """
-        return help_tables.extended_asm["set_label"](label)
+        return help_tables.extended_asm[SET_LABEL](label)
 
     def write_goto(self, label):
         """
@@ -168,7 +184,7 @@ class CodeWriter:
         :param label: the string of the label name
         :return:
         """
-        return help_tables.extended_asm["goto_function"](label)
+        return help_tables.extended_asm[GOTO_FUNC](label)
 
     def write_if(self, label):
         """
@@ -176,7 +192,7 @@ class CodeWriter:
         :param label: the string of the label name
         :return:
         """
-        return help_tables.extended_asm["if_goto"](label)
+        return help_tables.extended_asm[IF_GOTO](label)
 
     def write_function(self, function_name, num_vars):
         """
@@ -185,9 +201,9 @@ class CodeWriter:
         :param num_vars: the number of variables givrn to the function
         :return:
         """
-        asm_command = help_tables.extended_asm["set_label"](function_name)
+        asm_command = help_tables.extended_asm[SET_LABEL](function_name)
         for i in range(int(num_vars)):
-            asm_command.extend(self.push_command("push constant 0"))
+            asm_command.extend(self.push_command(PUSH_0))
         return asm_command
 
     def write_call(self, function_name, num_args):
@@ -200,18 +216,18 @@ class CodeWriter:
         asm_command = []
         # save the address of the next line
         asm_command.extend(
-            help_tables.extended_asm["save_address"](self.label_counter) + help_tables.asm_commands[PUSH])
+            help_tables.extended_asm[SAVE_ADDRESS](self.label_counter) + help_tables.asm_commands[PUSH])
         # save the pointers values
         for pointer in help_tables.pointer_list:
-            asm_command.extend(help_tables.extended_asm["save_pointers"](pointer))
+            asm_command.extend(help_tables.extended_asm[SAVE_POINTERS](pointer))
         # reposition ARG
-        asm_command.extend(help_tables.extended_asm["set_arg"](num_args))
+        asm_command.extend(help_tables.extended_asm[SET_ARG](num_args))
         # reposition LCL
-        asm_command.extend(help_tables.extended_asm["set_lcl"])
+        asm_command.extend(help_tables.extended_asm[SET_LCL])
         # goto the callee function
-        asm_command.extend(help_tables.extended_asm["goto_function"](function_name))
+        asm_command.extend(help_tables.extended_asm[GOTO_FUNC](function_name))
         # return address
-        asm_command.extend(help_tables.extended_asm["set_counted_label"]("RETURN_ADDRESS", self.label_counter))
+        asm_command.extend(help_tables.extended_asm[SET_LABEL_COUNT](RETURN_LABEL, self.label_counter))
         return asm_command
 
     def write_return(self):
@@ -219,12 +235,12 @@ class CodeWriter:
         writes assembly code that effects the return command
         :return:
         """
-        asm_command = help_tables.extended_asm["save_endFrame"]
-        asm_command.extend(help_tables.extended_asm["restore_pointer"](str(5), "@R15"))
-        asm_command.extend(["@SP", "M=M-1", "@SP", "A=M", "D=M", "@ARG", "A=M", "M=D"])
-        asm_command.extend(help_tables.extended_asm["return_sp"])
+        asm_command = help_tables.extended_asm[SAVE_END_FRAME]
+        asm_command.extend(help_tables.extended_asm[RESTORE_POINTER](str(5), R15))
+        asm_command.extend(help_tables.extended_asm[POP_TO_ARG])
+        asm_command.extend(help_tables.extended_asm[RETURN_SP])
         for i in range(1, 5):
-            asm_command.extend(help_tables.extended_asm["restore_pointer"](str(i), help_tables.pointer_list[-i]))
-        asm_command.extend(help_tables.extended_asm["goto_address"]("R15"))
+            asm_command.extend(help_tables.extended_asm[RESTORE_POINTER](str(i), help_tables.pointer_list[-i]))
+        asm_command.extend(help_tables.extended_asm[GOTO_ADDRESS]("R15"))
 
         return asm_command
