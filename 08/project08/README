@@ -20,4 +20,5 @@ VMtranslator : runs the main function
 
 Remarks
 -------
-None
+We have updated our VM translator with additional functionality - allowing the usage of if,if-go lables 
+and also supporting classes and function calling.
