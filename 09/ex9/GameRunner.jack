@@ -10,6 +10,12 @@ class GameRunner {
 		let direction = 0;
 		return this;
     }
+	
+	method void updateGame() {
+		do d2.startFalling();
+		do d1.startFalling();
+	return;
+	}
    	
 	method void runFullGame() {
 		var char key;  // the key currently pressed by the user
@@ -20,8 +26,7 @@ class GameRunner {
 			// waits for a key to be pressed
 			while (key = 0) {
 				let key = Keyboard.keyPressed();
-				do d2.startFalling();
-				do d1.startFalling();
+				do updateGame();
 			}
 			if (key = 81)  { let exit = true; }     // q key
 			if (key = 130) { let direction = 3; }   // left arrow
@@ -30,7 +35,7 @@ class GameRunner {
 			// waits for the key to be released
 			while (~(key = 0)) {
 				let key = Keyboard.keyPressed();
-				//do moveSquare();
+				do updateGame();
 			}
 		} // while
 		return;

@@ -14,6 +14,17 @@ push constant 0
 pop this 2
 push pointer 0
 return
+function GameRunner.updateGame 0
+push argument 0
+pop pointer 0
+push this 1
+call Drop.startFalling 1
+pop temp 0
+push this 0
+call Drop.startFalling 1
+pop temp 0
+push constant 0
+return
 function GameRunner.runFullGame 2
 push argument 0
 pop pointer 0
@@ -32,11 +43,8 @@ not
 if-goto WHILE_END1
 call Keyboard.keyPressed 0
 pop local 0
-push this 1
-call Drop.startFalling 1
-pop temp 0
-push this 0
-call Drop.startFalling 1
+push pointer 0
+call GameRunner.updateGame 1
 pop temp 0
 goto WHILE_EXP1
 label WHILE_END1
@@ -77,6 +85,9 @@ not
 if-goto WHILE_END2
 call Keyboard.keyPressed 0
 pop local 0
+push pointer 0
+call GameRunner.updateGame 1
+pop temp 0
 goto WHILE_EXP2
 label WHILE_END2
 goto WHILE_EXP0
