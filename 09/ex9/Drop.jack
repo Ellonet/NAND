@@ -3,14 +3,14 @@ class Drop {
 
    field int x, y; // screen location of the square's top-left corner
    field int radius; // radius of the drop
-   field int time; // time to wait
+   field int speed; // speed to wait
 
    /** Constructs a new square with a given location and size. */
-   constructor Drop new(int Ax, int timeToWait) {
+   constructor Drop new(int Ax, int speedToWait) {
       let x = Ax;
       let y = 5;
       let radius = 2;
-	  let time = timeToWait;
+	  let speed = speedToWait;
       do draw();
       return this;
 	}
@@ -34,10 +34,10 @@ class Drop {
       if ((y + radius) < 254) {
 		do Screen.setColor(false);
 		do Screen.drawCircle(x,y,radius);
-		let y = y + 2;
+		let y = y + speed;
 		do Screen.setColor(true);
 		do Screen.drawCircle(x,y,radius);
-		do Sys.wait(time);
+		do Sys.wait(5);
 		}
       return;
 	}

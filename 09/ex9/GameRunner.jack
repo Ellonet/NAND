@@ -1,12 +1,15 @@
 class GameRunner {
+	field int direction;
+	field Basket basket;
 	field Drop d1;
 	field Drop d2;
-	field int direction;
 
+	
 	/** Constructs a new Square Game. */
 	constructor GameRunner new() {
-		let d1 = Drop.new(3,5);
-		let d2 = Drop.new(150,9);
+		let d1 = Drop.new(3,4);
+		let d2 = Drop.new(150,2);
+		let basket = Basket.new(220, 225);
 		let direction = 0;
 		return this;
     }
@@ -14,11 +17,19 @@ class GameRunner {
 	method void updateGame() {
 		do d2.startFalling();
 		do d1.startFalling();
+		// left key pressed
+		if (direction = 1) {
+			do basket.moveLeft();
+		}
+		// rigth key pressed
+		if (direction = 2) {
+			do basket.moveRight();
+		}
 	return;
 	}
    	
 	method void runFullGame() {
-		var char key;  // the key currently pressed by the user
+		var char key;
 		var boolean exit;
 		let exit = false;
       
@@ -29,15 +40,16 @@ class GameRunner {
 				do updateGame();
 			}
 			if (key = 81)  { let exit = true; }     // q key
-			if (key = 130) { let direction = 3; }   // left arrow
-			if (key = 132) { let direction = 4; }   // right arrow
+			if (key = 130) { let direction = 1; }   // left arrow
+			if (key = 132) { let direction = 2; }   // right arrow
 
 			// waits for the key to be released
 			while (~(key = 0)) {
 				let key = Keyboard.keyPressed();
 				do updateGame();
 			}
-		} // while
+			let direction = 0;
+		} // end of while loop
 		return;
 	}
 

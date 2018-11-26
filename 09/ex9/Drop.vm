@@ -57,7 +57,7 @@ push this 2
 call Screen.drawCircle 3
 pop temp 0
 push this 1
-push constant 2
+push this 3
 add
 pop this 1
 push constant 0
@@ -69,7 +69,7 @@ push this 1
 push this 2
 call Screen.drawCircle 3
 pop temp 0
-push this 3
+push constant 5
 call Sys.wait 1
 pop temp 0
 label IF_FALSE0
