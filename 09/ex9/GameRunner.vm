@@ -1,5 +1,5 @@
 function GameRunner.new 0
-push constant 8
+push constant 10
 call Memory.alloc 1
 pop pointer 0
 push constant 220
@@ -8,8 +8,15 @@ call Basket.new 2
 pop this 1
 push constant 0
 pop this 0
+push constant 0
+pop this 8
+push constant 5
+pop this 9
 push pointer 0
 call GameRunner.generateDrops 1
+pop temp 0
+push pointer 0
+call GameRunner.gameBoard 1
 pop temp 0
 push pointer 0
 return
@@ -18,11 +25,9 @@ push argument 0
 pop pointer 0
 push constant 0
 pop local 0
-push constant 5
-pop local 1
 label WHILE_EXP0
 push local 0
-push local 1
+push this 9
 lt
 not
 if-goto WHILE_END0
@@ -31,10 +36,39 @@ push this 7
 add
 pop pointer 1
 push that 0
-pop local 2
-push local 2
+pop local 1
+push local 1
 call Drop.startFalling 1
 pop temp 0
+push pointer 0
+push local 1
+call GameRunner.checkCollision 2
+pop local 2
+push local 2
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 1
+call Drop.erase 1
+pop temp 0
+push local 0
+push this 7
+add
+push local 1
+call Drop.getX 1
+push constant 2
+call Drop.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 1
+call Drop.dispose 1
+pop temp 0
+push pointer 0
+call GameRunner.printScore 1
+pop temp 0
+label IF_FALSE0
 push local 0
 push constant 1
 add
@@ -44,23 +78,23 @@ label WHILE_END0
 push this 0
 push constant 1
 eq
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
-push this 1
-call Basket.moveLeft 1
-pop temp 0
-label IF_FALSE0
-push this 0
-push constant 2
-eq
 if-goto IF_TRUE1
 goto IF_FALSE1
 label IF_TRUE1
 push this 1
-call Basket.moveRight 1
+call Basket.moveLeft 1
 pop temp 0
 label IF_FALSE1
+push this 0
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 1
+call Basket.moveRight 1
+pop temp 0
+label IF_FALSE2
 push constant 0
 return
 function GameRunner.runFullGame 2
@@ -140,13 +174,11 @@ pop pointer 0
 push constant 5
 call Array.new 1
 pop this 7
-push constant 5
-pop local 1
 push constant 0
 pop local 0
 label WHILE_EXP0
 push local 0
-push local 1
+push this 9
 lt
 not
 if-goto WHILE_END0
@@ -172,5 +204,102 @@ add
 pop local 0
 goto WHILE_EXP0
 label WHILE_END0
+push constant 0
+return
+function GameRunner.checkCollision 4
+push argument 0
+pop pointer 0
+push this 1
+call Basket.getX 1
+pop local 0
+push this 1
+call Basket.getY 1
+pop local 1
+push argument 1
+call Drop.getX 1
+pop local 2
+push argument 1
+call Drop.getY 1
+pop local 3
+push local 2
+push local 0
+gt
+push local 2
+push local 0
+push constant 50
+add
+lt
+and
+push local 3
+push local 1
+push constant 4
+sub
+gt
+and
+push local 3
+push local 1
+push constant 5
+add
+lt
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+label IF_FALSE0
+push constant 0
+return
+function GameRunner.printScore 0
+push argument 0
+pop pointer 0
+push constant 0
+push constant 13
+call Output.moveCursor 2
+pop temp 0
+push this 8
+call Output.printInt 1
+pop temp 0
+push constant 0
+return
+function GameRunner.gameBoard 0
+push argument 0
+pop pointer 0
+push constant 0
+push constant 1
+call Output.moveCursor 2
+pop temp 0
+push constant 12
+call String.new 1
+push constant 71
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 109
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 83
+call String.appendChar 2
+push constant 99
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push pointer 0
+call GameRunner.printScore 1
+pop temp 0
 push constant 0
 return

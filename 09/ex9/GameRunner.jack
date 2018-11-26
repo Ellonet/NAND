@@ -3,25 +3,36 @@ class GameRunner {
 	field Basket basket;
 	field Drop d1, d2, d3, d4, d5;
 	field Array allDrops;
+	field int score;
+	field int numOfDrops;
 
 	
 	/** Constructs a new Square Game. */
 	constructor GameRunner new() {
 		let basket = Basket.new(220, 230);
 		let direction = 0;
+		let score = 0;
+		let numOfDrops = 5;
 		do generateDrops();
+		do gameBoard();
 		return this;
     }
 	
 	method void updateGame() {
 		var int i;
-		var int dropCount;
 		var Drop d;
+		var boolean isCollision;
 		let i = 0;
-		let dropCount = 5;		
-		while (i<dropCount) {
+		while (i<numOfDrops) {
 			let d = allDrops[i];
 			do d.startFalling();
+			let isCollision = checkCollision(d);
+			if (isCollision) {
+				do d.erase();
+				let allDrops[i] = Drop.new(d.getX(),2);
+				do d.dispose();
+				do printScore();
+			}
 			let i = i + 1;
 		}
 		if (direction = 1) {	// left key pressed
@@ -62,12 +73,39 @@ class GameRunner {
 		var int i;
 		var int len;
 		let allDrops = Array.new(5);
-		let len = 5;
 		let i = 0;
-		while(i<len) {
+		while(i<numOfDrops) {
 			let allDrops[i] = Drop.new((i*i*20)+50,3);
 			let i = i + 1;
 		}
+		return;
+	}
+	method boolean checkCollision(Drop d){
+		var int xBasket;
+		var int yBasket;
+		var int dx;
+		var int dy;
+		let xBasket = basket.getX();
+		let yBasket = basket.getY();
+		let dx = d.getX();
+		let dy = d.getY();
+
+		if ((dx > xBasket) & (dx < (xBasket+50)) & (dy > (yBasket-4)) & (dy < (yBasket+5))) {
+			return true;
+		}
+	return false;
+	}
+	
+	method void printScore() {
+		do Output.moveCursor(0,13);
+		do Output.printInt(score);
+		return;
+	}
+	
+	method void gameBoard () {
+		do Output.moveCursor(0,1);
+		do Output.printString("Game Score: ");
+		do printScore();
 		return;
 	}
 

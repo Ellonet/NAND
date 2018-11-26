@@ -46,10 +46,6 @@ class Drop {
 		do Screen.drawCircle(x,y,radius);
 		do Sys.wait(5);
 		}
-//	else {
-//		do erase();
-//		do dispose();
-//	}
     return;
 	}
 	
