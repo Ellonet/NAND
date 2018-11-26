@@ -1,8 +1,8 @@
 class Main {
     function void main() {
-        var Square game;
-        let game = Square.new();
-        do game.draw(50);
-        return;
+		var GameRunner game;
+		let game = GameRunner.new();
+		do game.runFullGame();
+		return;
     }
 }

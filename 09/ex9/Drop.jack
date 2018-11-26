@@ -1,0 +1,44 @@
+/** Implements a graphical square. */
+class Drop {
+
+   field int x, y; // screen location of the square's top-left corner
+   field int radius; // radius of the drop
+   field int time; // time to wait
+
+   /** Constructs a new square with a given location and size. */
+   constructor Drop new(int Ax, int timeToWait) {
+      let x = Ax;
+      let y = 5;
+      let radius = 2;
+	  let time = timeToWait;
+      do draw();
+      return this;
+	}
+
+   /** Disposes this square. */
+   method void dispose() {
+      do Memory.deAlloc(this);
+      return;
+	}
+
+   /** Draws the square on the screen. */
+   method void draw() {
+      do Screen.setColor(true);
+      do Screen.drawCircle(x, y, radius);
+      return;
+	}
+
+
+   /** Moves the square down by 2 pixels. */
+   method void startFalling() {
+      if ((y + radius) < 254) {
+		do Screen.setColor(false);
+		do Screen.drawCircle(x,y,radius);
+		let y = y + 2;
+		do Screen.setColor(true);
+		do Screen.drawCircle(x,y,radius);
+		do Sys.wait(time);
+		}
+      return;
+	}
+}
