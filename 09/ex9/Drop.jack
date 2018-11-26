@@ -38,7 +38,7 @@ class Drop {
 
    /** Moves the square down by 2 pixels. */
    method void startFalling() {
-   if ((y + radius) < 254) {
+   if ((y + radius) < 250) {
 		do Screen.setColor(false);
 		do Screen.drawCircle(x,y,radius);
 		let y = y + speed;
@@ -46,10 +46,10 @@ class Drop {
 		do Screen.drawCircle(x,y,radius);
 		do Sys.wait(5);
 		}
-	else {
-		do erase();
-		do dispose();
-	}
+//	else {
+//		do erase();
+//		do dispose();
+//	}
     return;
 	}
 	
