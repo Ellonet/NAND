@@ -18,19 +18,16 @@ class GameRunner {
 		var int dropCount;
 		var Drop d;
 		let i = 0;
-		let dropCount = 5;
-		
+		let dropCount = 5;		
 		while (i<dropCount) {
 			let d = allDrops[i];
 			do d.startFalling();
 			let i = i + 1;
 		}
-		// left key pressed
-		if (direction = 1) {
+		if (direction = 1) {	// left key pressed
 			do basket.moveLeft();
 		}
-		// rigth key pressed
-		if (direction = 2) {
+		if (direction = 2) {	// right key pressed
 			do basket.moveRight();
 		}
 	return;
