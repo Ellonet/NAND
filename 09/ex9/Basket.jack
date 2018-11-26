@@ -91,23 +91,23 @@ class Basket {
    
    method void blink() {
 		do erase();
-		do Sys.wait(30);
+		do Sys.wait(15);
 		do draw();
-		do Sys.wait(30);
+		do Sys.wait(15);
 		do erase();
-		do Sys.wait(30);
+		do Sys.wait(15);
 		do draw();
-		do Sys.wait(30);
+		do Sys.wait(15);
 		do erase();
-		do Sys.wait(30);
+		do Sys.wait(15);
 		do draw();
-		do Sys.wait(30);
+		do Sys.wait(15);
 		do erase();
-		do Sys.wait(30);
+		do Sys.wait(15);
 		do draw();
-		do Sys.wait(30);
+		do Sys.wait(15);
 		do erase();
-		do Sys.wait(30);
+		do Sys.wait(15);
 		do draw();
 		return;
 	}

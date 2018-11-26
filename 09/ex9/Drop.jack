@@ -8,8 +8,8 @@ class Drop {
    /** Constructs a new square with a given location and size. */
    constructor Drop new(int Ax, int speedToWait) {
       let x = Ax;
-      let y = 5;
-      let radius = 2;
+      let y = 15;
+      let radius = 4;
 	  let speed = speedToWait;
       do draw();
       return this;
@@ -38,14 +38,20 @@ class Drop {
 
    /** Moves the square down by 2 pixels. */
    method void startFalling() {
-   if ((y + radius) < 250) {
+   if ((y + radius) < (250)) {
 		do Screen.setColor(false);
-		do Screen.drawCircle(x,y,radius);
+		//do Screen.drawCircle(x,y,radius);
+		do erase();
 		let y = y + speed;
 		do Screen.setColor(true);
-		do Screen.drawCircle(x,y,radius);
-		do Sys.wait(5);
+		//do Screen.drawCircle(x,y,radius);
+		do draw();
+		do Sys.wait(4);
 		}
+	else {
+		do erase();
+		let y = 15;
+	}
     return;
 	}
 	
@@ -56,5 +62,10 @@ class Drop {
 	method int getY () {
 		return y;
 	}
+
+	method int getSpeed () {
+		return speed;
+	}
+
 }
 

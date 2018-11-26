@@ -1,5 +1,9 @@
 function GameRunner.new 0
+<<<<<<< HEAD
 push constant 11
+=======
+push constant 5
+>>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 call Memory.alloc 1
 pop pointer 0
 push constant 220
@@ -13,9 +17,15 @@ pop this 2
 push constant 0
 pop this 0
 push constant 0
+<<<<<<< HEAD
 pop this 9
 push constant 5
 pop this 10
+=======
+pop this 3
+push constant 5
+pop this 4
+>>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 push pointer 0
 call GameRunner.generateDrops 1
 pop temp 0
@@ -24,12 +34,13 @@ call GameRunner.gameBoard 1
 pop temp 0
 push pointer 0
 return
-function GameRunner.updateGame 3
+function GameRunner.updateGame 4
 push argument 0
 pop pointer 0
 push constant 0
-pop local 0
+pop local 1
 label WHILE_EXP0
+<<<<<<< HEAD
 push local 0
 push this 10
 lt
@@ -37,46 +48,69 @@ not
 if-goto WHILE_END0
 push local 0
 push this 8
+=======
+push local 1
+push this 4
+lt
+not
+if-goto WHILE_END0
+push local 1
+push this 2
+>>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 add
 pop pointer 1
 push that 0
-pop local 1
-push local 1
+pop local 2
+push local 2
 call Drop.startFalling 1
 pop temp 0
 push pointer 0
-push local 1
-call GameRunner.checkCollision 2
-pop local 2
 push local 2
+call GameRunner.checkCollision 2
+pop local 3
+push local 3
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push local 1
+push local 2
 call Drop.erase 1
 pop temp 0
+<<<<<<< HEAD
 push local 0
 push this 8
 add
+=======
+push this 1
+call Basket.blink 1
+pop temp 0
+push local 2
+call Drop.getSpeed 1
+pop local 0
+>>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 push local 1
+push this 2
+add
+push local 2
 call Drop.getX 1
-push constant 2
+push local 0
+push constant 1
+add
 call Drop.new 2
 pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
-push local 1
+push local 2
 call Drop.dispose 1
 pop temp 0
 push pointer 0
 call GameRunner.printScore 1
 pop temp 0
 label IF_FALSE0
-push local 0
+push local 1
 push constant 1
 add
-pop local 0
+pop local 1
 goto WHILE_EXP0
 label WHILE_END0
 push this 0
@@ -177,17 +211,29 @@ push argument 0
 pop pointer 0
 push constant 5
 call Array.new 1
+<<<<<<< HEAD
 pop this 8
+=======
+pop this 2
+>>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 push constant 0
 pop local 0
 label WHILE_EXP0
 push local 0
+<<<<<<< HEAD
 push this 10
+=======
+push this 4
+>>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 lt
 not
 if-goto WHILE_END0
 push local 0
+<<<<<<< HEAD
 push this 8
+=======
+push this 2
+>>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 add
 push local 0
 push local 0
@@ -196,7 +242,7 @@ push constant 20
 call Math.multiply 2
 push constant 50
 add
-push constant 3
+push constant 1
 call Drop.new 2
 pop temp 0
 pop pointer 1
@@ -249,10 +295,17 @@ and
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
+<<<<<<< HEAD
 push this 9
 push constant 1
 add
 pop this 9
+=======
+push this 3
+push constant 1
+add
+pop this 3
+>>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 push constant 0
 not
 return
@@ -263,10 +316,14 @@ function GameRunner.printScore 0
 push argument 0
 pop pointer 0
 push constant 0
-push constant 13
+push constant 46
 call Output.moveCursor 2
 pop temp 0
+<<<<<<< HEAD
 push this 9
+=======
+push this 3
+>>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 call Output.printInt 1
 pop temp 0
 push constant 0
@@ -278,8 +335,74 @@ push constant 0
 push constant 1
 call Output.moveCursor 2
 pop temp 0
-push constant 12
+push constant 45
 call String.new 1
+push constant 72
+call String.appendChar 2
+push constant 85
+call String.appendChar 2
+push constant 78
+call String.appendChar 2
+push constant 71
+call String.appendChar 2
+push constant 82
+call String.appendChar 2
+push constant 89
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 66
+call String.appendChar 2
+push constant 65
+call String.appendChar 2
+push constant 83
+call String.appendChar 2
+push constant 75
+call String.appendChar 2
+push constant 69
+call String.appendChar 2
+push constant 84
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
 push constant 71
 call String.appendChar 2
 push constant 97

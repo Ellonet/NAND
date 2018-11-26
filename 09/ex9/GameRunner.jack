@@ -1,8 +1,11 @@
 class GameRunner {
 	field int direction;
 	field Basket basket;
+<<<<<<< HEAD
 	field Bomb bomb;
 	field Drop d1, d2, d3, d4, d5;
+=======
+>>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 	field Array allDrops;
 	field int score;
 	field int numOfDrops;
@@ -21,6 +24,7 @@ class GameRunner {
     }
 	
 	method void updateGame() {
+		var int speed;
 		var int i;
 		var Drop d;
 		var boolean isCollision;
@@ -31,9 +35,12 @@ class GameRunner {
 			let isCollision = checkCollision(d);
 			if (isCollision) {
 				do d.erase();
-				let allDrops[i] = Drop.new(d.getX(),2);
+				do basket.blink();
+				let speed = d.getSpeed();
+				let allDrops[i] = Drop.new(d.getX(),(speed+1));
 				do d.dispose();
 				do printScore();
+				
 			}
 			let i = i + 1;
 		}
@@ -77,7 +84,7 @@ class GameRunner {
 		let allDrops = Array.new(5);
 		let i = 0;
 		while(i<numOfDrops) {
-			let allDrops[i] = Drop.new((i*i*20)+50,3);
+			let allDrops[i] = Drop.new((i*i*20)+50,1);
 			let i = i + 1;
 		}
 		return;
@@ -100,14 +107,14 @@ class GameRunner {
 	}
 	
 	method void printScore() {
-		do Output.moveCursor(0,13);
+		do Output.moveCursor(0,46);
 		do Output.printInt(score);
 		return;
 	}
 	
 	method void gameBoard () {
 		do Output.moveCursor(0,1);
-		do Output.printString("Game Score: ");
+		do Output.printString("HUNGRY BASKET                    Game Score: ");
 		do printScore();
 		
 		return;
