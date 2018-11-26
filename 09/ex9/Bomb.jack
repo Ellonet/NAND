@@ -1,0 +1,64 @@
+/** Implements a graphical bomb. */
+class Bomb {
+
+   field int x, y; // screen location of the bomb's top-left corner
+   field int speed; // speed to wait
+
+   /** Constructs a new bomb with a given location and size. */
+   constructor Bomb new(int Ax, int speedToWait) {
+      let x = Ax;
+      let y = 5;
+	  let speed = speedToWait;
+      do draw();
+      return this;
+	}
+
+   /** Disposes this bomb. */
+   method void dispose() {
+      do Memory.deAlloc(this);
+      return;
+	}
+
+   /** Draws the bomb on the screen. */
+   method void draw() {
+      var int memAddress;
+	let memAddress = 16384 + x;
+	do Memory.poke(memAddress + 0, 256);
+	do Memory.poke(memAddress + 32, 960);
+	do Memory.poke(memAddress + 64, 960);
+	do Memory.poke(memAddress + 96, 8184);
+	do Memory.poke(memAddress + 128, 12300);
+	do Memory.poke(memAddress + 160, 24582);
+	do Memory.poke(memAddress + 192, -16381);
+	do Memory.poke(memAddress + 224, -32767);
+	do Memory.poke(memAddress + 256, -32767);
+	do Memory.poke(memAddress + 288, -32767);
+	do Memory.poke(memAddress + 320, -32767);
+	do Memory.poke(memAddress + 352, -32767);
+	do Memory.poke(memAddress + 384, -16381);
+	do Memory.poke(memAddress + 416, 24582);
+	do Memory.poke(memAddress + 448, 14364);
+	do Memory.poke(memAddress + 480, 4080);
+      return;
+	}
+
+   /** Draws the bomb on the screen. */
+   method void erase() {
+      return;
+	}
+
+
+   /** Moves the bomb down by 2 pixels. */
+   method void startFalling() {
+    return;
+	}
+	
+	method int getX () {
+		return x;
+	}
+	
+	method int getY () {
+		return y;
+	}
+}
+

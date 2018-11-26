@@ -1,6 +1,7 @@
 class GameRunner {
 	field int direction;
 	field Basket basket;
+	field Bomb bomb;
 	field Drop d1, d2, d3, d4, d5;
 	field Array allDrops;
 	field int score;
@@ -10,6 +11,7 @@ class GameRunner {
 	/** Constructs a new Square Game. */
 	constructor GameRunner new() {
 		let basket = Basket.new(220, 230);
+		let bomb = Bomb.new(50,2);
 		let direction = 0;
 		let score = 0;
 		let numOfDrops = 5;
@@ -107,6 +109,7 @@ class GameRunner {
 		do Output.moveCursor(0,1);
 		do Output.printString("Game Score: ");
 		do printScore();
+		
 		return;
 	}
 
