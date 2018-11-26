@@ -1,0 +1,35 @@
+class Square {
+
+   /** Constructs a new square with a given location and size. */
+   constructor Square new(int Ax, int Ay, int Asize) {
+      let x = Ax;
+      let y = Ay;
+      let size = Asize;
+      do draw();
+      return this;
+   }
+
+
+	function void draw(int location) {
+	var int memAddress;
+	let memAddress = 16384 + location;
+	do Memory.poke(memAddress + 0, 0);
+	do Memory.poke(memAddress + 32, 0);
+	do Memory.poke(memAddress + 64, 0);
+	do Memory.poke(memAddress + 96, 0);
+	do Memory.poke(memAddress + 128, 0);
+	do Memory.poke(memAddress + 160, 0);
+	do Memory.poke(memAddress + 192, 0);
+	do Memory.poke(memAddress + 224, 0);
+	do Memory.poke(memAddress + 256, 0);
+	do Memory.poke(memAddress + 288, 32767);
+	do Memory.poke(memAddress + 320, 21845);
+	do Memory.poke(memAddress + 352, 10922);
+	do Memory.poke(memAddress + 384, 5460);
+	do Memory.poke(memAddress + 416, 2728);
+	do Memory.poke(memAddress + 448, 1360);
+	do Memory.poke(memAddress + 480, 992);
+	return;
+
+   }
+}
