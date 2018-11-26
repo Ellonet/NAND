@@ -1,11 +1,8 @@
 class GameRunner {
 	field int direction;
 	field Basket basket;
-<<<<<<< HEAD
 	field Bomb bomb;
 	field Drop d1, d2, d3, d4, d5;
-=======
->>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 	field Array allDrops;
 	field int score;
 	field int numOfDrops;
@@ -28,6 +25,7 @@ class GameRunner {
 		var int i;
 		var Drop d;
 		var boolean isCollision;
+		do bomb.startFalling();
 		let i = 0;
 		while (i<numOfDrops) {
 			let d = allDrops[i];

@@ -4,7 +4,7 @@ call Memory.alloc 1
 pop pointer 0
 push argument 0
 pop this 0
-push constant 5
+push constant 35
 pop this 1
 push argument 1
 pop this 2
@@ -37,65 +37,61 @@ pop temp 0
 push local 0
 push constant 32
 add
-push constant 960
+push constant 256
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 64
 add
-push constant 960
+push constant 256
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 96
 add
-push constant 8184
+push constant 256
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 128
 add
-push constant 12300
+push constant 256
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 160
 add
-push constant 24582
+push constant 960
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 192
 add
-push constant 16381
-neg
+push constant 960
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 224
 add
-push constant 32767
-neg
+push constant 8184
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 256
 add
-push constant 32767
-neg
+push constant 12300
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 288
 add
-push constant 32767
-neg
+push constant 24582
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 320
 add
-push constant 32767
+push constant 16381
 neg
 call Memory.poke 2
 pop temp 0
@@ -109,38 +105,206 @@ pop temp 0
 push local 0
 push constant 384
 add
-push constant 16381
+push constant 32767
 neg
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 416
 add
-push constant 24582
+push constant 32767
+neg
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 448
 add
-push constant 14364
+push constant 32767
+neg
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 480
+add
+push constant 16381
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 512
+add
+push constant 24582
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 544
+add
+push constant 14364
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 576
 add
 push constant 4080
 call Memory.poke 2
 pop temp 0
 push constant 0
 return
-function Bomb.erase 0
+function Bomb.erase 1
 push argument 0
 pop pointer 0
+push constant 16384
+push this 0
+add
+pop local 0
+push local 0
+push constant 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 64
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 96
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 128
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 160
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 192
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 224
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 256
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 288
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 320
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 352
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 384
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 416
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 448
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 480
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 512
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 544
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 576
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
 push constant 0
 return
 function Bomb.startFalling 0
 push argument 0
 pop pointer 0
+push this 1
+push constant 16
+add
+push constant 250
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+call Bomb.erase 1
+pop temp 0
+push this 0
+push constant 512
+add
+pop this 0
+push pointer 0
+call Bomb.draw 1
+pop temp 0
+push constant 4
+call Sys.wait 1
+pop temp 0
+goto IF_END0
+label IF_FALSE0
+push pointer 0
+call Bomb.erase 1
+pop temp 0
+push constant 15
+pop this 1
+label IF_END0
 push constant 0
 return
 function Bomb.getX 0

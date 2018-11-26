@@ -1,9 +1,5 @@
 function GameRunner.new 0
-<<<<<<< HEAD
 push constant 11
-=======
-push constant 5
->>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 call Memory.alloc 1
 pop pointer 0
 push constant 220
@@ -17,15 +13,9 @@ pop this 2
 push constant 0
 pop this 0
 push constant 0
-<<<<<<< HEAD
 pop this 9
 push constant 5
 pop this 10
-=======
-pop this 3
-push constant 5
-pop this 4
->>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 push pointer 0
 call GameRunner.generateDrops 1
 pop temp 0
@@ -37,26 +27,19 @@ return
 function GameRunner.updateGame 4
 push argument 0
 pop pointer 0
+push this 2
+call Bomb.startFalling 1
+pop temp 0
 push constant 0
 pop local 1
 label WHILE_EXP0
-<<<<<<< HEAD
-push local 0
+push local 1
 push this 10
 lt
 not
 if-goto WHILE_END0
-push local 0
+push local 1
 push this 8
-=======
-push local 1
-push this 4
-lt
-not
-if-goto WHILE_END0
-push local 1
-push this 2
->>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 add
 pop pointer 1
 push that 0
@@ -75,20 +58,14 @@ label IF_TRUE0
 push local 2
 call Drop.erase 1
 pop temp 0
-<<<<<<< HEAD
-push local 0
-push this 8
-add
-=======
 push this 1
 call Basket.blink 1
 pop temp 0
 push local 2
 call Drop.getSpeed 1
 pop local 0
->>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 push local 1
-push this 2
+push this 8
 add
 push local 2
 call Drop.getX 1
@@ -211,29 +188,17 @@ push argument 0
 pop pointer 0
 push constant 5
 call Array.new 1
-<<<<<<< HEAD
 pop this 8
-=======
-pop this 2
->>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 push constant 0
 pop local 0
 label WHILE_EXP0
 push local 0
-<<<<<<< HEAD
 push this 10
-=======
-push this 4
->>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 lt
 not
 if-goto WHILE_END0
 push local 0
-<<<<<<< HEAD
 push this 8
-=======
-push this 2
->>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 add
 push local 0
 push local 0
@@ -295,17 +260,10 @@ and
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-<<<<<<< HEAD
 push this 9
 push constant 1
 add
 pop this 9
-=======
-push this 3
-push constant 1
-add
-pop this 3
->>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 push constant 0
 not
 return
@@ -319,11 +277,7 @@ push constant 0
 push constant 46
 call Output.moveCursor 2
 pop temp 0
-<<<<<<< HEAD
 push this 9
-=======
-push this 3
->>>>>>> 507b5d7f6dec1e46569a38538d4fe2edc1cf6fb9
 call Output.printInt 1
 pop temp 0
 push constant 0

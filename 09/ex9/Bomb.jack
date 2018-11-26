@@ -7,7 +7,7 @@ class Bomb {
    /** Constructs a new bomb with a given location and size. */
    constructor Bomb new(int Ax, int speedToWait) {
       let x = Ax;
-      let y = 5;
+      let y = 35;
 	  let speed = speedToWait;
       do draw();
       return this;
@@ -21,35 +21,71 @@ class Bomb {
 
    /** Draws the bomb on the screen. */
    method void draw() {
-      var int memAddress;
-	let memAddress = 16384 + x;
-	do Memory.poke(memAddress + 0, 256);
-	do Memory.poke(memAddress + 32, 960);
-	do Memory.poke(memAddress + 64, 960);
-	do Memory.poke(memAddress + 96, 8184);
-	do Memory.poke(memAddress + 128, 12300);
-	do Memory.poke(memAddress + 160, 24582);
-	do Memory.poke(memAddress + 192, -16381);
-	do Memory.poke(memAddress + 224, -32767);
-	do Memory.poke(memAddress + 256, -32767);
-	do Memory.poke(memAddress + 288, -32767);
-	do Memory.poke(memAddress + 320, -32767);
-	do Memory.poke(memAddress + 352, -32767);
-	do Memory.poke(memAddress + 384, -16381);
-	do Memory.poke(memAddress + 416, 24582);
-	do Memory.poke(memAddress + 448, 14364);
-	do Memory.poke(memAddress + 480, 4080);
-      return;
+		var int memAddress;
+		let memAddress = 16384 + x;
+		do Memory.poke(memAddress + 0, 256);
+		do Memory.poke(memAddress + 32, 256);
+		do Memory.poke(memAddress + 64, 256);
+		do Memory.poke(memAddress + 96, 256);
+		do Memory.poke(memAddress + 128, 256);
+		do Memory.poke(memAddress + 160, 960);
+		do Memory.poke(memAddress + 192, 960);
+		do Memory.poke(memAddress + 224, 8184);
+		do Memory.poke(memAddress + 256, 12300);
+		do Memory.poke(memAddress + 288, 24582);
+		do Memory.poke(memAddress + 320, -16381);
+		do Memory.poke(memAddress + 352, -32767);
+		do Memory.poke(memAddress + 384, -32767);
+		do Memory.poke(memAddress + 416, -32767);
+		do Memory.poke(memAddress + 448, -32767);
+		do Memory.poke(memAddress + 480, -16381);
+		do Memory.poke(memAddress + 512, 24582);
+		do Memory.poke(memAddress + 544, 14364);
+		do Memory.poke(memAddress + 576, 4080);
+		
+		
+		return;
 	}
 
    /** Draws the bomb on the screen. */
    method void erase() {
-      return;
+		var int memAddress;
+		let memAddress = 16384 + x;
+		do Memory.poke(memAddress + 0, 0);
+		do Memory.poke(memAddress + 32, 0);
+		do Memory.poke(memAddress + 64, 0);
+		do Memory.poke(memAddress + 96, 0);
+		do Memory.poke(memAddress + 128, 0);
+		do Memory.poke(memAddress + 160, 0);
+		do Memory.poke(memAddress + 192, 0);
+		do Memory.poke(memAddress + 224, 0);
+		do Memory.poke(memAddress + 256, 0);
+		do Memory.poke(memAddress + 288, 0);
+		do Memory.poke(memAddress + 320, 0);
+		do Memory.poke(memAddress + 352, 0);
+		do Memory.poke(memAddress + 384, 0);
+		do Memory.poke(memAddress + 416, 0);
+		do Memory.poke(memAddress + 448, 0);
+		do Memory.poke(memAddress + 480, 0);
+		do Memory.poke(memAddress + 512, 0);
+		do Memory.poke(memAddress + 544, 0);
+		do Memory.poke(memAddress + 576, 0);
+		return;
 	}
 
 
-   /** Moves the bomb down by 2 pixels. */
+   /** Moves the square down by 2 pixels. */
    method void startFalling() {
+   if ((y + 16) < (250)) {
+		do erase();
+		let x = x + 512;
+		do draw();
+		do Sys.wait(4);
+		}
+	else {
+		do erase();
+		let y = 15;
+	}
     return;
 	}
 	
