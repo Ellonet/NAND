@@ -28,10 +28,17 @@ class Drop {
       return;
 	}
 
+   /** Draws the square on the screen. */
+   method void erase() {
+      do Screen.setColor(false);
+      do Screen.drawCircle(x, y, radius);
+      return;
+	}
+
 
    /** Moves the square down by 2 pixels. */
    method void startFalling() {
-      if ((y + radius) < 254) {
+   if ((y + radius) < 254) {
 		do Screen.setColor(false);
 		do Screen.drawCircle(x,y,radius);
 		let y = y + speed;
@@ -39,6 +46,19 @@ class Drop {
 		do Screen.drawCircle(x,y,radius);
 		do Sys.wait(5);
 		}
-      return;
+	else {
+		do erase();
+		do dispose();
+	}
+    return;
+	}
+	
+	method int getX () {
+		return x;
+	}
+	
+	method int getX () {
+		return y;
 	}
 }
+

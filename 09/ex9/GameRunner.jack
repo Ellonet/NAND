@@ -1,15 +1,15 @@
 class GameRunner {
 	field int direction;
 	field Basket basket;
-	field Drop d1;
-	field Drop d2;
+	field Drop d1, d2, d3, d4, d5;
+	field Array allDrops;
 
 	
 	/** Constructs a new Square Game. */
 	constructor GameRunner new() {
 		let d1 = Drop.new(3,4);
 		let d2 = Drop.new(150,2);
-		let basket = Basket.new(220, 225);
+		let basket = Basket.new(220, 230);
 		let direction = 0;
 		return this;
     }
