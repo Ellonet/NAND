@@ -91,6 +91,7 @@ class GameRunner {
 		let dy = d.getY();
 
 		if ((dx > xBasket) & (dx < (xBasket+50)) & (dy > (yBasket-4)) & (dy < (yBasket+5))) {
+			let score = score + 1;
 			return true;
 		}
 	return false;
