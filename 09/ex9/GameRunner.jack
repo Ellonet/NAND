@@ -2,20 +2,22 @@ class GameRunner {
 	field int direction;
 	field Basket basket;
 	field Bomb bomb;
-	field Drop d1, d2, d3, d4, d5;
 	field Array allDrops;
+	field Array allBombs;
 	field int score;
 	field int numOfDrops;
+	field int numOfBombs;
 
 	
 	/** Constructs a new Square Game. */
 	constructor GameRunner new() {
 		let basket = Basket.new(220, 230);
-		let bomb = Bomb.new(50,2);
 		let direction = 0;
 		let score = 0;
 		let numOfDrops = 5;
+		let numOfBombs = 2;
 		do generateDrops();
+		do generateBombs();
 		do gameBoard();
 		return this;
     }
@@ -24,9 +26,11 @@ class GameRunner {
 		var int speed;
 		var int i;
 		var Drop d;
+		var Bomb b;
 		var boolean isCollision;
-		do bomb.startFalling();
 		let i = 0;
+		
+		// go throw all the drops
 		while (i<numOfDrops) {
 			let d = allDrops[i];
 			do d.startFalling();
@@ -42,6 +46,25 @@ class GameRunner {
 			}
 			let i = i + 1;
 		}
+		
+		let i = 0;
+		
+		// go throw all the bombs
+		while (i<numOfBombs) {
+			let b = allBombs[i];
+			do b.startFalling();
+			let isCollision = checkCollisionBomb(b);
+			if (isCollision) {
+				do b.erase();
+				do basket.blink();
+				let allBombs[i] = Bomb.new(b.getX());
+				do b.dispose();
+				do printScore();
+				
+			}
+			let i = i + 1;
+		}
+
 		if (direction = 1) {	// left key pressed
 			do basket.moveLeft();
 		}
@@ -78,15 +101,26 @@ class GameRunner {
 	
 	method void generateDrops() {
 		var int i;
-		var int len;
-		let allDrops = Array.new(5);
+		let allDrops = Array.new(numOfDrops);
 		let i = 0;
 		while(i<numOfDrops) {
-			let allDrops[i] = Drop.new((i*i*20)+50,1);
+			let allDrops[i] = Drop.new((i*i*20)+30,5);
 			let i = i + 1;
 		}
 		return;
 	}
+	
+	method void generateBombs() {
+		var int i;
+		let allBombs = Array.new(numOfBombs);
+		let i = 0;
+		while(i<numOfBombs) {
+			let allBombs[i] = Bomb.new((i*i*10)+50);
+			let i = i + 1;
+		}
+		return;
+	}
+	
 	method boolean checkCollision(Drop d){
 		var int xBasket;
 		var int yBasket;
@@ -103,6 +137,26 @@ class GameRunner {
 		}
 	return false;
 	}
+	
+	
+	method boolean checkCollisionBomb(Bomb b){
+		var int xBasket;
+		var int bx;
+		var int by;
+		let xBasket = basket.getX();
+		let bx = b.getX();
+		let by = b.getY();
+
+		if ((10<by) & (by<14) & (xBasket< Math.multiply(bx,16)) & ((Math.multiply(bx,16)<xBasket+50))) {
+			let score = score - 2;
+			if (score < 0){
+				let score = 0;
+			}
+			return true;
+		}
+	return false;
+	}
+	
 	
 	method void printScore() {
 		do Output.moveCursor(0,46);

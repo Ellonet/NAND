@@ -1,5 +1,5 @@
 function Basket.new 0
-push constant 3
+push constant 4
 call Memory.alloc 1
 pop pointer 0
 push argument 0
@@ -8,6 +8,8 @@ push argument 1
 pop this 1
 push constant 10
 pop this 2
+push constant 10
+pop this 3
 push pointer 0
 call Basket.draw 1
 pop temp 0
@@ -193,7 +195,9 @@ push constant 0
 call Screen.setColor 1
 pop temp 0
 push this 0
-push constant 49
+push constant 50
+push this 3
+sub
 add
 push this 1
 push this 0
@@ -205,7 +209,9 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 44
+push constant 45
+push this 3
+sub
 add
 push this 1
 push constant 5
@@ -219,7 +225,9 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 39
+push constant 40
+push this 3
+sub
 add
 push this 1
 push constant 10
@@ -233,7 +241,9 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 34
+push constant 35
+push this 3
+sub
 add
 push this 1
 push constant 15
@@ -247,7 +257,9 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 29
+push constant 30
+push this 3
+sub
 add
 push this 1
 push constant 20
@@ -261,7 +273,7 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 2
+push this 3
 sub
 pop this 0
 push constant 0
@@ -271,7 +283,7 @@ pop temp 0
 push this 0
 push this 1
 push this 0
-push constant 1
+push this 3
 add
 push this 1
 push constant 5
@@ -285,7 +297,9 @@ push this 1
 push constant 5
 add
 push this 0
-push constant 6
+push constant 5
+add
+push this 3
 add
 push this 1
 push constant 10
@@ -299,7 +313,9 @@ push this 1
 push constant 10
 add
 push this 0
-push constant 11
+push constant 10
+add
+push this 3
 add
 push this 1
 push constant 15
@@ -313,7 +329,9 @@ push this 1
 push constant 15
 add
 push this 0
-push constant 16
+push constant 15
+add
+push this 3
 add
 push this 1
 push constant 20
@@ -327,7 +345,9 @@ push this 1
 push constant 20
 add
 push this 0
-push constant 21
+push constant 20
+add
+push this 3
 add
 push this 1
 push constant 25
@@ -335,9 +355,6 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 label IF_FALSE0
-push constant 2
-call Sys.wait 1
-pop temp 0
 push constant 0
 return
 function Basket.moveRight 0
@@ -357,7 +374,7 @@ pop temp 0
 push this 0
 push this 1
 push this 0
-push constant 1
+push this 3
 add
 push this 1
 push constant 5
@@ -371,7 +388,9 @@ push this 1
 push constant 5
 add
 push this 0
-push constant 6
+push constant 5
+add
+push this 3
 add
 push this 1
 push constant 10
@@ -385,7 +404,9 @@ push this 1
 push constant 10
 add
 push this 0
-push constant 11
+push constant 10
+add
+push this 3
 add
 push this 1
 push constant 15
@@ -399,7 +420,9 @@ push this 1
 push constant 15
 add
 push this 0
-push constant 16
+push constant 15
+add
+push this 3
 add
 push this 1
 push constant 20
@@ -413,7 +436,9 @@ push this 1
 push constant 20
 add
 push this 0
-push constant 21
+push constant 20
+add
+push this 3
 add
 push this 1
 push constant 25
@@ -421,7 +446,7 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 2
+push this 3
 add
 pop this 0
 push constant 0
@@ -429,7 +454,9 @@ not
 call Screen.setColor 1
 pop temp 0
 push this 0
-push constant 49
+push constant 50
+push this 3
+sub
 add
 push this 1
 push this 0
@@ -441,7 +468,9 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 44
+push constant 45
+push this 3
+sub
 add
 push this 1
 push constant 5
@@ -455,7 +484,9 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 39
+push constant 40
+push this 3
+sub
 add
 push this 1
 push constant 10
@@ -469,7 +500,9 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 34
+push constant 35
+push this 3
+sub
 add
 push this 1
 push constant 15
@@ -483,7 +516,9 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 29
+push constant 30
+push this 3
+sub
 add
 push this 1
 push constant 20
@@ -497,9 +532,6 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 label IF_FALSE0
-push constant 2
-call Sys.wait 1
-pop temp 0
 push constant 0
 return
 function Basket.blink 0

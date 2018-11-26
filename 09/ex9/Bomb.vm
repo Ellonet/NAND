@@ -1,13 +1,11 @@
 function Bomb.new 0
-push constant 3
+push constant 2
 call Memory.alloc 1
 pop pointer 0
 push argument 0
 pop this 0
-push constant 35
+push constant 1
 pop this 1
-push argument 1
-pop this 2
 push pointer 0
 call Bomb.draw 1
 pop temp 0
@@ -25,6 +23,10 @@ function Bomb.draw 1
 push argument 0
 pop pointer 0
 push constant 16384
+push constant 512
+push this 1
+call Math.multiply 2
+add
 push this 0
 add
 pop local 0
@@ -154,6 +156,10 @@ function Bomb.erase 1
 push argument 0
 pop pointer 0
 push constant 16384
+push constant 512
+push this 1
+call Math.multiply 2
+add
 push this 0
 add
 pop local 0
@@ -277,9 +283,7 @@ function Bomb.startFalling 0
 push argument 0
 pop pointer 0
 push this 1
-push constant 16
-add
-push constant 250
+push constant 14
 lt
 if-goto IF_TRUE0
 goto IF_FALSE0
@@ -287,14 +291,14 @@ label IF_TRUE0
 push pointer 0
 call Bomb.erase 1
 pop temp 0
-push this 0
-push constant 512
+push this 1
+push constant 1
 add
-pop this 0
+pop this 1
 push pointer 0
 call Bomb.draw 1
 pop temp 0
-push constant 4
+push constant 5
 call Sys.wait 1
 pop temp 0
 goto IF_END0
@@ -302,7 +306,7 @@ label IF_FALSE0
 push pointer 0
 call Bomb.erase 1
 pop temp 0
-push constant 15
+push constant 2
 pop this 1
 label IF_END0
 push constant 0

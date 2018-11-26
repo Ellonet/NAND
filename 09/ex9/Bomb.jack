@@ -2,13 +2,11 @@
 class Bomb {
 
    field int x, y; // screen location of the bomb's top-left corner
-   field int speed; // speed to wait
 
    /** Constructs a new bomb with a given location and size. */
-   constructor Bomb new(int Ax, int speedToWait) {
+   constructor Bomb new(int Ax) {
       let x = Ax;
-      let y = 35;
-	  let speed = speedToWait;
+      let y = 1;
       do draw();
       return this;
 	}
@@ -22,7 +20,7 @@ class Bomb {
    /** Draws the bomb on the screen. */
    method void draw() {
 		var int memAddress;
-		let memAddress = 16384 + x;
+		let memAddress = 16384 + Math.multiply(512,y) + x;
 		do Memory.poke(memAddress + 0, 256);
 		do Memory.poke(memAddress + 32, 256);
 		do Memory.poke(memAddress + 64, 256);
@@ -50,7 +48,7 @@ class Bomb {
    /** Draws the bomb on the screen. */
    method void erase() {
 		var int memAddress;
-		let memAddress = 16384 + x;
+		let memAddress = 16384 + Math.multiply(512,y) + x;
 		do Memory.poke(memAddress + 0, 0);
 		do Memory.poke(memAddress + 32, 0);
 		do Memory.poke(memAddress + 64, 0);
@@ -76,16 +74,16 @@ class Bomb {
 
    /** Moves the square down by 2 pixels. */
    method void startFalling() {
-   if ((y + 16) < (250)) {
+   if (y < 14) {
 		do erase();
-		let x = x + 512;
+		let y = y + 1;
 		do draw();
-		do Sys.wait(4);
-		}
-	else {
+		do Sys.wait(5);
+   }
+   else {
 		do erase();
-		let y = 15;
-	}
+		let y = 2;
+   }
     return;
 	}
 	

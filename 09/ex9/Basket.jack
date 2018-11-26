@@ -2,12 +2,14 @@ class Basket {
 	
 	field int x, y;
 	field int size;
+	field int moveSpeed;
 	
    /** Constructs a new basket with a given location. */
 	constructor Basket new(int Ax, int Ay) {
       let x = Ax;
 	  let y = Ay;
 	  let size = 10;
+	  let moveSpeed = 10;
 	  do draw();
 	  return this;
    }
@@ -52,40 +54,38 @@ class Basket {
    method void moveLeft() {
       if (x > 1) {
         do Screen.setColor(false);
-        do Screen.drawRectangle(x+49, y, x+50, y+5);
-		do Screen.drawRectangle(x+44, y+5, x+45, y+10);
-		do Screen.drawRectangle(x+39, y+10, x+40, y+15);
-		do Screen.drawRectangle(x+34, y+15, x+35, y+20);
-		do Screen.drawRectangle(x+29, y+20, x+30, y+25);
-		let x = x - 2;
+        do Screen.drawRectangle(x+(50-moveSpeed), y, x+50, y+5);
+		do Screen.drawRectangle(x+(45-moveSpeed), y+5, x+45, y+10);
+		do Screen.drawRectangle(x+(40-moveSpeed), y+10, x+40, y+15);
+		do Screen.drawRectangle(x+(35-moveSpeed), y+15, x+35, y+20);
+		do Screen.drawRectangle(x+(30-moveSpeed), y+20, x+30, y+25);
+		let x = x - moveSpeed;
         do Screen.setColor(true);
-		do Screen.drawRectangle(x, y, x+1, y+5);
-		do Screen.drawRectangle(x+5, y+5, x+6, y+10);
-		do Screen.drawRectangle(x+10, y+10, x+11, y+15);
-		do Screen.drawRectangle(x+15, y+15, x+16, y+20);
-		do Screen.drawRectangle(x+20, y+20, x+21, y+25);
+		do Screen.drawRectangle(x, y, x + moveSpeed, y+5);
+		do Screen.drawRectangle(x+5, y+5, x + 5 + moveSpeed, y+10);
+		do Screen.drawRectangle(x+10, y+10, x + 10 + moveSpeed, y+15);
+		do Screen.drawRectangle(x+15, y+15, x + 15 + moveSpeed, y+20);
+		do Screen.drawRectangle(x+20, y+20, x + 20 + moveSpeed, y+25);
       }
-	  do Sys.wait(2);
       return;
    }
 
    method void moveRight() {
       if ((x + 50) < 510) {
 		do Screen.setColor(false);
-        do Screen.drawRectangle(x, y, x+1, y+5);
-		do Screen.drawRectangle(x+5, y+5, x+6, y+10);
-		do Screen.drawRectangle(x+10, y+10, x+11, y+15);
-		do Screen.drawRectangle(x+15, y+15, x+16, y+20);
-		do Screen.drawRectangle(x+20, y+20, x+21, y+25);
-		let x = x + 2;
+        do Screen.drawRectangle(x, y, x+moveSpeed, y+5);
+		do Screen.drawRectangle(x+5, y+5, x+5+moveSpeed, y+10);
+		do Screen.drawRectangle(x+10, y+10, x+10+moveSpeed, y+15);
+		do Screen.drawRectangle(x+15, y+15, x+15+moveSpeed, y+20);
+		do Screen.drawRectangle(x+20, y+20, x+20+moveSpeed, y+25);
+		let x = x + moveSpeed;
         do Screen.setColor(true);
-		do Screen.drawRectangle(x+49, y, x+50, y+5);
-		do Screen.drawRectangle(x+44, y+5, x+45, y+10);
-		do Screen.drawRectangle(x+39, y+10, x+40, y+15);
-		do Screen.drawRectangle(x+34, y+15, x+35, y+20);
-		do Screen.drawRectangle(x+29, y+20, x+30, y+25);
+		do Screen.drawRectangle(x+(50-moveSpeed), y, x+50, y+5);
+		do Screen.drawRectangle(x+(45-moveSpeed), y+5, x+45, y+10);
+		do Screen.drawRectangle(x+(40-moveSpeed), y+10, x+40, y+15);
+		do Screen.drawRectangle(x+(35-moveSpeed), y+15, x+35, y+20);
+		do Screen.drawRectangle(x+(30-moveSpeed), y+20, x+30, y+25);
       }
-  	  do Sys.wait(2);
       return;
    }
    
