@@ -57,7 +57,7 @@ class Drop {
 		return x;
 	}
 	
-	method int getX () {
+	method int getY () {
 		return y;
 	}
 }

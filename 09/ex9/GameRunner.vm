@@ -1,5 +1,5 @@
 function GameRunner.new 0
-push constant 4
+push constant 8
 call Memory.alloc 1
 pop pointer 0
 push constant 3
@@ -118,5 +118,13 @@ push constant 0
 pop this 0
 goto WHILE_EXP0
 label WHILE_END0
+push constant 0
+return
+function GameRunner.generateDrops 0
+push argument 0
+pop pointer 0
+push constant 5
+call Array.new 1
+pop this 7
 push constant 0
 return

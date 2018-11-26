@@ -52,5 +52,10 @@ class GameRunner {
 		} // end of while loop
 		return;
 	}
+	
+	method void generateDrops() {
+		let allDrops = Array.new(5);
+		return;
+	}
 
 }
