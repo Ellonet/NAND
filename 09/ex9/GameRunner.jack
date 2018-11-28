@@ -72,6 +72,7 @@ class GameRunner {
 				do printLife();
 				if (gameOver){
 					do printGameOver();
+					return;
 				}
 				
 			}
@@ -96,6 +97,10 @@ class GameRunner {
 			while (key = 0) {
 				let key = Keyboard.keyPressed();
 				do updateGame();
+				if (exit) {
+					do Sys.wait(500);
+					return;
+				}
 			}
 			if (key = 81)  { let exit = true; }     // q key
 			if (key = 130) { let direction = 1; }   // left arrow
@@ -191,7 +196,7 @@ class GameRunner {
 	
 	method void gameBoard () {
 		do Output.moveCursor(0,1);
-		do Output.printString(" for exit press q  HUNGRY BASKET  Game Score:      Life: ");
+		do Output.printString(" for exit press q  HUNGRY BASKET    Game Score:    Life: ");
 		do printScore();
 		do printLife();
 		
@@ -203,11 +208,14 @@ class GameRunner {
 		do Output.printInt(life);
 		return;
 	}
+	
 	method void printGameOver(){
+		var int i;
+		var Bomb b;
+		var Drop d;		
 		do Screen.clearScreen();
-		do Output.moveCursor(20,200);
+		do Output.moveCursor(5,10);
 		do Output.printString("GAME OVER! NOW EXITING");
-		do Sys.wait(30);
 		let exit = true;
 		return;
 	}
