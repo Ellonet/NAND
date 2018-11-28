@@ -104,6 +104,9 @@ class GameRunner {
 		}
 		
 	do basket.draw();
+	if (score=50){
+		do printWonGame();
+	}
 	return;
 	}
    	
@@ -266,11 +269,20 @@ class GameRunner {
 	
 	method void printGameOver(){
 		do Screen.clearScreen();
-		do Output.moveCursor(10,20);
-		do Output.printString("GAME OVER! NOW EXITING");
+		do Output.moveCursor(10,22);
+		do Output.printString("GAME OVER! GOODBYE");
 		let exit = true;
 		return;
 	}
+	
+	method void printWonGame(){
+		do Screen.clearScreen();
+		do Output.moveCursor(10,10);
+		do Output.printString(" OMG YOU WON THE GAME! GOOD JOB:) GOODBYE");
+		let exit = true;
+		return;
+	}
+	
 	method void printStartGame(){
 		do Output.moveCursor(10,15);
 		do Output.printString("WELCOME TO HUNGRY BASKET GAME :)");
