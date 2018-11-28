@@ -1,17 +1,19 @@
-function Bomb.new 0
-push constant 2
+function Fruit.new 0
+push constant 3
 call Memory.alloc 1
 pop pointer 0
 push argument 0
 pop this 0
 push constant 10
 pop this 1
+push argument 1
+pop this 2
 push pointer 0
-call Bomb.draw 1
+call Fruit.draw 1
 pop temp 0
 push pointer 0
 return
-function Bomb.dispose 0
+function Fruit.dispose 0
 push argument 0
 pop pointer 0
 push pointer 0
@@ -19,7 +21,7 @@ call Memory.deAlloc 1
 pop temp 0
 push constant 0
 return
-function Bomb.draw 1
+function Fruit.draw 1
 push argument 0
 pop pointer 0
 push constant 16384
@@ -33,120 +35,130 @@ pop local 0
 push local 0
 push constant 0
 add
-push constant 896
+push constant 768
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 32
 add
-push constant 128
+push constant 256
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 64
 add
-push constant 128
+push constant 256
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 96
 add
-push constant 128
+push constant 256
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 128
 add
-push constant 992
+push constant 31102
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 160
 add
-push constant 992
+push constant 15037
+neg
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 192
 add
-push constant 992
+push constant 31855
+neg
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 224
 add
-push constant 4088
+push constant 32743
+neg
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 256
 add
-push constant 8188
+push constant 32755
+neg
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 288
 add
-push constant 16366
+push constant 32763
+neg
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 320
 add
-push constant 32759
+push constant 32763
+neg
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 352
 add
-push constant 32759
+push constant 32763
+neg
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 384
 add
-push constant 32767
+push constant 32763
+neg
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 416
 add
-push constant 32767
+push constant 32759
+neg
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 448
 add
-push constant 32767
+push constant 32759
+neg
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 480
 add
-push constant 32767
+push constant 16386
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 512
 add
-push constant 16382
+push constant 16644
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 544
 add
-push constant 8188
+push constant 8840
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 576
 add
-push constant 2032
+push constant 7280
 call Memory.poke 2
 pop temp 0
 push constant 0
 return
-function Bomb.erase 1
+function Fruit.erase 1
 push argument 0
 pop pointer 0
 push constant 16384
@@ -273,7 +285,7 @@ call Memory.poke 2
 pop temp 0
 push constant 0
 return
-function Bomb.startFalling 0
+function Fruit.startFalling 0
 push argument 0
 pop pointer 0
 push this 1
@@ -283,14 +295,14 @@ if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
 push pointer 0
-call Bomb.erase 1
+call Fruit.erase 1
 pop temp 0
 push this 1
 push constant 7
 add
 pop this 1
 push pointer 0
-call Bomb.draw 1
+call Fruit.draw 1
 pop temp 0
 push constant 5
 call Sys.wait 1
@@ -298,21 +310,21 @@ pop temp 0
 goto IF_END0
 label IF_FALSE0
 push pointer 0
-call Bomb.erase 1
+call Fruit.erase 1
 pop temp 0
 push constant 10
 pop this 1
 label IF_END0
 push constant 0
 return
-function Bomb.getX 0
+function Fruit.getX 0
 push argument 0
 pop pointer 0
 push this 0
 push constant 16
 call Math.multiply 2
 return
-function Bomb.getY 0
+function Fruit.getY 0
 push argument 0
 pop pointer 0
 push this 1

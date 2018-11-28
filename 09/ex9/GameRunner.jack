@@ -1,7 +1,6 @@
 class GameRunner {
 	field int direction;
 	field Basket basket;
-	field Bomb bomb;
 	field Array allDrops;
 	field Array allBombs;
 	field int score;
@@ -219,9 +218,6 @@ class GameRunner {
 	}
 	
 	method void printGameOver(){
-		var int i;
-		var Bomb b;
-		var Drop d;		
 		do Screen.clearScreen();
 		do Output.moveCursor(10,20);
 		do Output.printString("GAME OVER! NOW EXITING");

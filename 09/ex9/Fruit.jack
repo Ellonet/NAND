@@ -1,49 +1,51 @@
-/** Implements a graphical bomb. */
-class Bomb {
+/** Implements a graphical fruit. */
+class Fruit {
 
-   field int x, y; // screen location of the bomb's top-left corner
-
-   /** Constructs a new bomb with a given location and size. */
-   constructor Bomb new(int Ax) {
+	field int x, y; // screen location of the fruit's top-left corner
+	field String type;
+	
+   /** Constructs a new fruit with a given location and size. */
+   constructor Fruit new(int Ax, String fruitName) {
       let x = Ax;
       let y = 10;
+	  let type = fruitName;
       do draw();
       return this;
 	}
 
-   /** Disposes this bomb. */
+   /** Disposes this fruit. */
    method void dispose() {
       do Memory.deAlloc(this);
       return;
 	}
 
-   /** Draws the bomb on the screen. */
+   /** Draws the fruit on the screen. */
    method void draw() {
 		var int memAddress;
 		let memAddress = 16384 + Math.multiply(32,y) + x;
-		do Memory.poke(memAddress + 0, 896);
-		do Memory.poke(memAddress + 32, 128);
-		do Memory.poke(memAddress + 64, 128);
-		do Memory.poke(memAddress + 96, 128);
-		do Memory.poke(memAddress + 128, 992);
-		do Memory.poke(memAddress + 160, 992);
-		do Memory.poke(memAddress + 192, 992);
-		do Memory.poke(memAddress + 224, 4088);
-		do Memory.poke(memAddress + 256, 8188);
-		do Memory.poke(memAddress + 288, 16366);
-		do Memory.poke(memAddress + 320, 32759);
-		do Memory.poke(memAddress + 352, 32759);
-		do Memory.poke(memAddress + 384, 32767);
-		do Memory.poke(memAddress + 416, 32767);
-		do Memory.poke(memAddress + 448, 32767);
-		do Memory.poke(memAddress + 480, 32767);
-		do Memory.poke(memAddress + 512, 16382);
-		do Memory.poke(memAddress + 544, 8188);
-		do Memory.poke(memAddress + 576, 2032);
+		do Memory.poke(memAddress + 0, 768);
+		do Memory.poke(memAddress + 32, 256);
+		do Memory.poke(memAddress + 64, 256);
+		do Memory.poke(memAddress + 96, 256);
+		do Memory.poke(memAddress + 128, 31102);
+		do Memory.poke(memAddress + 160, -15037);
+		do Memory.poke(memAddress + 192, -31855);
+		do Memory.poke(memAddress + 224, -32743);
+		do Memory.poke(memAddress + 256, -32755);
+		do Memory.poke(memAddress + 288, -32763);
+		do Memory.poke(memAddress + 320, -32763);
+		do Memory.poke(memAddress + 352, -32763);
+		do Memory.poke(memAddress + 384, -32763);
+		do Memory.poke(memAddress + 416, -32759);
+		do Memory.poke(memAddress + 448, -32759);
+		do Memory.poke(memAddress + 480, 16386);
+		do Memory.poke(memAddress + 512, 16644);
+		do Memory.poke(memAddress + 544, 8840);
+		do Memory.poke(memAddress + 576, 7280);
 		return;
 	}
 
-   /** Draws the bomb on the screen. */
+   /** Draws the fruit on the screen. */
    method void erase() {
 		var int memAddress;
 		let memAddress = 16384 + Math.multiply(32,y) + x;
