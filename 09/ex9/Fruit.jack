@@ -65,6 +65,27 @@ class Fruit {
 			do Memory.poke(memAddress + 544, 15900);
 			do Memory.poke(memAddress + 576, 7168);
 		}		
+		if (type = 3) {
+			do Memory.poke(memAddress + 0, 14336);
+			do Memory.poke(memAddress + 32, 9216);
+			do Memory.poke(memAddress + 64, 17408);
+			do Memory.poke(memAddress + 96, 17408);
+			do Memory.poke(memAddress + 128, 17408);
+			do Memory.poke(memAddress + 160, 17920);
+			do Memory.poke(memAddress + 192, 16896);
+			do Memory.poke(memAddress + 224, 16896);
+			do Memory.poke(memAddress + 256, 17344);
+			do Memory.poke(memAddress + 288, 16928);
+			do Memory.poke(memAddress + 320, -4208);
+			do Memory.poke(memAddress + 352, -19472);
+			do Memory.poke(memAddress + 384, -26784);
+			do Memory.poke(memAddress + 416, -18768);
+			do Memory.poke(memAddress + 448, -11176);
+			do Memory.poke(memAddress + 480, 7180);
+			do Memory.poke(memAddress + 512, 1540);
+			do Memory.poke(memAddress + 544, 962);
+			do Memory.poke(memAddress + 576, 126);
+		}		
 		return;
 	}
 

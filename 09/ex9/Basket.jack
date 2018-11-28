@@ -12,7 +12,6 @@ class Basket {
 	  let size = 10;
 	  let moveSpeed = 10;
 	  let basketDiff = 3;
-	  do draw();
 	  return this;
    }
 	
