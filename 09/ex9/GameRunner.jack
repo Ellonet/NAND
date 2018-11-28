@@ -8,6 +8,7 @@ class GameRunner {
 	field int numOfDrops;
 	field int numOfBombs;
 	field int life;
+	field int addLifeCounter;
 	field boolean gameOver;
 	field boolean exit;
 	
@@ -17,6 +18,7 @@ class GameRunner {
 		let basket = Basket.new(220, 230);
 		let direction = 0;
 		let score = 0;
+		let addLifeCounter =0;
 		let numOfDrops = 5;
 		let numOfBombs = 2;
 		let life = 3;
@@ -44,6 +46,11 @@ class GameRunner {
 			if (isCollision) {
 				do d.erase();
 				do basket.blink();
+				if (addLifeCounter = 20 ){
+					let life = life + 1;
+					do printLife();
+					let addLifeCounter = 0;
+				}
 				let new_speed = (d.getSpeed()+1);
 				if (new_speed > 19) {
 					let new_speed = 19;				
@@ -150,12 +157,14 @@ class GameRunner {
 
 		if ((dx > xBasket) & (dx < (xBasket+50)) & (dy > (yBasket-4)) & (dy < (yBasket+10))) {
 			let score = score + 1;
+			let addLifeCounter = addLifeCounter + 1;
 			return true;
 		}
 		let xBasket = (xBasket - basket.getDiff());
 		let yBasket = yBasket + 5;
 		if ((dx > xBasket) & (dx < (xBasket+50-basket.getDiff())) & (dy > (yBasket-4)) & (dy < (yBasket+10))) {
 			let score = score + 1;
+			let addLifeCounter = addLifeCounter + 1;
 			return true;
 		}
 
@@ -189,14 +198,14 @@ class GameRunner {
 	
 	
 	method void printScore() {
-		do Output.moveCursor(0,45);
+		do Output.moveCursor(0,48);
 		do Output.printInt(score);
 		return;
 	}
 	
 	method void gameBoard () {
 		do Output.moveCursor(0,1);
-		do Output.printString(" for exit press q  HUNGRY BASKET    Game Score:    Life: ");
+		do Output.printString(" to exit press q  HUNGRY BASKET    Game Score:     Life: ");
 		do printScore();
 		do printLife();
 		
@@ -204,7 +213,7 @@ class GameRunner {
 	}
 	
 	method void printLife() {
-		do Output.moveCursor(0,58);
+		do Output.moveCursor(0,59);
 		do Output.printInt(life);
 		return;
 	}
@@ -214,7 +223,7 @@ class GameRunner {
 		var Bomb b;
 		var Drop d;		
 		do Screen.clearScreen();
-		do Output.moveCursor(5,10);
+		do Output.moveCursor(10,20);
 		do Output.printString("GAME OVER! NOW EXITING");
 		let exit = true;
 		return;

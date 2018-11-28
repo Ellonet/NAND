@@ -1,5 +1,5 @@
 function GameRunner.new 0
-push constant 11
+push constant 12
 call Memory.alloc 1
 pop pointer 0
 push constant 220
@@ -10,6 +10,8 @@ push constant 0
 pop this 0
 push constant 0
 pop this 5
+push constant 0
+pop this 9
 push constant 5
 pop this 6
 push constant 2
@@ -17,9 +19,9 @@ pop this 7
 push constant 3
 pop this 8
 push constant 0
-pop this 9
-push constant 0
 pop this 10
+push constant 0
+pop this 11
 push pointer 0
 call GameRunner.generateDrops 1
 pop temp 0
@@ -65,6 +67,22 @@ pop temp 0
 push this 1
 call Basket.blink 1
 pop temp 0
+push this 9
+push constant 20
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 8
+push constant 1
+add
+pop this 8
+push pointer 0
+call GameRunner.printLife 1
+pop temp 0
+push constant 0
+pop this 9
+label IF_FALSE1
 push local 2
 call Drop.getSpeed 1
 push constant 1
@@ -73,12 +91,12 @@ pop local 0
 push local 0
 push constant 19
 gt
-if-goto IF_TRUE1
-goto IF_FALSE1
-label IF_TRUE1
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
 push constant 19
 pop local 0
-label IF_FALSE1
+label IF_FALSE2
 push local 1
 push this 3
 add
@@ -125,9 +143,9 @@ push local 3
 call GameRunner.checkCollisionBomb 2
 pop local 4
 push local 4
-if-goto IF_TRUE2
-goto IF_FALSE2
-label IF_TRUE2
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
 push local 3
 call Bomb.erase 1
 pop temp 0
@@ -155,17 +173,17 @@ pop temp 0
 push pointer 0
 call GameRunner.printLife 1
 pop temp 0
-push this 9
-if-goto IF_TRUE3
-goto IF_FALSE3
-label IF_TRUE3
+push this 10
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
 push pointer 0
 call GameRunner.printGameOver 1
 pop temp 0
 push constant 0
 return
+label IF_FALSE4
 label IF_FALSE3
-label IF_FALSE2
 push local 1
 push constant 1
 add
@@ -175,23 +193,23 @@ label WHILE_END1
 push this 0
 push constant 1
 eq
-if-goto IF_TRUE4
-goto IF_FALSE4
-label IF_TRUE4
-push this 1
-call Basket.moveLeft 1
-pop temp 0
-label IF_FALSE4
-push this 0
-push constant 2
-eq
 if-goto IF_TRUE5
 goto IF_FALSE5
 label IF_TRUE5
 push this 1
-call Basket.moveRight 1
+call Basket.moveLeft 1
 pop temp 0
 label IF_FALSE5
+push this 0
+push constant 2
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push this 1
+call Basket.moveRight 1
+pop temp 0
+label IF_FALSE6
 push this 1
 call Basket.draw 1
 pop temp 0
@@ -201,7 +219,7 @@ function GameRunner.runFullGame 1
 push argument 0
 pop pointer 0
 label WHILE_EXP0
-push this 10
+push this 11
 not
 not
 if-goto WHILE_END0
@@ -216,11 +234,11 @@ pop local 0
 push pointer 0
 call GameRunner.updateGame 1
 pop temp 0
-push this 10
+push this 11
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push constant 300
+push constant 500
 call Sys.wait 1
 pop temp 0
 push constant 0
@@ -236,7 +254,7 @@ goto IF_FALSE1
 label IF_TRUE1
 push constant 0
 not
-pop this 10
+pop this 11
 label IF_FALSE1
 push local 0
 push constant 130
@@ -392,6 +410,10 @@ push this 5
 push constant 1
 add
 pop this 5
+push this 9
+push constant 1
+add
+pop this 9
 push constant 0
 not
 return
@@ -436,6 +458,10 @@ push this 5
 push constant 1
 add
 pop this 5
+push this 9
+push constant 1
+add
+pop this 9
 push constant 0
 not
 return
@@ -506,7 +532,7 @@ goto IF_FALSE2
 label IF_TRUE2
 push constant 0
 not
-pop this 9
+pop this 10
 label IF_FALSE2
 push constant 0
 not
@@ -518,7 +544,7 @@ function GameRunner.printScore 0
 push argument 0
 pop pointer 0
 push constant 0
-push constant 45
+push constant 48
 call Output.moveCursor 2
 pop temp 0
 push this 5
@@ -533,15 +559,13 @@ push constant 0
 push constant 1
 call Output.moveCursor 2
 pop temp 0
-push constant 57
+push constant 56
 call String.new 1
 push constant 32
 call String.appendChar 2
-push constant 102
+push constant 116
 call String.appendChar 2
 push constant 111
-call String.appendChar 2
-push constant 114
 call String.appendChar 2
 push constant 32
 call String.appendChar 2
@@ -676,8 +700,8 @@ push argument 0
 pop pointer 0
 call Screen.clearScreen 0
 pop temp 0
-push constant 5
 push constant 10
+push constant 20
 call Output.moveCursor 2
 pop temp 0
 push constant 22
@@ -730,6 +754,6 @@ call Output.printString 1
 pop temp 0
 push constant 0
 not
-pop this 10
+pop this 11
 push constant 0
 return
