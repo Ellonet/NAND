@@ -3,10 +3,12 @@ class GameRunner {
 	field Basket basket;
 	field Array allDrops;
 	field Array allBombs;
-	field int score;
+	field Array allFruits;
 	field int numOfDrops;
 	field int numOfBombs;
+	field int numOfFruits;
 	field int life;
+	field int score;
 	field int addLifeCounter;
 	field boolean gameOver;
 	field boolean exit;
@@ -18,13 +20,15 @@ class GameRunner {
 		let direction = 0;
 		let score = 0;
 		let addLifeCounter =0;
-		let numOfDrops = 5;
+		let numOfDrops = 1;
 		let numOfBombs = 2;
+		let numOfFruits = 5;
 		let life = 3;
 		let gameOver = false;
 		let exit = false;
 		do generateDrops();
 		do generateBombs();
+		do generateFruits();
 		do gameBoard();
 		return this;
     }
@@ -32,8 +36,10 @@ class GameRunner {
 	method void updateGame() {
 		var int new_speed;
 		var int i;
+		var int type;
 		var Drop d;
 		var Bomb b;
+		var Fruit f;
 		var boolean isCollision;
 		let i = 0;
 		
@@ -85,12 +91,36 @@ class GameRunner {
 			let i = i + 1;
 		}
 
+		let i = 0;
+
+		// go throw all the fruits
+		while (i<numOfFruits) {
+			let f = allFruits[i];
+			do f.startFalling();
+			let isCollision = checkCollisionFruit(f);
+			if (isCollision) {
+				do f.erase();
+				do basket.blink();
+				let type = f.getType();
+				if (type = 1) {
+					let allFruits[i] = Fruit.new((Math.divide(f.getX(),16)),2);
+				}
+				else {
+					let allFruits[i] = Fruit.new((Math.divide(f.getX(),16)),1);
+				}
+				do f.dispose();
+				do printScore();
+				do printLife();				
+			}
+			let i = i + 1;
+		}		
 		if (direction = 1) {	// left key pressed
 			do basket.moveLeft();
 		}
 		if (direction = 2) {	// right key pressed
 			do basket.moveRight();
 		}
+		
 	do basket.draw();
 	return;
 	}
@@ -143,6 +173,17 @@ class GameRunner {
 		}
 		return;
 	}
+
+	method void generateFruits() {
+		var int j;
+		let allFruits = Array.new(numOfFruits);
+		let j = 0;
+		while(j<numOfFruits) {
+			let allFruits[j] = Fruit.new((j*6),1);
+			let j = j + 1;
+		}
+		return;
+	}
 	
 	method boolean checkCollision(Drop d){
 		var int xBasket;
@@ -170,6 +211,24 @@ class GameRunner {
 	return false;
 	}
 	
+	method boolean checkCollisionFruit(Fruit f){
+		var int xBasket;
+		var int yBasket;
+		var int fx;
+		var int fy;
+		let xBasket = basket.getX();
+		let yBasket = basket.getY();
+		let fx = f.getX();
+		let fy = f.getY();
+
+		if (((yBasket-17) < fy) & (fy < yBasket)& (xBasket-15< fx) & (fx < (xBasket+50))) {
+			let score = score + 1;
+			let addLifeCounter = addLifeCounter + 1;
+			return true;
+		}
+	return false;
+	}
+
 	
 	method boolean checkCollisionBomb(Bomb b){
 		var int xBasket;

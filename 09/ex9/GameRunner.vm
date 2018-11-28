@@ -1,5 +1,5 @@
 function GameRunner.new 0
-push constant 11
+push constant 13
 call Memory.alloc 1
 pop pointer 0
 push constant 220
@@ -9,19 +9,21 @@ pop this 1
 push constant 0
 pop this 0
 push constant 0
-pop this 4
-push constant 0
-pop this 8
-push constant 5
-pop this 5
-push constant 2
-pop this 6
-push constant 3
-pop this 7
-push constant 0
 pop this 9
 push constant 0
 pop this 10
+push constant 1
+pop this 5
+push constant 2
+pop this 6
+push constant 5
+pop this 7
+push constant 3
+pop this 8
+push constant 0
+pop this 11
+push constant 0
+pop this 12
 push pointer 0
 call GameRunner.generateDrops 1
 pop temp 0
@@ -29,11 +31,14 @@ push pointer 0
 call GameRunner.generateBombs 1
 pop temp 0
 push pointer 0
+call GameRunner.generateFruits 1
+pop temp 0
+push pointer 0
 call GameRunner.gameBoard 1
 pop temp 0
 push pointer 0
 return
-function GameRunner.updateGame 5
+function GameRunner.updateGame 7
 push argument 0
 pop pointer 0
 push constant 0
@@ -49,41 +54,41 @@ push this 2
 add
 pop pointer 1
 push that 0
-pop local 2
-push local 2
+pop local 3
+push local 3
 call Drop.startFalling 1
 pop temp 0
 push pointer 0
-push local 2
+push local 3
 call GameRunner.checkCollision 2
-pop local 4
-push local 4
+pop local 6
+push local 6
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push local 2
+push local 3
 call Drop.erase 1
 pop temp 0
 push this 1
 call Basket.blink 1
 pop temp 0
-push this 8
+push this 10
 push constant 20
 eq
 if-goto IF_TRUE1
 goto IF_FALSE1
 label IF_TRUE1
-push this 7
+push this 8
 push constant 1
 add
-pop this 7
+pop this 8
 push pointer 0
 call GameRunner.printLife 1
 pop temp 0
 push constant 0
-pop this 8
+pop this 10
 label IF_FALSE1
-push local 2
+push local 3
 call Drop.getSpeed 1
 push constant 1
 add
@@ -100,7 +105,7 @@ label IF_FALSE2
 push local 1
 push this 2
 add
-push local 2
+push local 3
 call Drop.getX 1
 push local 0
 call Drop.new 2
@@ -108,7 +113,7 @@ pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
-push local 2
+push local 3
 call Drop.dispose 1
 pop temp 0
 push pointer 0
@@ -134,19 +139,19 @@ push this 3
 add
 pop pointer 1
 push that 0
-pop local 3
-push local 3
+pop local 4
+push local 4
 call Bomb.startFalling 1
 pop temp 0
 push pointer 0
-push local 3
-call GameRunner.checkCollisionBomb 2
-pop local 4
 push local 4
+call GameRunner.checkCollisionBomb 2
+pop local 6
+push local 6
 if-goto IF_TRUE3
 goto IF_FALSE3
 label IF_TRUE3
-push local 3
+push local 4
 call Bomb.erase 1
 pop temp 0
 push this 1
@@ -155,7 +160,7 @@ pop temp 0
 push local 1
 push this 3
 add
-push local 3
+push local 4
 call Bomb.getX 1
 push constant 16
 call Math.divide 2
@@ -164,7 +169,7 @@ pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
-push local 3
+push local 4
 call Bomb.dispose 1
 pop temp 0
 push pointer 0
@@ -173,7 +178,7 @@ pop temp 0
 push pointer 0
 call GameRunner.printLife 1
 pop temp 0
-push this 9
+push this 11
 if-goto IF_TRUE4
 goto IF_FALSE4
 label IF_TRUE4
@@ -190,26 +195,111 @@ add
 pop local 1
 goto WHILE_EXP1
 label WHILE_END1
-push this 0
-push constant 1
-eq
+push constant 0
+pop local 1
+label WHILE_EXP2
+push local 1
+push this 7
+lt
+not
+if-goto WHILE_END2
+push local 1
+push this 4
+add
+pop pointer 1
+push that 0
+pop local 5
+push local 5
+call Fruit.startFalling 1
+pop temp 0
+push pointer 0
+push local 5
+call GameRunner.checkCollisionFruit 2
+pop local 6
+push local 6
 if-goto IF_TRUE5
 goto IF_FALSE5
 label IF_TRUE5
-push this 1
-call Basket.moveLeft 1
+push local 5
+call Fruit.erase 1
 pop temp 0
-label IF_FALSE5
-push this 0
-push constant 2
+push this 1
+call Basket.blink 1
+pop temp 0
+push local 5
+call Fruit.getType 1
+pop local 2
+push local 2
+push constant 1
 eq
 if-goto IF_TRUE6
 goto IF_FALSE6
 label IF_TRUE6
+push local 1
+push this 4
+add
+push local 5
+call Fruit.getX 1
+push constant 16
+call Math.divide 2
+push constant 2
+call Fruit.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+goto IF_END6
+label IF_FALSE6
+push local 1
+push this 4
+add
+push local 5
+call Fruit.getX 1
+push constant 16
+call Math.divide 2
+push constant 1
+call Fruit.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_END6
+push local 5
+call Fruit.dispose 1
+pop temp 0
+push pointer 0
+call GameRunner.printScore 1
+pop temp 0
+push pointer 0
+call GameRunner.printLife 1
+pop temp 0
+label IF_FALSE5
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP2
+label WHILE_END2
+push this 0
+push constant 1
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push this 1
+call Basket.moveLeft 1
+pop temp 0
+label IF_FALSE7
+push this 0
+push constant 2
+eq
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
 push this 1
 call Basket.moveRight 1
 pop temp 0
-label IF_FALSE6
+label IF_FALSE8
 push this 1
 call Basket.draw 1
 pop temp 0
@@ -219,7 +309,7 @@ function GameRunner.runFullGame 1
 push argument 0
 pop pointer 0
 label WHILE_EXP0
-push this 10
+push this 12
 not
 not
 if-goto WHILE_END0
@@ -234,7 +324,7 @@ pop local 0
 push pointer 0
 call GameRunner.updateGame 1
 pop temp 0
-push this 10
+push this 12
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
@@ -254,7 +344,7 @@ goto IF_FALSE1
 label IF_TRUE1
 push constant 0
 not
-pop this 10
+pop this 12
 label IF_FALSE1
 push local 0
 push constant 130
@@ -367,6 +457,40 @@ goto WHILE_EXP0
 label WHILE_END0
 push constant 0
 return
+function GameRunner.generateFruits 1
+push argument 0
+pop pointer 0
+push this 7
+call Array.new 1
+pop this 4
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push this 7
+lt
+not
+if-goto WHILE_END0
+push local 0
+push this 4
+add
+push local 0
+push constant 6
+call Math.multiply 2
+push constant 1
+call Fruit.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
 function GameRunner.checkCollision 4
 push argument 0
 pop pointer 0
@@ -406,14 +530,14 @@ and
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push this 4
+push this 9
 push constant 1
 add
-pop this 4
-push this 8
+pop this 9
+push this 10
 push constant 1
 add
-pop this 8
+pop this 10
 push constant 0
 not
 return
@@ -454,18 +578,71 @@ and
 if-goto IF_TRUE1
 goto IF_FALSE1
 label IF_TRUE1
-push this 4
+push this 9
 push constant 1
 add
-pop this 4
-push this 8
+pop this 9
+push this 10
 push constant 1
 add
-pop this 8
+pop this 10
 push constant 0
 not
 return
 label IF_FALSE1
+push constant 0
+return
+function GameRunner.checkCollisionFruit 4
+push argument 0
+pop pointer 0
+push this 1
+call Basket.getX 1
+pop local 0
+push this 1
+call Basket.getY 1
+pop local 1
+push argument 1
+call Fruit.getX 1
+pop local 2
+push argument 1
+call Fruit.getY 1
+pop local 3
+push local 1
+push constant 17
+sub
+push local 3
+lt
+push local 3
+push local 1
+lt
+and
+push local 0
+push constant 15
+sub
+push local 2
+lt
+and
+push local 2
+push local 0
+push constant 50
+add
+lt
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 9
+push constant 1
+add
+pop this 9
+push this 10
+push constant 1
+add
+pop this 10
+push constant 0
+not
+return
+label IF_FALSE0
 push constant 0
 return
 function GameRunner.checkCollisionBomb 4
@@ -507,24 +684,24 @@ and
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push this 4
+push this 9
 push constant 2
 sub
-pop this 4
-push this 4
+pop this 9
+push this 9
 push constant 0
 lt
 if-goto IF_TRUE1
 goto IF_FALSE1
 label IF_TRUE1
 push constant 0
-pop this 4
+pop this 9
 label IF_FALSE1
-push this 7
+push this 8
 push constant 1
 sub
-pop this 7
-push this 7
+pop this 8
+push this 8
 push constant 0
 eq
 if-goto IF_TRUE2
@@ -532,7 +709,7 @@ goto IF_FALSE2
 label IF_TRUE2
 push constant 0
 not
-pop this 9
+pop this 11
 label IF_FALSE2
 push constant 0
 not
@@ -547,7 +724,7 @@ push constant 0
 push constant 48
 call Output.moveCursor 2
 pop temp 0
-push this 4
+push this 9
 call Output.printInt 1
 pop temp 0
 push constant 0
@@ -692,7 +869,7 @@ push constant 0
 push constant 59
 call Output.moveCursor 2
 pop temp 0
-push this 7
+push this 8
 call Output.printInt 1
 pop temp 0
 push constant 0
@@ -756,6 +933,6 @@ call Output.printString 1
 pop temp 0
 push constant 0
 not
-pop this 10
+pop this 12
 push constant 0
 return

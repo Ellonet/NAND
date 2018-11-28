@@ -2,15 +2,15 @@
 class Fruit {
 
 	field int x, y; // screen location of the fruit's top-left corner
-	field String type;
+	field int type;
 	
    /** Constructs a new fruit with a given location and size. */
-   constructor Fruit new(int Ax, String fruitName) {
-      let x = Ax;
-      let y = 10;
-	  let type = fruitName;
-      do draw();
-      return this;
+   constructor Fruit new(int Ax, int fruitType) {
+		let x = Ax;
+		let y = 10;
+		let type = fruitType;
+		do draw();
+		return this;
 	}
 
    /** Disposes this fruit. */
@@ -23,25 +23,48 @@ class Fruit {
    method void draw() {
 		var int memAddress;
 		let memAddress = 16384 + Math.multiply(32,y) + x;
-		do Memory.poke(memAddress + 0, 768);
-		do Memory.poke(memAddress + 32, 256);
-		do Memory.poke(memAddress + 64, 256);
-		do Memory.poke(memAddress + 96, 256);
-		do Memory.poke(memAddress + 128, 31102);
-		do Memory.poke(memAddress + 160, -15037);
-		do Memory.poke(memAddress + 192, -31855);
-		do Memory.poke(memAddress + 224, -32743);
-		do Memory.poke(memAddress + 256, -32755);
-		do Memory.poke(memAddress + 288, -32763);
-		do Memory.poke(memAddress + 320, -32763);
-		do Memory.poke(memAddress + 352, -32763);
-		do Memory.poke(memAddress + 384, -32763);
-		do Memory.poke(memAddress + 416, -32759);
-		do Memory.poke(memAddress + 448, -32759);
-		do Memory.poke(memAddress + 480, 16386);
-		do Memory.poke(memAddress + 512, 16644);
-		do Memory.poke(memAddress + 544, 8840);
-		do Memory.poke(memAddress + 576, 7280);
+		if (type = 1) {
+			do Memory.poke(memAddress + 0, 768);
+			do Memory.poke(memAddress + 32, 256);
+			do Memory.poke(memAddress + 64, 256);
+			do Memory.poke(memAddress + 96, 256);
+			do Memory.poke(memAddress + 128, 31102);
+			do Memory.poke(memAddress + 160, -15037);
+			do Memory.poke(memAddress + 192, -31855);
+			do Memory.poke(memAddress + 224, -32743);
+			do Memory.poke(memAddress + 256, -32755);
+			do Memory.poke(memAddress + 288, -32763);
+			do Memory.poke(memAddress + 320, -32763);
+			do Memory.poke(memAddress + 352, -32763);
+			do Memory.poke(memAddress + 384, -32763);
+			do Memory.poke(memAddress + 416, -32759);
+			do Memory.poke(memAddress + 448, -32759);
+			do Memory.poke(memAddress + 480, 16386);
+			do Memory.poke(memAddress + 512, 16644);
+			do Memory.poke(memAddress + 544, 8840);
+			do Memory.poke(memAddress + 576, 7280);
+		}		
+		if (type = 2) {
+			do Memory.poke(memAddress + 0, 127);
+			do Memory.poke(memAddress + 32, 224);
+			do Memory.poke(memAddress + 64, 448);
+			do Memory.poke(memAddress + 96, 832);
+			do Memory.poke(memAddress + 128, 576);
+			do Memory.poke(memAddress + 160, 576);
+			do Memory.poke(memAddress + 192, 576);
+			do Memory.poke(memAddress + 224, 1632);
+			do Memory.poke(memAddress + 256, 1072);
+			do Memory.poke(memAddress + 288, 3088);
+			do Memory.poke(memAddress + 320, 2110);
+			do Memory.poke(memAddress + 352, 15995);
+			do Memory.poke(memAddress + 384, 15995);
+			do Memory.poke(memAddress + 416, 31613);
+			do Memory.poke(memAddress + 448, 32125);
+			do Memory.poke(memAddress + 480, 32127);
+			do Memory.poke(memAddress + 512, 32574);
+			do Memory.poke(memAddress + 544, 15900);
+			do Memory.poke(memAddress + 576, 7168);
+		}		
 		return;
 	}
 
@@ -49,26 +72,26 @@ class Fruit {
    method void erase() {
 		var int memAddress;
 		let memAddress = 16384 + Math.multiply(32,y) + x;
-		do Memory.poke(memAddress + 0, 0);
-		do Memory.poke(memAddress + 32, 0);
-		do Memory.poke(memAddress + 64, 0);
-		do Memory.poke(memAddress + 96, 0);
-		do Memory.poke(memAddress + 128, 0);
-		do Memory.poke(memAddress + 160, 0);
-		do Memory.poke(memAddress + 192, 0);
-		do Memory.poke(memAddress + 224, 0);
-		do Memory.poke(memAddress + 256, 0);
-		do Memory.poke(memAddress + 288, 0);
-		do Memory.poke(memAddress + 320, 0);
-		do Memory.poke(memAddress + 352, 0);
-		do Memory.poke(memAddress + 384, 0);
-		do Memory.poke(memAddress + 416, 0);
-		do Memory.poke(memAddress + 448, 0);
-		do Memory.poke(memAddress + 480, 0);
-		do Memory.poke(memAddress + 512, 0);
-		do Memory.poke(memAddress + 544, 0);
-		do Memory.poke(memAddress + 576, 0);
-		return;
+	do Memory.poke(memAddress + 0, 0);
+	do Memory.poke(memAddress + 32, 0);
+	do Memory.poke(memAddress + 64, 0);
+	do Memory.poke(memAddress + 96, 0);
+	do Memory.poke(memAddress + 128, 0);
+	do Memory.poke(memAddress + 160, 0);
+	do Memory.poke(memAddress + 192, 0);
+	do Memory.poke(memAddress + 224, 0);
+	do Memory.poke(memAddress + 256, 0);
+	do Memory.poke(memAddress + 288, 0);
+	do Memory.poke(memAddress + 320, 0);
+	do Memory.poke(memAddress + 352, 0);
+	do Memory.poke(memAddress + 384, 0);
+	do Memory.poke(memAddress + 416, 0);
+	do Memory.poke(memAddress + 448, 0);
+	do Memory.poke(memAddress + 480, 0);
+	do Memory.poke(memAddress + 512, 0);
+	do Memory.poke(memAddress + 544, 0);
+	do Memory.poke(memAddress + 576, 0);
+	return;
 	}
 
 
@@ -76,7 +99,7 @@ class Fruit {
    method void startFalling() {
    if (y < 230) {
 		do erase();
-		let y = y + 7;
+		let y = y + 9;
 		do draw();
 		do Sys.wait(5);
    }
@@ -94,5 +117,10 @@ class Fruit {
 	method int getY () {
 		return y;
 	}
+	
+	method int getType () {
+		return type;
+	}
+
 }
 
