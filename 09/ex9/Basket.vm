@@ -1,5 +1,5 @@
 function Basket.new 0
-push constant 4
+push constant 5
 call Memory.alloc 1
 pop pointer 0
 push argument 0
@@ -10,6 +10,8 @@ push constant 10
 pop this 2
 push constant 10
 pop this 3
+push constant 3
+pop this 4
 push pointer 0
 call Basket.draw 1
 pop temp 0
@@ -51,56 +53,76 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 5
+push this 4
 add
 push this 1
 push constant 5
 add
 push this 0
-push constant 45
+push constant 50
 add
+push this 4
+sub
 push this 1
 push constant 10
 add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 10
+push constant 2
+push this 4
+call Math.multiply 2
 add
 push this 1
 push constant 10
 add
 push this 0
-push constant 40
+push constant 50
 add
+push constant 2
+push this 4
+call Math.multiply 2
+sub
 push this 1
 push constant 15
 add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 15
+push constant 3
+push this 4
+call Math.multiply 2
 add
 push this 1
 push constant 15
 add
 push this 0
-push constant 35
+push constant 50
 add
+push constant 3
+push this 4
+call Math.multiply 2
+sub
 push this 1
 push constant 20
 add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 20
+push constant 4
+push this 4
+call Math.multiply 2
 add
 push this 1
 push constant 20
 add
 push this 0
-push constant 30
+push constant 50
 add
+push constant 4
+push this 4
+call Math.multiply 2
+sub
 push this 1
 push constant 25
 add
@@ -125,56 +147,76 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 5
+push this 4
 add
 push this 1
 push constant 5
 add
 push this 0
-push constant 45
+push constant 50
 add
+push this 4
+sub
 push this 1
 push constant 10
 add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 10
+push constant 2
+push this 4
+call Math.multiply 2
 add
 push this 1
 push constant 10
 add
 push this 0
-push constant 40
+push constant 50
 add
+push constant 2
+push this 4
+call Math.multiply 2
+sub
 push this 1
 push constant 15
 add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 15
+push constant 3
+push this 4
+call Math.multiply 2
 add
 push this 1
 push constant 15
 add
 push this 0
-push constant 35
+push constant 50
 add
+push constant 3
+push this 4
+call Math.multiply 2
+sub
 push this 1
 push constant 20
 add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 20
+push constant 4
+push this 4
+call Math.multiply 2
 add
 push this 1
 push constant 20
 add
 push this 0
-push constant 30
+push constant 50
 add
+push constant 4
+push this 4
+call Math.multiply 2
+sub
 push this 1
 push constant 25
 add
@@ -209,7 +251,11 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 45
+push constant 50
+push constant 1
+push this 4
+call Math.multiply 2
+sub
 push this 3
 sub
 add
@@ -217,15 +263,23 @@ push this 1
 push constant 5
 add
 push this 0
-push constant 45
+push constant 50
 add
+push constant 1
+push this 4
+call Math.multiply 2
+sub
 push this 1
 push constant 10
 add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 40
+push constant 50
+push constant 2
+push this 4
+call Math.multiply 2
+sub
 push this 3
 sub
 add
@@ -233,15 +287,23 @@ push this 1
 push constant 10
 add
 push this 0
-push constant 40
+push constant 50
 add
+push constant 2
+push this 4
+call Math.multiply 2
+sub
 push this 1
 push constant 15
 add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 35
+push constant 50
+push constant 3
+push this 4
+call Math.multiply 2
+sub
 push this 3
 sub
 add
@@ -249,15 +311,23 @@ push this 1
 push constant 15
 add
 push this 0
-push constant 35
+push constant 50
 add
+push constant 3
+push this 4
+call Math.multiply 2
+sub
 push this 1
 push constant 20
 add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 30
+push constant 50
+push constant 4
+push this 4
+call Math.multiply 2
+sub
 push this 3
 sub
 add
@@ -265,8 +335,12 @@ push this 1
 push constant 20
 add
 push this 0
-push constant 30
+push constant 50
 add
+push constant 4
+push this 4
+call Math.multiply 2
+sub
 push this 1
 push constant 25
 add
@@ -291,13 +365,17 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 5
+push constant 1
+push this 4
+call Math.multiply 2
 add
 push this 1
 push constant 5
 add
 push this 0
-push constant 5
+push constant 1
+push this 4
+call Math.multiply 2
 add
 push this 3
 add
@@ -307,13 +385,17 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 10
+push constant 2
+push this 4
+call Math.multiply 2
 add
 push this 1
 push constant 10
 add
 push this 0
-push constant 10
+push constant 2
+push this 4
+call Math.multiply 2
 add
 push this 3
 add
@@ -323,13 +405,17 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 15
+push constant 3
+push this 4
+call Math.multiply 2
 add
 push this 1
 push constant 15
 add
 push this 0
-push constant 15
+push constant 3
+push this 4
+call Math.multiply 2
 add
 push this 3
 add
@@ -339,13 +425,17 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 20
+push constant 4
+push this 4
+call Math.multiply 2
 add
 push this 1
 push constant 20
 add
 push this 0
-push constant 20
+push constant 4
+push this 4
+call Math.multiply 2
 add
 push this 3
 add
@@ -382,13 +472,17 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 5
+push constant 1
+push this 4
+call Math.multiply 2
 add
 push this 1
 push constant 5
 add
 push this 0
-push constant 5
+push constant 1
+push this 4
+call Math.multiply 2
 add
 push this 3
 add
@@ -398,13 +492,17 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 10
+push constant 2
+push this 4
+call Math.multiply 2
 add
 push this 1
 push constant 10
 add
 push this 0
-push constant 10
+push constant 2
+push this 4
+call Math.multiply 2
 add
 push this 3
 add
@@ -414,13 +512,17 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 15
+push constant 3
+push this 4
+call Math.multiply 2
 add
 push this 1
 push constant 15
 add
 push this 0
-push constant 15
+push constant 3
+push this 4
+call Math.multiply 2
 add
 push this 3
 add
@@ -430,13 +532,17 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 20
+push constant 4
+push this 4
+call Math.multiply 2
 add
 push this 1
 push constant 20
 add
 push this 0
-push constant 20
+push constant 4
+push this 4
+call Math.multiply 2
 add
 push this 3
 add
@@ -468,7 +574,11 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 45
+push constant 50
+push constant 1
+push this 4
+call Math.multiply 2
+sub
 push this 3
 sub
 add
@@ -476,15 +586,23 @@ push this 1
 push constant 5
 add
 push this 0
-push constant 45
+push constant 50
 add
+push constant 1
+push this 4
+call Math.multiply 2
+sub
 push this 1
 push constant 10
 add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 40
+push constant 50
+push constant 2
+push this 4
+call Math.multiply 2
+sub
 push this 3
 sub
 add
@@ -492,15 +610,23 @@ push this 1
 push constant 10
 add
 push this 0
-push constant 40
+push constant 50
 add
+push constant 2
+push this 4
+call Math.multiply 2
+sub
 push this 1
 push constant 15
 add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 35
+push constant 50
+push constant 3
+push this 4
+call Math.multiply 2
+sub
 push this 3
 sub
 add
@@ -508,15 +634,23 @@ push this 1
 push constant 15
 add
 push this 0
-push constant 35
+push constant 50
 add
+push constant 3
+push this 4
+call Math.multiply 2
+sub
 push this 1
 push constant 20
 add
 call Screen.drawRectangle 4
 pop temp 0
 push this 0
-push constant 30
+push constant 50
+push constant 4
+push this 4
+call Math.multiply 2
+sub
 push this 3
 sub
 add
@@ -524,8 +658,12 @@ push this 1
 push constant 20
 add
 push this 0
-push constant 30
+push constant 50
 add
+push constant 4
+push this 4
+call Math.multiply 2
+sub
 push this 1
 push constant 25
 add
@@ -595,4 +733,9 @@ push pointer 0
 call Basket.draw 1
 pop temp 0
 push constant 0
+return
+function Basket.getDiff 0
+push argument 0
+pop pointer 0
+push this 4
 return

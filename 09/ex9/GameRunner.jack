@@ -7,7 +7,10 @@ class GameRunner {
 	field int score;
 	field int numOfDrops;
 	field int numOfBombs;
-
+	field int life;
+	field boolean gameOver;
+	field boolean exit;
+	
 	
 	/** Constructs a new Square Game. */
 	constructor GameRunner new() {
@@ -16,6 +19,9 @@ class GameRunner {
 		let score = 0;
 		let numOfDrops = 5;
 		let numOfBombs = 2;
+		let life = 3;
+		let gameOver = false;
+		let exit = false;
 		do generateDrops();
 		do generateBombs();
 		do gameBoard();
@@ -23,7 +29,7 @@ class GameRunner {
     }
 	
 	method void updateGame() {
-		var int speed;
+		var int new_speed;
 		var int i;
 		var Drop d;
 		var Bomb b;
@@ -38,8 +44,11 @@ class GameRunner {
 			if (isCollision) {
 				do d.erase();
 				do basket.blink();
-				let speed = d.getSpeed();
-				let allDrops[i] = Drop.new(d.getX(),(speed+1));
+				let new_speed = (d.getSpeed()+1);
+				if (new_speed > 19) {
+					let new_speed = 19;				
+				} 
+				let allDrops[i] = Drop.new(d.getX(),(new_speed));
 				do d.dispose();
 				do printScore();
 				
@@ -57,9 +66,13 @@ class GameRunner {
 			if (isCollision) {
 				do b.erase();
 				do basket.blink();
-				let allBombs[i] = Bomb.new(b.getX());
+				let allBombs[i] = Bomb.new(Math.divide(b.getX(),16));
 				do b.dispose();
 				do printScore();
+				do printLife();
+				if (gameOver){
+					do printGameOver();
+				}
 				
 			}
 			let i = i + 1;
@@ -71,13 +84,12 @@ class GameRunner {
 		if (direction = 2) {	// right key pressed
 			do basket.moveRight();
 		}
+	do basket.draw();
 	return;
 	}
    	
 	method void runFullGame() {
 		var char key;
-		var boolean exit;
-		let exit = false;
       
 		while (~exit) {
 			// waits for a key to be pressed
@@ -115,7 +127,7 @@ class GameRunner {
 		let allBombs = Array.new(numOfBombs);
 		let i = 0;
 		while(i<numOfBombs) {
-			let allBombs[i] = Bomb.new((i*i*10)+50);
+			let allBombs[i] = Bomb.new((i*10)+10);
 			let i = i + 1;
 		}
 		return;
@@ -131,26 +143,39 @@ class GameRunner {
 		let dx = d.getX();
 		let dy = d.getY();
 
-		if ((dx > xBasket) & (dx < (xBasket+50)) & (dy > (yBasket-4)) & (dy < (yBasket+5))) {
+		if ((dx > xBasket) & (dx < (xBasket+50)) & (dy > (yBasket-4)) & (dy < (yBasket+10))) {
 			let score = score + 1;
 			return true;
 		}
+		let xBasket = (xBasket - basket.getDiff());
+		let yBasket = yBasket + 5;
+		if ((dx > xBasket) & (dx < (xBasket+50-basket.getDiff())) & (dy > (yBasket-4)) & (dy < (yBasket+10))) {
+			let score = score + 1;
+			return true;
+		}
+
 	return false;
 	}
 	
 	
 	method boolean checkCollisionBomb(Bomb b){
 		var int xBasket;
+		var int yBasket;
 		var int bx;
 		var int by;
 		let xBasket = basket.getX();
+		let yBasket = basket.getY();
 		let bx = b.getX();
 		let by = b.getY();
 
-		if ((10<by) & (by<14) & (xBasket< Math.multiply(bx,16)) & ((Math.multiply(bx,16)<xBasket+50))) {
+		if (((yBasket-17) < by) & (by < yBasket)& (xBasket-15< bx) & (bx < (xBasket+50))) {
 			let score = score - 2;
 			if (score < 0){
 				let score = 0;
+			}
+			let life = life -1;
+			if (life = 0){
+				let gameOver = true;
 			}
 			return true;
 		}
@@ -159,16 +184,31 @@ class GameRunner {
 	
 	
 	method void printScore() {
-		do Output.moveCursor(0,46);
+		do Output.moveCursor(0,45);
 		do Output.printInt(score);
 		return;
 	}
 	
 	method void gameBoard () {
 		do Output.moveCursor(0,1);
-		do Output.printString("HUNGRY BASKET                    Game Score: ");
+		do Output.printString(" for exit press q  HUNGRY BASKET  Game Score:      Life: ");
 		do printScore();
+		do printLife();
 		
+		return;
+	}
+	
+	method void printLife() {
+		do Output.moveCursor(0,58);
+		do Output.printInt(life);
+		return;
+	}
+	method void printGameOver(){
+		do Screen.clearScreen();
+		do Output.moveCursor(20,200);
+		do Output.printString("GAME OVER! NOW EXITING");
+		do Sys.wait(30);
+		let exit = true;
 		return;
 	}
 

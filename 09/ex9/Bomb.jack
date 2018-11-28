@@ -6,7 +6,7 @@ class Bomb {
    /** Constructs a new bomb with a given location and size. */
    constructor Bomb new(int Ax) {
       let x = Ax;
-      let y = 1;
+      let y = 10;
       do draw();
       return this;
 	}
@@ -20,7 +20,7 @@ class Bomb {
    /** Draws the bomb on the screen. */
    method void draw() {
 		var int memAddress;
-		let memAddress = 16384 + Math.multiply(512,y) + x;
+		let memAddress = 16384 + Math.multiply(32,y) + x;
 		do Memory.poke(memAddress + 0, 256);
 		do Memory.poke(memAddress + 32, 256);
 		do Memory.poke(memAddress + 64, 256);
@@ -48,7 +48,7 @@ class Bomb {
    /** Draws the bomb on the screen. */
    method void erase() {
 		var int memAddress;
-		let memAddress = 16384 + Math.multiply(512,y) + x;
+		let memAddress = 16384 + Math.multiply(32,y) + x;
 		do Memory.poke(memAddress + 0, 0);
 		do Memory.poke(memAddress + 32, 0);
 		do Memory.poke(memAddress + 64, 0);
@@ -74,21 +74,21 @@ class Bomb {
 
    /** Moves the square down by 2 pixels. */
    method void startFalling() {
-   if (y < 14) {
+   if (y < 230) {
 		do erase();
-		let y = y + 1;
+		let y = y + 7;
 		do draw();
 		do Sys.wait(5);
    }
    else {
 		do erase();
-		let y = 2;
+		let y = 10;
    }
     return;
 	}
 	
 	method int getX () {
-		return x;
+		return Math.multiply(x,16);
 	}
 	
 	method int getY () {
