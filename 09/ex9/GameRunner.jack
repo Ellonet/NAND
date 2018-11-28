@@ -1,10 +1,8 @@
 class GameRunner {
 	field int direction;
 	field Basket basket;
-	field Array allDrops;
 	field Array allBombs;
 	field Array allFruits;
-	field int numOfDrops;
 	field int numOfBombs;
 	field int numOfFruits;
 	field int life;
@@ -20,13 +18,11 @@ class GameRunner {
 		let direction = 0;
 		let score = 0;
 		let addLifeCounter =0;
-		let numOfDrops = 1;
 		let numOfBombs = 2;
 		let numOfFruits = 5;
 		let life = 3;
 		let gameOver = false;
 		let exit = false;
-		do generateDrops();
 		do generateBombs();
 		do generateFruits();
 		do gameBoard();
@@ -37,39 +33,11 @@ class GameRunner {
 		var int new_speed;
 		var int i;
 		var int type;
-		var Drop d;
 		var Bomb b;
 		var Fruit f;
 		var boolean isCollision;
 		let i = 0;
-		
-		// go throw all the drops
-		while (i<numOfDrops) {
-			let d = allDrops[i];
-			do d.startFalling();
-			let isCollision = checkCollision(d);
-			if (isCollision) {
-				do d.erase();
-				do basket.blink();
-				if (addLifeCounter = 20 ){
-					let life = life + 1;
-					do printLife();
-					let addLifeCounter = 0;
-				}
-				let new_speed = (d.getSpeed()+1);
-				if (new_speed > 19) {
-					let new_speed = 19;				
-				} 
-				let allDrops[i] = Drop.new(d.getX(),(new_speed));
-				do d.dispose();
-				do printScore();
 				
-			}
-			let i = i + 1;
-		}
-		
-		let i = 0;
-		
 		// go throw all the bombs
 		while (i<numOfBombs) {
 			let b = allBombs[i];
@@ -86,13 +54,11 @@ class GameRunner {
 					do printGameOver();
 					return;
 				}
-				
 			}
 			let i = i + 1;
 		}
 
 		let i = 0;
-
 		// go throw all the fruits
 		while (i<numOfFruits) {
 			let f = allFruits[i];
@@ -127,7 +93,6 @@ class GameRunner {
    	
 	method void runFullGame() {
 		var char key;
-      
 		while (~exit) {
 			// waits for a key to be pressed
 			while (key = 0) {
@@ -151,18 +116,7 @@ class GameRunner {
 		} // end of while loop
 		return;
 	}
-	
-	method void generateDrops() {
-		var int i;
-		let allDrops = Array.new(numOfDrops);
-		let i = 0;
-		while(i<numOfDrops) {
-			let allDrops[i] = Drop.new((i*i*20)+30,5);
-			let i = i + 1;
-		}
-		return;
-	}
-	
+		
 	method void generateBombs() {
 		var int i;
 		let allBombs = Array.new(numOfBombs);
@@ -183,32 +137,6 @@ class GameRunner {
 			let j = j + 1;
 		}
 		return;
-	}
-	
-	method boolean checkCollision(Drop d){
-		var int xBasket;
-		var int yBasket;
-		var int dx;
-		var int dy;
-		let xBasket = basket.getX();
-		let yBasket = basket.getY();
-		let dx = d.getX();
-		let dy = d.getY();
-
-		if ((dx > xBasket) & (dx < (xBasket+50)) & (dy > (yBasket-4)) & (dy < (yBasket+10))) {
-			let score = score + 1;
-			let addLifeCounter = addLifeCounter + 1;
-			return true;
-		}
-		let xBasket = (xBasket - basket.getDiff());
-		let yBasket = yBasket + 5;
-		if ((dx > xBasket) & (dx < (xBasket+50-basket.getDiff())) & (dy > (yBasket-4)) & (dy < (yBasket+10))) {
-			let score = score + 1;
-			let addLifeCounter = addLifeCounter + 1;
-			return true;
-		}
-
-	return false;
 	}
 	
 	method boolean checkCollisionFruit(Fruit f){
