@@ -86,8 +86,8 @@ class Bomb {
 		}
 		else {
 			let x = 15 + x;
-		}
-   }
+		}	
+    }
     return;
 	}
 	

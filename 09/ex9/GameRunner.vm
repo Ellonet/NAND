@@ -497,7 +497,7 @@ pop that 0
 push constant 3
 push this 4
 add
-push constant 24
+push constant 20
 pop temp 0
 pop pointer 1
 push temp 0
@@ -505,7 +505,7 @@ pop that 0
 push constant 4
 push this 4
 add
-push constant 12
+push constant 7
 pop temp 0
 pop pointer 1
 push temp 0
@@ -513,7 +513,7 @@ pop that 0
 push constant 5
 push this 4
 add
-push constant 18
+push constant 31
 pop temp 0
 pop pointer 1
 push temp 0
@@ -553,7 +553,7 @@ pop that 0
 push constant 10
 push this 4
 add
-push constant 7
+push constant 12
 pop temp 0
 pop pointer 1
 push temp 0
@@ -569,7 +569,7 @@ pop that 0
 push constant 12
 push this 4
 add
-push constant 21
+push constant 24
 pop temp 0
 pop pointer 1
 push temp 0
@@ -593,7 +593,7 @@ pop that 0
 push constant 15
 push this 4
 add
-push constant 31
+push constant 18
 pop temp 0
 pop pointer 1
 push temp 0

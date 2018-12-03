@@ -127,7 +127,13 @@ class Fruit {
    else {
 		do erase();
 		let y = 10;
-   }
+    		if (x>15) {
+			let x = 31 - x;
+		}
+		else {
+			let x = 15 + x;
+		}	
+	}
     return;
 	}
 	

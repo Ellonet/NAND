@@ -176,19 +176,19 @@ class GameRunner {
 		let locations[0] = 28;
 		let locations[1] = 15;
 		let locations[2] = 5;
-		let locations[3] = 24;
-		let locations[4] = 12;
-		let locations[5] = 18;
+		let locations[3] = 20;
+		let locations[4] = 7;
+		let locations[5] = 31;
 		let locations[6] = 26;
 		let locations[7] = 10;
 		let locations[8] = 13;
 		let locations[9] = 2;
-		let locations[10] = 7;
+		let locations[10] = 12;
 		let locations[11] = 4;
-		let locations[12] = 21;
+		let locations[12] = 24;
 		let locations[13] = 6;
 		let locations[14] = 22;
-		let locations[15] = 31;
+		let locations[15] = 18;
 		let locations[16] = 1;
 		return;	
 	}
