@@ -26,5 +26,6 @@ Each bomb hit results in 1 life lost and 2 points lost.
 If the player earns 10 points without being hit by the bomb - he earns 1 life.
 
 The game will end if the player wins (earns 50 points), loses (0 lives) or presses q.
+We made sure to dispose all non-required elements.
 
 we hope you like it!

@@ -1,9 +1,9 @@
+/** Initializes a new "Hungry busket" game and starts running it. */
 class Main {
     function void main() {
 		var GameRunner game;
 		let game = GameRunner.new();
 		do game.runFullGame();
-		// need to do dispose of everything
 		return;
     }
 }
