@@ -4,8 +4,9 @@ import re
 
 class JackTokenizer:
     # opens the input jack file and gets ready to tokenize it
-    def __init__(self):
-        self.file_string = 'if(x<0){sos="win"}'
+    def __init__(self, all_tokens):
+        self.file_string = all_tokens
+        self.get_tokens()
 
     # are there any more tokens in the input?
     def has_more_tokens(self):
@@ -27,4 +28,3 @@ class JackTokenizer:
             if next:
                 print("<" + token_type + "> " + next_token + " </" + token_type + ">")
                 self.file_string = self.file_string[len(next_token):]
-
