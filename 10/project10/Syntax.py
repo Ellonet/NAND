@@ -2,7 +2,7 @@ keyword = "class|constructor|function|method|field|static|var|int|char|boolean|v
            else|while|return"
 symbol = "\\{|\\}|\\(|\\)|\\[|\\]|\\.|\\||\\;|\\+|\\-|\\*|\\/|\\&|\\||\\<|\\>|\\=|\\~|\\,"
 
-symbol_to_change = {"<": "&lt", ">": "&gt", "\"": "&quot", "&":"&amp"}
+symbol_to_change = {"<": "&lt;", ">": "&gt;", "\"": "&quot;", "&":"&amp;"}
 
 integer_constant_reg = "\d+"
 
@@ -11,4 +11,4 @@ string_constant_reg = "\"[^\n\"]*\""
 identifier_regex = "[a-zA-Z]\w*"
 
 tokens = [(keyword, "keyword"), (symbol, "symbol"), (integer_constant_reg, "integerConstant"),
-          (string_constant_reg, "stringConst"), (identifier_regex, "identifier")]
+          (string_constant_reg, "stringConstant"), (identifier_regex, "identifier")]

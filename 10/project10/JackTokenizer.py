@@ -29,5 +29,7 @@ class JackTokenizer:
             self.file_string = self.file_string[len(next_token):]
             if next_token in Syntax.symbol_to_change.keys():
                 next_token = Syntax.symbol_to_change[next_token]
+            if next_token.startswith("\""):
+                next_token = next_token[1:-1]
             print("<" + token_type + "> " + next_token + " </" + token_type + ">")
         print("</tokens>")
