@@ -7,3 +7,6 @@ integer_constant_reg = "\d+"
 string_constant_reg = "\"[^\n\"]*\""
 
 identifier_regex = "[a-zA-Z]\w*"
+
+tokens = [(keyword, "keyword"), (symbol, "symbol"), (integer_constant_reg, "intConst"),
+          (string_constant_reg, "stringConst"), (identifier_regex, "identifier")]
