@@ -1,5 +1,6 @@
 import re
 COMMAND_MARK = "//"
+QUOTE_MARK = '"'
 DOCUMENTATION = ".*(\/\*\*[^\n]*\*\/)"
 SPACE = " "
 TAB = "\t"
@@ -17,10 +18,18 @@ class JackFileReader:
 		with open(self._path, "r") as file:
 			allLines = file.read().splitlines()
 		for line in allLines:
-			line = line.replace(SPACE, EMPTY_STR)
-			line = line.replace(TAB, EMPTY_STR)
+			quote = line.find(QUOTE_MARK)
+			if (quote >= 0):
+				temp = line.split('"')
+				temp[0] = temp[0].replace(SPACE, EMPTY_STR)
+				temp[0] = temp[0].replace(TAB, EMPTY_STR)
+				temp[2] = temp[2].replace(SPACE, EMPTY_STR)
+				temp[2] = temp[2].replace(TAB, EMPTY_STR)
+				line = '"'.join(temp)
+			else:
+				line = line.replace(SPACE, EMPTY_STR)
+				line = line.replace(TAB, EMPTY_STR)
 			if not (line.startswith(COMMAND_MARK)) and line != EMPTY_STR:
-				## removing all comments
 				in_line_command = line.find(COMMAND_MARK)
 				if in_line_command >= 0:
 					line = line[0:in_line_command]
