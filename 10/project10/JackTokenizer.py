@@ -23,8 +23,11 @@ class JackTokenizer:
 
     # returns the type of the current token as a constant
     def get_tokens(self):
+        print("<tokens>")
         while self.has_more_tokens():
             next_token, token_type = self.advance()
-            if next:
-                print("<" + token_type + "> " + next_token + " </" + token_type + ">")
-                self.file_string = self.file_string[len(next_token):]
+            self.file_string = self.file_string[len(next_token):]
+            if next_token in Syntax.symbol_to_change.keys():
+                next_token = Syntax.symbol_to_change[next_token]
+            print("<" + token_type + "> " + next_token + " </" + token_type + ">")
+        print("</tokens>")
