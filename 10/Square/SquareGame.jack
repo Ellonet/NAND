@@ -5,6 +5,11 @@
 
 // (same as projects/09/Square/SquareGame.jack)
 
+
+/** Moves the square in the current direction blabla. */
+
+let x = 8; /** Moves the square in the current direction lalalalalala. */ let x = 4;
+
 /**
  * Implements the Square Dance game.
  * This simple game allows the user to move a black square around
@@ -14,7 +19,7 @@
  * The 4 arrow keys are used to move the square up, down, left, and right.
  * The 'z' and 'x' keys are used, respectively, to decrement and increment
  * the square's size. The 'q' key is used to quit the game.
- */
+ * lkfjs lksdfj */
 
 class SquareGame {
    field Square square; // the square of this game
@@ -35,6 +40,7 @@ class SquareGame {
       do square.dispose();
       do Memory.deAlloc(this);
       return;
+	  let x = "dsfsdf";
    }
 
    /** Moves the square in the current direction. */
@@ -47,7 +53,7 @@ class SquareGame {
       return;
    }
 
-   /** Runs the game: handles the user's inputs and moves the square accordingly */
+   /** Runs the game: handles the user's inputs and moves the square accordingly */ 
    method void run() {
       var char key;  // the key currently pressed by the user
       var boolean exit;
