@@ -21,35 +21,48 @@ class CompilationEngine:
         self.to_output_file.append("<class>")
         self.depth += 1
         self.__eat('class')
+        # class name
         self.__handle_terminal_exp("<identifier>")
         self.__eat("{")
+        # todo zero or more
         self.compile_class_var_dec()
-        # self.__eat('')
+        # todo zero or more
+        self.compile_subroutine_dec()
+        self.__eat("}")
         self.depth -= 1
         self.to_output_file.append("</class>")
         return
 
     def compile_class_var_dec(self):
-        # compiles a static variable decleration, or a field decleration
-
+        # compiles a static variable declaration, or a field declaration
+        # ('static' | 'field' ) type varName (',' varName)* ';'
         self.to_output_file.append("\t" * self.depth + "<classVarDec>")
         self.depth += 1
 
         self.depth -= 1
+        self.to_output_file.append("\t" * self.depth + "</classVarDec>")
 
         return
 
     def compile_subroutine_dec(self):
-        #
+        # ('constructor' | 'function' | 'method') ('void' | type) subroutineName '(' parameterList ')' subroutineBody
         return
 
     def compile_parameters_list(self):
+        # ( (type varName) (',' type varName)*)?
         return
 
     def compile_subroutine_body(self):
+        # '{' varDec* statements '}'
         return
 
+    # def compile_subroutine_call(self):
+    #     # subroutineName '(' expressionList ')' | ( className | varName) '.' subroutineName  '(' expressionList ')'
+    #     return
+
     def compile_var_dec(self):
+        # 'var' type varName (',' varName)* ';'
+
         return
 
     def compile_statements(self):
@@ -108,9 +121,27 @@ class CompilationEngine:
         return
 
     def compile_do(self):
+        # 'do' subroutineCall ';'
+        self.to_output_file.append("\t" * self.depth + "<do>")
+        self.depth += 1
+        self.__eat("do")
+        # todo subroutine call
+        self.__eat(";")
+        self.depth -= 1
+        self.to_output_file.append("\t" * self.depth + "</do>")
+
         return
 
     def compile_return(self):
+        # 'return' expression? ';'
+        self.to_output_file.append("\t" * self.depth + "<return>")
+        self.depth += 1
+        self.__eat("return")
+        if self.curr_token.split()[1] != ";":
+            self.compile_expression()
+        self.__eat(";")
+        self.depth -= 1
+        self.to_output_file.append("\t" * self.depth + "</return>")
         return
 
     def compile_expression(self):
@@ -151,3 +182,7 @@ class CompilationEngine:
         else:
             self.to_output_file.append("\t" * self.depth + self.curr_token)
             self.curr_token = self.jack_tokens.advance()
+
+    def handel_type(self):
+        # 'int' | 'char' | 'boolean' | className
+        return
