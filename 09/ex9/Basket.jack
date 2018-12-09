@@ -1,11 +1,11 @@
+/** Implements a graphical basket. */
 class Basket {
-	
 	field int x, y;
 	field int size;
 	field int moveSpeed;
 	field int basketDiff; // impacts the shape of the basket
 	
-   /** Constructs a new basket with a given location. */
+	/** Constructs a new basket with a given location. */
 	constructor Basket new(int Ax, int Ay) {
       let x = Ax;
 	  let y = Ay;
@@ -13,84 +13,89 @@ class Basket {
 	  let moveSpeed = 10;
 	  let basketDiff = 3;
 	  return this;
-   }
-	
+	}
+
+	/** Returns the X location of the basket. */	   
 	method int getX() {
-	return x;
+		return x;
 	}
 	
+	/** Returns the X location of the basket. */	   	
 	method int getY() {
-	return y;
+		return y;
 	}
-	
+
+	/** Disposes this basket. */	
 	method void dispose() {
-      do Memory.deAlloc(this);
-      return;
-   }
-   
+		do Memory.deAlloc(this);
+		return;
+	}
+
+	/** Draws the basket on the screen. */   
 	method void draw() {
-	do Screen.setColor(true);
-    do Screen.drawRectangle(x, y, x+50, y+5);
-    do Screen.drawRectangle(x+basketDiff, y+5, x+50 - basketDiff, y+10);
-    do Screen.drawRectangle(x + Math.multiply(2,basketDiff), y+10, x+50 - Math.multiply(2,basketDiff), y+15);
-    do Screen.drawRectangle(x+ Math.multiply(3,basketDiff), y+15, x+50 - Math.multiply(3,basketDiff), y+20);
-    do Screen.drawRectangle(x+ Math.multiply(4,basketDiff), y+20, x+50 - Math.multiply(4,basketDiff), y+25);
-	return;
+		do Screen.setColor(true);
+		do Screen.drawRectangle(x, y, x+50, y+5);
+		do Screen.drawRectangle(x+basketDiff, y+5, x+50 - basketDiff, y+10);
+		do Screen.drawRectangle(x + Math.multiply(2,basketDiff), y+10, x+50 - Math.multiply(2,basketDiff), y+15);
+		do Screen.drawRectangle(x+ Math.multiply(3,basketDiff), y+15, x+50 - Math.multiply(3,basketDiff), y+20);
+		do Screen.drawRectangle(x+ Math.multiply(4,basketDiff), y+20, x+50 - Math.multiply(4,basketDiff), y+25);
+		return;
+	}
 
-   }
-	
+	/** Erases the basket from the screen. */      
 	method void erase() {
-	var int memAddress;
-	do Screen.setColor(false);
-    do Screen.drawRectangle(x, y, x+50, y+5);
-    do Screen.drawRectangle(x+basketDiff, y+5, x+50 - basketDiff, y+10);
-    do Screen.drawRectangle(x + Math.multiply(2,basketDiff), y+10, x+50 - Math.multiply(2,basketDiff), y+15);
-    do Screen.drawRectangle(x+ Math.multiply(3,basketDiff), y+15, x+50 - Math.multiply(3,basketDiff), y+20);
-    do Screen.drawRectangle(x+ Math.multiply(4,basketDiff), y+20, x+50 - Math.multiply(4,basketDiff), y+25);
-	
-	return;
-
+		var int memAddress;
+		do Screen.setColor(false);
+		do Screen.drawRectangle(x, y, x+50, y+5);
+		do Screen.drawRectangle(x+basketDiff, y+5, x+50 - basketDiff, y+10);
+		do Screen.drawRectangle(x + Math.multiply(2,basketDiff), y+10, x+50 - Math.multiply(2,basketDiff), y+15);
+		do Screen.drawRectangle(x+ Math.multiply(3,basketDiff), y+15, x+50 - Math.multiply(3,basketDiff), y+20);
+		do Screen.drawRectangle(x+ Math.multiply(4,basketDiff), y+20, x+50 - Math.multiply(4,basketDiff), y+25);
+		return;
    }   
    
-   method void moveLeft() {
-      if (x > 1) {
-        do Screen.setColor(false);
-        do Screen.drawRectangle(x+(50-moveSpeed), y, x+50, y+5);
-		do Screen.drawRectangle(x+(50-Math.multiply(1,basketDiff)-moveSpeed), y+5, x+50-Math.multiply(1,basketDiff), y+10);
-		do Screen.drawRectangle(x+(50-Math.multiply(2,basketDiff)-moveSpeed), y+10, x+50-Math.multiply(2,basketDiff), y+15);
-		do Screen.drawRectangle(x+(50-Math.multiply(3,basketDiff)-moveSpeed), y+15, x+50-Math.multiply(3,basketDiff), y+20);
-		do Screen.drawRectangle(x+(50-Math.multiply(4,basketDiff)-moveSpeed), y+20, x+50-Math.multiply(4,basketDiff), y+25);
-		let x = x - moveSpeed;
-        do Screen.setColor(true);
-		do Screen.drawRectangle(x, y, x + moveSpeed, y+5);
-		do Screen.drawRectangle(x+Math.multiply(1,basketDiff), y+5, x + Math.multiply(1,basketDiff) + moveSpeed, y+10);
-		do Screen.drawRectangle(x+Math.multiply(2,basketDiff), y+10, x + Math.multiply(2,basketDiff) + moveSpeed, y+15);
-		do Screen.drawRectangle(x+Math.multiply(3,basketDiff), y+15, x + Math.multiply(3,basketDiff) + moveSpeed, y+20);
-		do Screen.drawRectangle(x+Math.multiply(4,basketDiff), y+20, x + Math.multiply(4,basketDiff) + moveSpeed, y+25);
-      }
-      return;
-   }
+	/** Moves the basket to the left */
+	method void moveLeft() {
+		if (x > 1) {
+			do Screen.setColor(false);
+			do Screen.drawRectangle(x+(50-moveSpeed), y, x+50, y+5);
+			do Screen.drawRectangle(x+(50-Math.multiply(1,basketDiff)-moveSpeed), y+5, x+50-Math.multiply(1,basketDiff), y+10);
+			do Screen.drawRectangle(x+(50-Math.multiply(2,basketDiff)-moveSpeed), y+10, x+50-Math.multiply(2,basketDiff), y+15);
+			do Screen.drawRectangle(x+(50-Math.multiply(3,basketDiff)-moveSpeed), y+15, x+50-Math.multiply(3,basketDiff), y+20);
+			do Screen.drawRectangle(x+(50-Math.multiply(4,basketDiff)-moveSpeed), y+20, x+50-Math.multiply(4,basketDiff), y+25);
+			let x = x - moveSpeed;
+			do Screen.setColor(true);
+			do Screen.drawRectangle(x, y, x + moveSpeed, y+5);
+			do Screen.drawRectangle(x+Math.multiply(1,basketDiff), y+5, x + Math.multiply(1,basketDiff) + moveSpeed, y+10);
+			do Screen.drawRectangle(x+Math.multiply(2,basketDiff), y+10, x + Math.multiply(2,basketDiff) + moveSpeed, y+15);
+			do Screen.drawRectangle(x+Math.multiply(3,basketDiff), y+15, x + Math.multiply(3,basketDiff) + moveSpeed, y+20);
+			do Screen.drawRectangle(x+Math.multiply(4,basketDiff), y+20, x + Math.multiply(4,basketDiff) + moveSpeed, y+25);
+		}
+		return;
+	}
 
-   method void moveRight() {
-      if ((x + 50) < 510) {
-		do Screen.setColor(false);
-        do Screen.drawRectangle(x, y, x + moveSpeed, y+5);
-		do Screen.drawRectangle(x+Math.multiply(1,basketDiff), y+5, x + Math.multiply(1,basketDiff) + moveSpeed, y+10);
-		do Screen.drawRectangle(x+Math.multiply(2,basketDiff), y+10, x + Math.multiply(2,basketDiff) + moveSpeed, y+15);
-		do Screen.drawRectangle(x+Math.multiply(3,basketDiff), y+15, x + Math.multiply(3,basketDiff) + moveSpeed, y+20);
-		do Screen.drawRectangle(x+Math.multiply(4,basketDiff), y+20, x + Math.multiply(4,basketDiff) + moveSpeed, y+25);
-		let x = x + moveSpeed;
-        do Screen.setColor(true);
-		do Screen.drawRectangle(x+(50-moveSpeed), y, x+50, y+5);
-		do Screen.drawRectangle(x+(50-Math.multiply(1,basketDiff)-moveSpeed), y+5, x+50-Math.multiply(1,basketDiff), y+10);
-		do Screen.drawRectangle(x+(50-Math.multiply(2,basketDiff)-moveSpeed), y+10, x+50-Math.multiply(2,basketDiff), y+15);
-		do Screen.drawRectangle(x+(50-Math.multiply(3,basketDiff)-moveSpeed), y+15, x+50-Math.multiply(3,basketDiff), y+20);
-		do Screen.drawRectangle(x+(50-Math.multiply(4,basketDiff)-moveSpeed), y+20, x+50-Math.multiply(4,basketDiff), y+25);
-      }
-      return;
-   }
+	/** Moves the basket to the right */
+	method void moveRight() {
+		if ((x + 50) < 510) {
+			do Screen.setColor(false);
+			do Screen.drawRectangle(x, y, x + moveSpeed, y+5);
+			do Screen.drawRectangle(x+Math.multiply(1,basketDiff), y+5, x + Math.multiply(1,basketDiff) + moveSpeed, y+10);
+			do Screen.drawRectangle(x+Math.multiply(2,basketDiff), y+10, x + Math.multiply(2,basketDiff) + moveSpeed, y+15);
+			do Screen.drawRectangle(x+Math.multiply(3,basketDiff), y+15, x + Math.multiply(3,basketDiff) + moveSpeed, y+20);
+			do Screen.drawRectangle(x+Math.multiply(4,basketDiff), y+20, x + Math.multiply(4,basketDiff) + moveSpeed, y+25);
+			let x = x + moveSpeed;
+			do Screen.setColor(true);
+			do Screen.drawRectangle(x+(50-moveSpeed), y, x+50, y+5);
+			do Screen.drawRectangle(x+(50-Math.multiply(1,basketDiff)-moveSpeed), y+5, x+50-Math.multiply(1,basketDiff), y+10);
+			do Screen.drawRectangle(x+(50-Math.multiply(2,basketDiff)-moveSpeed), y+10, x+50-Math.multiply(2,basketDiff), y+15);
+			do Screen.drawRectangle(x+(50-Math.multiply(3,basketDiff)-moveSpeed), y+15, x+50-Math.multiply(3,basketDiff), y+20);
+			do Screen.drawRectangle(x+(50-Math.multiply(4,basketDiff)-moveSpeed), y+20, x+50-Math.multiply(4,basketDiff), y+25);
+		}
+		return;
+	}
    
-   method void blink() {
+	/** Makes the basket blink (used in case of a hit)*/
+	method void blink() {
 		do erase();
 		do Sys.wait(15);
 		do draw();
@@ -113,7 +118,8 @@ class Basket {
 		return;
 	}
 	
+	/** returns the basketDiff value */
 	method int getDiff(){
 		return basketDiff;
-		}
+	}
 }

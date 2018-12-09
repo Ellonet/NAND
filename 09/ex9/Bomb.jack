@@ -1,24 +1,24 @@
 /** Implements a graphical bomb. */
 class Bomb {
 
-   field int x, y; // screen location of the bomb's top-left corner
+	field int x, y; // screen location of the bomb's top-left corner
 
-   /** Constructs a new bomb with a given location and size. */
-   constructor Bomb new(int Ax) {
-      let x = Ax;
-      let y = 10;
-      do draw();
-      return this;
+	/** Constructs a new bomb with a given location and size. */
+	constructor Bomb new(int Ax) {
+		let x = Ax;
+		let y = 10;
+		do draw();
+		return this;
 	}
 
-   /** Disposes this bomb. */
-   method void dispose() {
-      do Memory.deAlloc(this);
-      return;
+	/** Disposes this bomb. */
+	method void dispose() {
+		do Memory.deAlloc(this);
+		return;
 	}
 
-   /** Draws the bomb on the screen. */
-   method void draw() {
+	/** Draws the bomb on the screen. */
+	method void draw() {
 		var int memAddress;
 		let memAddress = 16384 + Math.multiply(32,y) + x;
 		do Memory.poke(memAddress + 0, 896);
@@ -43,8 +43,8 @@ class Bomb {
 		return;
 	}
 
-   /** Draws the bomb on the screen. */
-   method void erase() {
+	/** Erases the bomb from the screen. */
+	method void erase() {
 		var int memAddress;
 		let memAddress = 16384 + Math.multiply(32,y) + x;
 		do Memory.poke(memAddress + 0, 0);
@@ -70,25 +70,33 @@ class Bomb {
 	}
 
 
-   /** Moves the square down by 2 pixels. */
-   method void startFalling() {
-   if (y < 230) {
+	/** Moves the bomb down by 1 line. */
+	method void startFalling() {
+	if (y < 230) {
 		do erase();
 		let y = y + 7;
 		do draw();
 		do Sys.wait(5);
-   }
-   else {
+	}
+	else {
 		do erase();
 		let y = 10;
-   }
+		if (x>15) {
+			let x = 31 - x;
+		}
+		else {
+			let x = 15 + x;
+		}	
+    }
     return;
 	}
 	
+	/** Returns the X location of the bomb. */	
 	method int getX () {
 		return Math.multiply(x,16);
 	}
-	
+
+	/** Returns the Y location of the bomb. */		
 	method int getY () {
 		return y;
 	}
