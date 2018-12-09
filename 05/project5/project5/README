@@ -1,0 +1,22 @@
+ellonet, zoharb
+===============================================================================
+Ella Duvdevan, ID 305564866, ella.duvdevan@mail.huji.ac.il
+Zohar Bouchnik, ID 311142293, zohar.bouchnik@mail.huji.ac.il
+===============================================================================
+
+                           Project 5 - Computer Architecture
+                           ---------------------------------- 
+  
+
+Submitted Files
+---------------
+README - This file. A description of the project
+Computer.hdl : The platform's top-most chip. combines the work of the ROM32K, Memory and CPU
+CPU.hdl : The Hack CPU- central processing unit
+CpuMul.hdl : This chip is an extension of the book CPU by using the extended ALU.
+ExtendAlu.hdl : an extension of the book's ALU. can also perform multiplication and shift 
+Memory.hdl : Entire RAM address space.
+
+Remarks
+-------
+None

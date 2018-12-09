@@ -1,0 +1,24 @@
+ellonet, zoharb
+===============================================================================
+Ella Duvdevan, ID 305564866, ella.duvdevan@mail.huji.ac.il
+Zohar Bouchnik, ID 311142293, zohar.bouchnik@mail.huji.ac.il
+===============================================================================
+
+                           Project 8 - Virtual Machine II - Program Control
+                           ------------------------------------------------
+
+
+Submitted Files
+---------------
+README - This file. A description of the project
+CodeWriter.py : writes the assembler code that implements the parsed command
+help_tables.py : this file holds the dictionaries that do the translation between vm language to assembler language
+Main.py : drives the process
+Parser.py : parses each VM command into its lexical elements
+MakeFile : the make file of the project
+VMtranslator : runs the main function
+
+Remarks
+-------
+We have updated our VM translator with additional functionality - allowing the usage of if,if-go lables 
+and also supporting classes and function calling.

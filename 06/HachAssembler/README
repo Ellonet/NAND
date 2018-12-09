@@ -1,0 +1,29 @@
+ellonet, zoharb
+===============================================================================
+Ella Duvdevan, ID 305564866, ella.duvdevan@mail.huji.ac.il
+Zohar Bouchnik, ID 311142293, zohar.bouchnik@mail.huji.ac.il
+===============================================================================
+
+										Project 6 - Assembler
+                                        ---------------------
+  
+
+Submitted Files
+---------------	
+README - This file. A description of the project
+
+Assembler.py - 	The main program that runs the translation from Assembler(Hack) language to binary code.
+				Could be given a path to a single ASM file, or a path to a directory containing multiple ASM files. 
+
+AssemblerTranslator.py - A class representing a Hack-to-binary translator of a single ASM file.
+
+BinaryTables.py - 	A help file for the AssemblerTranslator, containing all the relevant dictionaries 
+					to be used in order to translate known C,J and D commnds to binary.
+
+Parser.py - A class representing an ASM file parser - responsible for reading a single ASM file while removing empty lines and comments.
+			Returns only the raw Assembler(Hack) commands.
+
+
+Remarks
+-------
+None
