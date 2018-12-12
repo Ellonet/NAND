@@ -2,17 +2,24 @@ from JackTokenizer import JackTokenizer
 from JackFileReader import JackFileReader
 import Syntax
 
+# ________________________constants___________________________
 VAR_DECS = ["static", "field"]
 SUB_ROUTINES = ["constructor", "function", "method"]
 IDENTIFIER = "<identifier>"
 END_TERMS = ["<stringConstant>", "<integerConstant>", "<keyword>"]
 
 
-# generates the compilers output
-
-
 class CompilationEngine:
+    """
+    generates the compilers output
+    """
+
     def __init__(self, input_file, output_file):
+        """
+        the constructor of the class
+        :param input_file: the jack file that the user want to compile
+        :param output_file: the path for the output xml file
+        """
         self.file_reader = JackFileReader(input_file)
         self.jack_tokens = JackTokenizer(self.file_reader.get_one_liner())
         self.curr_token = self.jack_tokens.advance()
@@ -22,6 +29,9 @@ class CompilationEngine:
         self.export_file(output_file)
 
     def compile_class(self):
+        """
+        Compiles a complete class.
+        """
         self.to_output_file.append("<class>")
         self.depth += 1
         self.__eat('class')
@@ -40,6 +50,10 @@ class CompilationEngine:
         return
 
     def compile_class_var_dec(self):
+        """
+        Compiles a static declaration or a field declaration.
+        :return:
+        """
         # compiles a static variable declaration, or a field declaration
         # ('static' | 'field' ) type varName (',' varName)* ';'
         self.to_output_file.append("  " * self.depth + "<classVarDec>")
@@ -57,6 +71,10 @@ class CompilationEngine:
         return
 
     def compile_subroutine_dec(self):
+        """
+        Compiles a complete method, function, or constructor.
+        :return:
+        """
         # ('constructor' | 'function' | 'method') ('void' | type) subroutineName '(' parameterList ')' subroutineBody
         self.to_output_file.append("  " * self.depth + "<subroutineDec>")
         self.depth += 1
@@ -74,6 +92,10 @@ class CompilationEngine:
         return
 
     def compile_parameters_list(self):
+        """
+        Compiles a (possibly empty) parameter list, not including the enclosing “()”.
+        :return:
+        """
         # ( (type varName) (',' type varName)*)?
         self.to_output_file.append("  " * self.depth + "<parameterList>")
         self.depth += 1
@@ -93,6 +115,10 @@ class CompilationEngine:
         return
 
     def compile_subroutine_body(self):
+        """
+        compiles the subroutine body
+        :return:
+        """
         # '{' varDec* statements '}'
         self.to_output_file.append("  " * self.depth + "<subroutineBody>")
         self.depth += 1
@@ -106,6 +132,10 @@ class CompilationEngine:
         return
 
     def compile_var_dec(self):
+        """
+        Compiles a var declaration.
+        :return:
+        """
         # 'var' type varName (',' varName)* ';'
         self.to_output_file.append("  " * self.depth + "<varDec>")
         self.depth += 1
@@ -124,6 +154,10 @@ class CompilationEngine:
         return
 
     def compile_statements(self):
+        """
+        Compiles a sequence of statements, not including the enclosing “{}”.
+        :return:
+        """
         self.to_output_file.append("  " * self.depth + "<statements>")
         self.depth += 1
         statements = True
@@ -146,6 +180,10 @@ class CompilationEngine:
         return
 
     def compile_let(self):
+        """
+        Compiles a let statement.
+        :return:
+        """
         self.to_output_file.append("  " * self.depth + "<letStatement>")
         self.depth += 1
         self.__eat("let")
@@ -163,6 +201,10 @@ class CompilationEngine:
         return
 
     def compile_if(self):
+        """
+        Compiles a if statement.
+        :return:
+        """
         self.to_output_file.append("  " * self.depth + "<ifStatement>")
         self.depth += 1
         self.__eat("if")
@@ -182,6 +224,10 @@ class CompilationEngine:
         return
 
     def compile_while(self):
+        """
+        Compiles a while statement.
+        :return:
+        """
         self.to_output_file.append("  " * self.depth + "<whileStatement>")
         self.depth += 1
         self.__eat('while')
@@ -196,6 +242,10 @@ class CompilationEngine:
         return
 
     def compile_do(self):
+        """
+        Compiles a do statement.
+        :return:
+        """
         # 'do' subroutineCall ';'
         self.to_output_file.append("  " * self.depth + "<doStatement>")
         self.depth += 1
@@ -217,6 +267,10 @@ class CompilationEngine:
         return
 
     def compile_return(self):
+        """
+        Compiles a return statement.
+        :return:
+        """
         # 'return' expression? ';'
         self.to_output_file.append("  " * self.depth + "<returnStatement>")
         self.depth += 1
@@ -229,6 +283,10 @@ class CompilationEngine:
         return
 
     def compile_expression(self):
+        """
+        Compiles a do statement.
+        :return:
+        """
         self.to_output_file.append("  " * self.depth + "<expression>")
         self.depth += 1
         self.compile_term()
@@ -241,6 +299,20 @@ class CompilationEngine:
         return
 
     def compile_term(self):
+        """
+        Compiles a term. This routine is faced with a
+        slight difficulty when trying to decide
+        between some of the alternative parsing rules.
+        Specifically, if the current token is an
+        identifier, the routine must distinguish
+        between a variable, an array entry, and a
+        subroutine call. A single look-ahead token,
+        which may be one of “[“, “(“, or “.”
+        suffices to distinguish between the three
+        possibilities. Any other token is not part of
+        this term and should not be advanced over.
+            :return:
+        """
         self.to_output_file.append("  " * self.depth + "<term>")
         self.depth += 1
         # header, val, ender = self.curr_token.split()
@@ -260,7 +332,6 @@ class CompilationEngine:
             self.__eat(val)
             self.compile_term()
         elif header == IDENTIFIER:
-            # TODO - check if there is another
             next_token = self.jack_tokens.peek().split()[1]
             if next_token == "[":
                 self.__eat(val)
@@ -288,6 +359,10 @@ class CompilationEngine:
         return
 
     def compile_expression_list(self):
+        """
+        Compiles a (possibly empty) comma separated list of expressions.
+        :return:
+        """
         self.to_output_file.append("  " * self.depth + "<expressionList>")
         self.depth += 1
         if self.curr_token.split()[1] != ")":
@@ -300,6 +375,11 @@ class CompilationEngine:
         return
 
     def __eat(self, param):
+        """
+        checks that the right token is the next one, adds it to the output file, and advances the token pointer
+        :param param: the param to compare with the next token
+        :return: throws exception for wrong input
+        """
         token = self.curr_token.split()
         if token[1] != param:
             # print("bad", self.curr_token)
@@ -315,6 +395,12 @@ class CompilationEngine:
                 return
 
     def __eat_by_type(self, param):
+        """
+        checks that the right token is the next one- by type, adds it to the output file,
+        and advances the token pointer
+        :param param: the param to compare with the next token
+        :return: throws exception for wrong input
+        """
         type_ = self.curr_token.split()[0]
         if type_ != param:
             print("bad line!")
@@ -326,7 +412,12 @@ class CompilationEngine:
             self.curr_token = self.jack_tokens.advance()
 
     def export_file(self, output_file):
+        """
+        exports the file with the given path
+        :param output_file: the path
+        :return:
+        """
         with open(output_file, "w") as file:
             for line in self.to_output_file:
-                file.write(line+"\n")
+                file.write(line + "\n")
         return
