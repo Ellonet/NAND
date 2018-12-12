@@ -1,0 +1,219 @@
+// This file is part of www.nand2tetris.org
+        // and the book "The Elements of Computing Systems"
+          // by Nisan and Schocken, MIT Press.
+// File name: projects/07/StackArithmetic/StackTest/StackTest.vm
+
+             // Executes a sequence of arithmetic and logical operations
+// on the stack. 
+push constant 17// on the stack.
+push constant 17//on the stack.
+eq
+push constant 17        // and the book "The Elements of Computing Systems"
+push constant 16
+eq
+push    constant     16
+push constant 17
+eq
+push 		constant  	 	 	 892
+push constant 891
+lt
+push constant 891
+          // by Nisan and Schocken, MIT Press.
+// File name: projects/07/StackArithmetic/StackTest/StackTest.vm
+
+             // Executes a sequence of arithmetic and logical operations
+push constant 892
+lt
+push constant 891//push constant 5000
+push constant 891
+          // by Nisan and Schocken, MIT Press.
+// File name: projects/07/StackArithmetic/StackTest/StackTest.vm
+
+//push constant 6000
+//neg
+//add
+	//push constant 6000
+	//neg
+	//add
+ 		        //push constant 6000
+     		//neg
+	    	//add
+
+
+
+
+             // Executes a sequence of arithmetic and logical operations
+lt
+push constant 32767
+push constant 32766
+gt
+push constant 32766
+push constant 32767
+gt
+push constant 32766
+push constant 32766
+gt
+push constant 57
+   push constant 31
+			push constant 53///sdadasdas asdkjs adjlk;sdjf kjsdhaalk jlkdas
+					add
+push constant 112
+           sub   
+
+
+
+neg //Not even close baby
+and
+push constant 82
+or
+not
+push constant 891//0
+push constant 891
+lt
+push constant 891 // -1
+push constant 892
+lt
+push constant 892 //0
+push constant 891
+lt
+push constant 891//-1
+neg
+push constant 891
+lt
+push constant 891//0
+push constant 892
+neg
+lt
+push constant 892//-1
+neg
+push constant 891
+neg
+lt
+push constant 30000//0
+push constant 30000
+lt
+push constant 30000//-1
+neg
+push constant 30000
+lt
+push constant 30000//0
+push constant 30000
+neg
+lt
+push		   				 		 	 	 constant			 	 892			//0
+neg
+push constant 891                   ///////////////////////ack?
+neg
+gt
+push constant 891//0
+push constant 891
+gt
+push constant 891 // 0
+push constant 892
+gt
+push constant 892 //-1
+push constant 891
+gt
+push constant 891//0
+neg
+push constant 891
+gt
+push constant 891//0
+push constant 892
+neg
+gt
+push constant 892//0
+neg
+push constant 891
+neg
+gt
+
+push constant 30000//0
+neg
+push constant 30000
+eq
+push constant 30000//0
+push constant 30000
+neg
+eq
+push constant 30000//-1
+neg
+push constant 30000
+neg
+eq
+push constant 30000//-1
+push constant 30000
+eq
+push constant 1234
+push constant 12345
+push constant 12
+pop local 3 
+pop local 2 
+pop local 1
+push local 3
+push local 1
+push local 2
+
+push constant 23
+push constant 2345
+push constant 23456
+pop argument 3 
+pop argument 2 
+pop argument 1
+push argument 3
+push argument 1
+push argument 2
+
+push constant 111
+push constant 1110
+push constant 11116
+pop this 3 
+pop this 2 
+pop this 1
+
+pop static 3
+
+push constant 3333
+push constant 33
+push constant 332
+pop that 3 
+pop that 2 
+pop that 1
+
+
+push constant 5000
+push constant 5010
+pop pointer 0 
+pop pointer 1 
+push pointer 1
+push pointer 0
+
+push constant 11
+push constant 10
+push constant 56
+pop this 3 
+pop this 2 
+pop this 1
+
+
+push constant 66
+push constant 98
+push constant 324
+pop that 3 
+pop that 2 
+pop that 1
+
+
+
+
+push static 3
+
+push constant 77
+push constant 88
+push constant 99
+pop temp 3 
+pop temp 2 
+pop temp 1
+push temp 3
+push temp 1
+push temp 2

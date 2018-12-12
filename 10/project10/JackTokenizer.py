@@ -13,9 +13,11 @@ class JackTokenizer:
         return self.curr_token < len(self.list_of_tokens)
 
     def advance(self):
-        to_return = self.list_of_tokens[self.curr_token]
-        self.curr_token += 1
-        return to_return
+        if self.has_more_tokens():
+            to_return = self.list_of_tokens[self.curr_token]
+            self.curr_token += 1
+            return to_return
+        return None
 
     # gets the next token from the input and makes it the return token.
     def get_next_token(self, tokens):
@@ -41,3 +43,6 @@ class JackTokenizer:
             list_of_tokens.append("<" + token_type + "> " + next_token + " </" + token_type + ">")
         # list_of_tokens.append("</tokens>")
         return list_of_tokens
+
+    def peek(self):
+        return self.list_of_tokens[self.curr_token]

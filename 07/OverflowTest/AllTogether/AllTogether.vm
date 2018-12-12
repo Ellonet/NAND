@@ -1,0 +1,65 @@
+// check if 32767 > -32767
+push constant 16384
+push constant 16383
+add
+push constant 16384
+push constant 16383
+add
+neg
+gt
+
+// check if -32767 > 32767
+push constant 16384
+push constant 16383
+add
+neg
+push constant 16384
+push constant 16383
+add
+gt
+
+// check if 32767 < -32767
+push constant 16384
+push constant 16383
+add
+push constant 16384
+push constant 16383
+add
+neg
+lt
+
+// check if -32767 < 32767
+push constant 16384
+push constant 16383
+add
+neg
+push constant 16384
+push constant 16383
+add
+lt
+
+// check if 32767 = -32767
+push constant 16384
+push constant 16383
+add
+push constant 16384
+push constant 16383
+add
+neg
+eq
+
+// check if -32767 = 32767
+push constant 16384
+push constant 16383
+add
+neg
+push constant 16384
+push constant 16383
+add
+eq
+
+
+
+
+
+

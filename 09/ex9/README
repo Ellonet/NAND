@@ -1,0 +1,31 @@
+ellonet, zoharb
+===============================================================================
+Ella Duvdevan, ID 305564866, ella.duvdevan@mail.huji.ac.il
+Zohar Bouchnik, ID 311142293, zohar.bouchnik@mail.huji.ac.il
+===============================================================================
+
+                           Project 9 - High level programming
+                           ---------------------------------
+
+
+Submitted Files
+---------------
+README - This file. A description of the project.
+Main.jack - The main class running the program.
+GameRunner.jack - A class representing a single game.
+Fruit.jack - A class representing a fruit in the game.
+Bomb.jack - A class representing a bomb in the game.
+Basket.jack - A class representing the basket in the game.
+
+Remarks
+-------
+We chose to implement a "Hungry basket" game. The player can control the basket and move it left and right.
+The player has to catch as many fruits as possible, while avoiding the bombs.
+Each fruit is worth 1 point. 
+Each bomb hit results in 1 life lost and 2 points lost. 
+If the player earns 10 points without being hit by the bomb - he earns 1 life.
+
+The game will end if the player wins (earns 50 points), loses (0 lives) or presses q.
+We made sure to dispose all non-required elements.
+
+we hope you like it!
