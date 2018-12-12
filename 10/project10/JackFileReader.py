@@ -1,5 +1,6 @@
 import re
 
+# ________________________constants___________________________
 COMMAND_MARK = "//"
 QUOTE_MARK = '"'
 DOCUMENTATION = ".*(\/\*\*[^\n]*\*\/)"
@@ -9,6 +10,10 @@ EMPTY_STR = ""
 
 
 class JackFileReader:
+    """
+    reads the file while ignoring spaces and comments
+    """
+
     def __init__(self, path):
         self._path = path
         self.__allLines = []
@@ -17,9 +22,13 @@ class JackFileReader:
         self.remove_documentation()
 
     def read_file(self):
+        """
+        the main function of the class
+        :return:
+        """
         with open(self._path, "r") as file:
-            allLines = file.read().splitlines()
-        for line in allLines:
+            all_lines = file.read().splitlines()
+        for line in all_lines:
             quote = line.find(QUOTE_MARK)
             if quote >= 0:
                 temp = line.split('"')
@@ -40,14 +49,26 @@ class JackFileReader:
         self.__oneLiner = "".join(self.__allLines)
 
     def remove_documentation(self):
-        DocumentationReg = re.compile(DOCUMENTATION)
-        matching = re.match(DocumentationReg, self.__oneLiner)
-        while (matching):
+        """
+        cleans the input from comments
+        :return:
+        """
+        documentation_reg = re.compile(DOCUMENTATION)
+        matching = re.match(documentation_reg, self.__oneLiner)
+        while matching:
             self.__oneLiner = self.__oneLiner.replace(matching.group(1), "")
-            matching = re.match(DocumentationReg, self.__oneLiner)
+            matching = re.match(documentation_reg, self.__oneLiner)
 
     def get_lines(self):
+        """
+        getter for the parsed lines of the file
+        :return:
+        """
         return self.__allLines
 
     def get_one_liner(self):
+        """
+        getter for the big string holding all the lines one after the other
+        :return:
+        """
         return self.__oneLiner

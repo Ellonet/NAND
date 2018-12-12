@@ -7,6 +7,17 @@ VAR_DECS = ["static", "field"]
 SUB_ROUTINES = ["constructor", "function", "method"]
 IDENTIFIER = "<identifier>"
 END_TERMS = ["<stringConstant>", "<integerConstant>", "<keyword>"]
+LEFT_BRACKETS = "("
+RIGHT_BRACKETS = ")"
+LEFT_CURLY_BRACKETS = "{"
+RIGHT_CURLY_BRACKETS = "}"
+LEFT_SQUARE_BRACKETS = "["
+RIGHT_SQUARE_BRACKETS = "]"
+EQUAL_SIGN = "="
+INDENTATION = "  "
+COMMA = ","
+SEMI_COLON = ";"
+ONARY_OP = ["-", "~"]
 
 
 class CompilationEngine:
@@ -37,14 +48,14 @@ class CompilationEngine:
         self.__eat('class')
         # class name
         self.__eat_by_type(IDENTIFIER)
-        self.__eat("{")
+        self.__eat(LEFT_CURLY_BRACKETS)
         # zero or more times
         while self.curr_token.split()[1] in VAR_DECS:
             self.compile_class_var_dec()
         # zero or more times
         while self.curr_token.split()[1] in SUB_ROUTINES:
             self.compile_subroutine_dec()
-        self.__eat("}")
+        self.__eat(RIGHT_CURLY_BRACKETS)
         self.depth -= 1
         self.to_output_file.append("</class>")
         return
@@ -56,18 +67,18 @@ class CompilationEngine:
         """
         # compiles a static variable declaration, or a field declaration
         # ('static' | 'field' ) type varName (',' varName)* ';'
-        self.to_output_file.append("  " * self.depth + "<classVarDec>")
+        self.to_output_file.append(INDENTATION * self.depth + "<classVarDec>")
         self.depth += 1
         self.__eat(self.curr_token.split()[1])
         # take the type as is
         self.__eat(self.curr_token.split()[1])
         self.__eat_by_type(IDENTIFIER)
-        while self.curr_token.split()[1] == ",":
-            self.__eat(",")
+        while self.curr_token.split()[1] == COMMA:
+            self.__eat(COMMA)
             self.__eat_by_type(IDENTIFIER)
-        self.__eat(";")
+        self.__eat(SEMI_COLON)
         self.depth -= 1
-        self.to_output_file.append("  " * self.depth + "</classVarDec>")
+        self.to_output_file.append(INDENTATION * self.depth + "</classVarDec>")
         return
 
     def compile_subroutine_dec(self):
@@ -76,19 +87,19 @@ class CompilationEngine:
         :return:
         """
         # ('constructor' | 'function' | 'method') ('void' | type) subroutineName '(' parameterList ')' subroutineBody
-        self.to_output_file.append("  " * self.depth + "<subroutineDec>")
+        self.to_output_file.append(INDENTATION * self.depth + "<subroutineDec>")
         self.depth += 1
         self.__eat(self.curr_token.split()[1])
         # take the return type as is (or void)
         self.__eat(self.curr_token.split()[1])
         # subroutine name
         self.__eat_by_type(IDENTIFIER)
-        self.__eat("(")
+        self.__eat(LEFT_BRACKETS)
         self.compile_parameters_list()
-        self.__eat(")")
+        self.__eat(RIGHT_BRACKETS)
         self.compile_subroutine_body()
         self.depth -= 1
-        self.to_output_file.append("  " * self.depth + "</subroutineDec>")
+        self.to_output_file.append(INDENTATION * self.depth + "</subroutineDec>")
         return
 
     def compile_parameters_list(self):
@@ -97,21 +108,21 @@ class CompilationEngine:
         :return:
         """
         # ( (type varName) (',' type varName)*)?
-        self.to_output_file.append("  " * self.depth + "<parameterList>")
+        self.to_output_file.append(INDENTATION * self.depth + "<parameterList>")
         self.depth += 1
-        if self.curr_token.split()[1] != ")":
+        if self.curr_token.split()[1] != RIGHT_BRACKETS:
             # type
             self.__eat(self.curr_token.split()[1])
             # var mane
             self.__eat_by_type(IDENTIFIER)
-            while self.curr_token.split()[1] == ",":
-                self.__eat(",")
+            while self.curr_token.split()[1] == COMMA:
+                self.__eat(COMMA)
                 # type
                 self.__eat(self.curr_token.split()[1])
                 # var mane
                 self.__eat_by_type(IDENTIFIER)
         self.depth -= 1
-        self.to_output_file.append("  " * self.depth + "</parameterList>")
+        self.to_output_file.append(INDENTATION * self.depth + "</parameterList>")
         return
 
     def compile_subroutine_body(self):
@@ -120,15 +131,15 @@ class CompilationEngine:
         :return:
         """
         # '{' varDec* statements '}'
-        self.to_output_file.append("  " * self.depth + "<subroutineBody>")
+        self.to_output_file.append(INDENTATION * self.depth + "<subroutineBody>")
         self.depth += 1
-        self.__eat("{")
+        self.__eat(LEFT_CURLY_BRACKETS)
         while self.curr_token.split()[1] == "var":
             self.compile_var_dec()
         self.compile_statements()
-        self.__eat("}")
+        self.__eat(RIGHT_CURLY_BRACKETS)
         self.depth -= 1
-        self.to_output_file.append("  " * self.depth + "</subroutineBody>")
+        self.to_output_file.append(INDENTATION * self.depth + "</subroutineBody>")
         return
 
     def compile_var_dec(self):
@@ -137,20 +148,20 @@ class CompilationEngine:
         :return:
         """
         # 'var' type varName (',' varName)* ';'
-        self.to_output_file.append("  " * self.depth + "<varDec>")
+        self.to_output_file.append(INDENTATION * self.depth + "<varDec>")
         self.depth += 1
         self.__eat("var")
         # type
         self.__eat(self.curr_token.split()[1])
         # var mane
         self.__eat_by_type(IDENTIFIER)
-        while self.curr_token.split()[1] == ",":
-            self.__eat(",")
+        while self.curr_token.split()[1] == COMMA:
+            self.__eat(COMMA)
             # var mane
             self.__eat_by_type(IDENTIFIER)
-        self.__eat(";")
+        self.__eat(SEMI_COLON)
         self.depth -= 1
-        self.to_output_file.append("  " * self.depth + "</varDec>")
+        self.to_output_file.append(INDENTATION * self.depth + "</varDec>")
         return
 
     def compile_statements(self):
@@ -158,7 +169,7 @@ class CompilationEngine:
         Compiles a sequence of statements, not including the enclosing “{}”.
         :return:
         """
-        self.to_output_file.append("  " * self.depth + "<statements>")
+        self.to_output_file.append(INDENTATION * self.depth + "<statements>")
         self.depth += 1
         statements = True
         while statements:
@@ -176,7 +187,7 @@ class CompilationEngine:
             else:
                 statements = False
         self.depth -= 1
-        self.to_output_file.append("  " * self.depth + "</statements>")
+        self.to_output_file.append(INDENTATION * self.depth + "</statements>")
         return
 
     def compile_let(self):
@@ -184,20 +195,20 @@ class CompilationEngine:
         Compiles a let statement.
         :return:
         """
-        self.to_output_file.append("  " * self.depth + "<letStatement>")
+        self.to_output_file.append(INDENTATION * self.depth + "<letStatement>")
         self.depth += 1
         self.__eat("let")
         # var name
         self.__eat_by_type(IDENTIFIER)
-        if self.curr_token.split()[1] == "[":
-            self.__eat("[")
+        if self.curr_token.split()[1] == LEFT_SQUARE_BRACKETS:
+            self.__eat(LEFT_SQUARE_BRACKETS)
             self.compile_expression()
-            self.__eat("]")
-        self.__eat("=")
+            self.__eat(RIGHT_SQUARE_BRACKETS)
+        self.__eat(EQUAL_SIGN)
         self.compile_expression()
-        self.__eat(";")
+        self.__eat(SEMI_COLON)
         self.depth -= 1
-        self.to_output_file.append("  " * self.depth + "</letStatement>")
+        self.to_output_file.append(INDENTATION * self.depth + "</letStatement>")
         return
 
     def compile_if(self):
@@ -205,22 +216,22 @@ class CompilationEngine:
         Compiles a if statement.
         :return:
         """
-        self.to_output_file.append("  " * self.depth + "<ifStatement>")
+        self.to_output_file.append(INDENTATION * self.depth + "<ifStatement>")
         self.depth += 1
         self.__eat("if")
-        self.__eat("(")
+        self.__eat(LEFT_BRACKETS)
         self.compile_expression()
-        self.__eat(")")
-        self.__eat("{")
+        self.__eat(RIGHT_BRACKETS)
+        self.__eat(LEFT_CURLY_BRACKETS)
         self.compile_statements()
-        self.__eat("}")
+        self.__eat(RIGHT_CURLY_BRACKETS)
         if self.curr_token.split()[1] == "else":
             self.__eat("else")
-            self.__eat("{")
+            self.__eat(LEFT_CURLY_BRACKETS)
             self.compile_statements()
-            self.__eat("}")
+            self.__eat(RIGHT_CURLY_BRACKETS)
         self.depth -= 1
-        self.to_output_file.append("  " * self.depth + "</ifStatement>")
+        self.to_output_file.append(INDENTATION * self.depth + "</ifStatement>")
         return
 
     def compile_while(self):
@@ -228,7 +239,7 @@ class CompilationEngine:
         Compiles a while statement.
         :return:
         """
-        self.to_output_file.append("  " * self.depth + "<whileStatement>")
+        self.to_output_file.append(INDENTATION * self.depth + "<whileStatement>")
         self.depth += 1
         self.__eat('while')
         self.__eat('(')
@@ -238,7 +249,7 @@ class CompilationEngine:
         self.compile_statements()
         self.__eat('}')
         self.depth -= 1
-        self.to_output_file.append("  " * self.depth + "</whileStatement>")
+        self.to_output_file.append(INDENTATION * self.depth + "</whileStatement>")
         return
 
     def compile_do(self):
@@ -247,7 +258,7 @@ class CompilationEngine:
         :return:
         """
         # 'do' subroutineCall ';'
-        self.to_output_file.append("  " * self.depth + "<doStatement>")
+        self.to_output_file.append(INDENTATION * self.depth + "<doStatement>")
         self.depth += 1
         self.__eat("do")
 
@@ -257,13 +268,13 @@ class CompilationEngine:
         if self.curr_token.split()[1] == ".":
             self.__eat(".")
             self.__eat_by_type(IDENTIFIER)
-        self.__eat("(")
+        self.__eat(LEFT_BRACKETS)
         self.compile_expression_list()
-        self.__eat(")")
+        self.__eat(RIGHT_BRACKETS)
 
-        self.__eat(";")
+        self.__eat(SEMI_COLON)
         self.depth -= 1
-        self.to_output_file.append("  " * self.depth + "</doStatement>")
+        self.to_output_file.append(INDENTATION * self.depth + "</doStatement>")
         return
 
     def compile_return(self):
@@ -272,14 +283,14 @@ class CompilationEngine:
         :return:
         """
         # 'return' expression? ';'
-        self.to_output_file.append("  " * self.depth + "<returnStatement>")
+        self.to_output_file.append(INDENTATION * self.depth + "<returnStatement>")
         self.depth += 1
         self.__eat("return")
-        if self.curr_token.split()[1] != ";":
+        if self.curr_token.split()[1] != SEMI_COLON:
             self.compile_expression()
-        self.__eat(";")
+        self.__eat(SEMI_COLON)
         self.depth -= 1
-        self.to_output_file.append("  " * self.depth + "</returnStatement>")
+        self.to_output_file.append(INDENTATION * self.depth + "</returnStatement>")
         return
 
     def compile_expression(self):
@@ -287,7 +298,7 @@ class CompilationEngine:
         Compiles a do statement.
         :return:
         """
-        self.to_output_file.append("  " * self.depth + "<expression>")
+        self.to_output_file.append(INDENTATION * self.depth + "<expression>")
         self.depth += 1
         self.compile_term()
         while self.curr_token.split()[1] in Syntax.operators:
@@ -295,7 +306,7 @@ class CompilationEngine:
             self.__eat(self.curr_token.split()[1])
             self.compile_term()
         self.depth -= 1
-        self.to_output_file.append("  " * self.depth + "</expression>")
+        self.to_output_file.append(INDENTATION * self.depth + "</expression>")
         return
 
     def compile_term(self):
@@ -313,7 +324,7 @@ class CompilationEngine:
         this term and should not be advanced over.
             :return:
         """
-        self.to_output_file.append("  " * self.depth + "<term>")
+        self.to_output_file.append(INDENTATION * self.depth + "<term>")
         self.depth += 1
         # header, val, ender = self.curr_token.split()
         all = self.curr_token.split()
@@ -323,39 +334,39 @@ class CompilationEngine:
         if header in END_TERMS:
             self.__eat(val)
         # handle in case of (expression)
-        elif val == "(":
-            self.__eat("(")
+        elif val == LEFT_BRACKETS:
+            self.__eat(LEFT_BRACKETS)
             self.compile_expression()
-            self.__eat(")")
+            self.__eat(RIGHT_BRACKETS)
         # case of  onary Op
-        elif val in ["-", "~"]:
+        elif val in ONARY_OP:
             self.__eat(val)
             self.compile_term()
         elif header == IDENTIFIER:
             next_token = self.jack_tokens.peek().split()[1]
-            if next_token == "[":
+            if next_token == LEFT_SQUARE_BRACKETS:
                 self.__eat(val)
-                self.__eat("[")
+                self.__eat(LEFT_SQUARE_BRACKETS)
                 self.compile_expression()
-                self.__eat("]")
+                self.__eat(RIGHT_SQUARE_BRACKETS)
             # subroutine call: subroutineName(expressionList)
-            elif next_token == "(":
+            elif next_token == LEFT_BRACKETS:
                 self.__eat(val)
-                self.__eat("(")
+                self.__eat(LEFT_BRACKETS)
                 self.compile_expression_list()
-                self.__eat(")")
+                self.__eat(RIGHT_BRACKETS)
             # subroutine call: (className|varName).subroutineName(expressionList)
             elif next_token == ".":
                 self.__eat(val)
                 self.__eat(".")
                 self.__eat_by_type(IDENTIFIER)
-                self.__eat("(")
+                self.__eat(LEFT_BRACKETS)
                 self.compile_expression_list()
-                self.__eat(")")
+                self.__eat(RIGHT_BRACKETS)
             else:
                 self.__eat(val)
         self.depth -= 1
-        self.to_output_file.append("  " * self.depth + "</term>")
+        self.to_output_file.append(INDENTATION * self.depth + "</term>")
         return
 
     def compile_expression_list(self):
@@ -363,15 +374,15 @@ class CompilationEngine:
         Compiles a (possibly empty) comma separated list of expressions.
         :return:
         """
-        self.to_output_file.append("  " * self.depth + "<expressionList>")
+        self.to_output_file.append(INDENTATION * self.depth + "<expressionList>")
         self.depth += 1
-        if self.curr_token.split()[1] != ")":
+        if self.curr_token.split()[1] != RIGHT_BRACKETS:
             self.compile_expression()
-            while self.curr_token.split()[1] == ",":
-                self.__eat(",")
+            while self.curr_token.split()[1] == COMMA:
+                self.__eat(COMMA)
                 self.compile_expression()
         self.depth -= 1
-        self.to_output_file.append("  " * self.depth + "</expressionList>")
+        self.to_output_file.append(INDENTATION * self.depth + "</expressionList>")
         return
 
     def __eat(self, param):
@@ -382,14 +393,9 @@ class CompilationEngine:
         """
         token = self.curr_token.split()
         if token[1] != param:
-            # print("bad", self.curr_token)
-            print("bad line!")
-            print("expected:", param)
-            print("got:", self.curr_token.split()[1])
             raise Exception
         else:
-            # print("good", self.curr_token)
-            self.to_output_file.append("  " * self.depth + self.curr_token)
+            self.to_output_file.append(INDENTATION * self.depth + self.curr_token)
             self.curr_token = self.jack_tokens.advance()
             if not self.curr_token:
                 return
@@ -403,12 +409,9 @@ class CompilationEngine:
         """
         type_ = self.curr_token.split()[0]
         if type_ != param:
-            print("bad line!")
-            print("expected:", param)
-            print("got:", self.curr_token.split()[0])
             raise Exception
         else:
-            self.to_output_file.append("  " * self.depth + self.curr_token)
+            self.to_output_file.append(INDENTATION * self.depth + self.curr_token)
             self.curr_token = self.jack_tokens.advance()
 
     def export_file(self, output_file):
