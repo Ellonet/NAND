@@ -1,0 +1,29 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/10/Square/Main.jack
+
+// (derived from projects/09/Square/Main.jack, with testing additions)
+
+/** Initializes a new Square Dance game and starts running it. */
+class Main {
+    static boolean test;    // Added for testing -- there is no static keyword
+                            // in the Square files.
+	field int ella, zohar;
+	field Array arr;
+	static int count, two;
+
+	method int blablabla(int la, String li) {
+	    var boolean shoko;
+		var int oo, ii;
+		
+	    return;
+	}
+	method int liliililili(int yo, String yoyo) {
+	    var boolean caffe;
+		var int pilpelon, melafefon;
+		
+	    return;
+	}
+
+}

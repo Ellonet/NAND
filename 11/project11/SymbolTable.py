@@ -1,3 +1,6 @@
+from collections import defaultdict
+
+
 class SymbolTable:
     def __init__(self):
         """
@@ -8,12 +11,15 @@ class SymbolTable:
         """
         self.class_symbol_table = {}
         self.subroutine_symbol_table = {}
+        self.counter = defaultdict(int)
 
     def start_subroutine(self):
         """
         Starts a new subroutine scope (i.e. erases all names in the previous subroutine’s scope.)
         :return:
         """
+        self.subroutine_symbol_table.clear()
+        self.counter.clear()
         return
 
     def define(self, name, type_, kind):
@@ -25,6 +31,10 @@ class SymbolTable:
         :param kind: STATIC, FIELD, ARG, or VAR
         :return:
         """
+        if kind in ["static", "field"]:
+            self.class_symbol_table[name] = [type_, kind, self.var_count(kind)]
+        else:
+            self.subroutine_symbol_table[name] = [type_, kind, self.var_count(kind)]
         return
 
     def var_count(self, kind):
@@ -33,7 +43,9 @@ class SymbolTable:
         :param kind: STATIC, FIELD, ARG, or VAR
         :return:
         """
-        return
+        count = self.counter[kind]
+        self.counter[kind] += 1
+        return count
 
     def kind_of(self, name):
         """
@@ -42,7 +54,11 @@ class SymbolTable:
         :param name:
         :return: STATIC, FIELD, ARG, VAR, NONE
         """
-        return
+        if name in self.subroutine_symbol_table.keys():
+            return self.subroutine_symbol_table[name][1]
+        elif name in self.class_symbol_table.keys():
+            return self.class_symbol_table[name][1]
+        return None
 
     def type_of(self, name):
         """
@@ -50,7 +66,11 @@ class SymbolTable:
         :param name:
         :return:
         """
-        return
+        if name in self.subroutine_symbol_table.keys():
+            return self.subroutine_symbol_table[name][0]
+        elif name in self.class_symbol_table.keys():
+            return self.class_symbol_table[name][0]
+        return None
 
     def index_of(self, name):
         """
@@ -58,4 +78,9 @@ class SymbolTable:
         :param name:
         :return:
         """
-        return
+        if name in self.subroutine_symbol_table.keys():
+            return self.subroutine_symbol_table[name][2]
+        elif name in self.class_symbol_table.keys():
+            return self.class_symbol_table[name][2]
+        return None
+

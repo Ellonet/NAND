@@ -1,6 +1,8 @@
 from JackTokenizer import JackTokenizer
 from JackFileReader import JackFileReader
 import Syntax
+from SymbolTable import SymbolTable
+from VMWriter import VMWriter
 
 # ________________________constants___________________________
 VAR_DECS = ["static", "field"]
@@ -18,6 +20,8 @@ INDENTATION = "  "
 COMMA = ","
 SEMI_COLON = ";"
 ONARY_OP = ["-", "~"]
+ARG = "argument"
+LCL = "local"
 
 
 class CompilationEngine:
@@ -35,29 +39,35 @@ class CompilationEngine:
         self.jack_tokens = JackTokenizer(self.file_reader.get_one_liner())
         self.curr_token = self.jack_tokens.advance()
         self.to_output_file = []
+        self.symbol_table = SymbolTable()
+        self.vm_writer = VMWriter(output_file)
         self.depth = 0
+        self.class_name = None
         self.compile_class()
-        self.export_file(output_file)
+        print(self.symbol_table.class_symbol_table)
+        print(self.symbol_table.subroutine_symbol_table)
+        self.vm_writer.close()
 
     def compile_class(self):
         """
         Compiles a complete class.
         """
-        self.to_output_file.append("<class>")
-        self.depth += 1
-        self.__eat('class')
-        # class name
-        self.__eat_by_type(IDENTIFIER)
-        self.__eat(LEFT_CURLY_BRACKETS)
+        # advancing beyond 'class'
+        self.next_token()
+        # assign class name
+        self.class_name = self.next_token()
+        # advancing beyond '{'
+        print(self.curr_token)
+        self.next_token()
+        print(self.curr_token)
         # zero or more times
         while self.curr_token.split()[1] in VAR_DECS:
             self.compile_class_var_dec()
         # zero or more times
         while self.curr_token.split()[1] in SUB_ROUTINES:
             self.compile_subroutine_dec()
-        self.__eat(RIGHT_CURLY_BRACKETS)
-        self.depth -= 1
-        self.to_output_file.append("</class>")
+        # advancing beyond '}'
+        self.next_token()
         return
 
     def compile_class_var_dec(self):
@@ -67,18 +77,17 @@ class CompilationEngine:
         """
         # compiles a static variable declaration, or a field declaration
         # ('static' | 'field' ) type varName (',' varName)* ';'
-        self.to_output_file.append(INDENTATION * self.depth + "<classVarDec>")
-        self.depth += 1
-        self.__eat(self.curr_token.split()[1])
-        # take the type as is
-        self.__eat(self.curr_token.split()[1])
-        self.__eat_by_type(IDENTIFIER)
+        var_kind = self.next_token()
+        var_type = self.next_token()
+        var_name = self.next_token()
+        self.symbol_table.define(var_name, var_type, var_kind)
         while self.curr_token.split()[1] == COMMA:
-            self.__eat(COMMA)
-            self.__eat_by_type(IDENTIFIER)
-        self.__eat(SEMI_COLON)
-        self.depth -= 1
-        self.to_output_file.append(INDENTATION * self.depth + "</classVarDec>")
+            # advancing the COMMA
+            self.next_token()
+            var_name = self.next_token()
+            self.symbol_table.define(var_name, var_type, var_kind)
+        # advance beyond ;
+        self.next_token()
         return
 
     def compile_subroutine_dec(self):
@@ -87,13 +96,16 @@ class CompilationEngine:
         :return:
         """
         # ('constructor' | 'function' | 'method') ('void' | type) subroutineName '(' parameterList ')' subroutineBody
-        self.to_output_file.append(INDENTATION * self.depth + "<subroutineDec>")
-        self.depth += 1
-        self.__eat(self.curr_token.split()[1])
-        # take the return type as is (or void)
-        self.__eat(self.curr_token.split()[1])
+        self.symbol_table.start_subroutine()
+        self.symbol_table.define("this", self.class_name, ARG)
+
+        # constructor \ function \ method
+        subroutine_type = self.next_token()
+        # take the return type
+        return_type = self.next_token()
         # subroutine name
-        self.__eat_by_type(IDENTIFIER)
+        subroutine_name = self.next_token()
+
         self.__eat(LEFT_BRACKETS)
         self.compile_parameters_list()
         self.__eat(RIGHT_BRACKETS)
@@ -108,21 +120,17 @@ class CompilationEngine:
         :return:
         """
         # ( (type varName) (',' type varName)*)?
-        self.to_output_file.append(INDENTATION * self.depth + "<parameterList>")
-        self.depth += 1
         if self.curr_token.split()[1] != RIGHT_BRACKETS:
             # type
-            self.__eat(self.curr_token.split()[1])
-            # var mane
-            self.__eat_by_type(IDENTIFIER)
+            par_type = self.next_token()
+            par_name = self.next_token()
+            self.symbol_table.define(par_name, par_type, ARG)
             while self.curr_token.split()[1] == COMMA:
-                self.__eat(COMMA)
-                # type
-                self.__eat(self.curr_token.split()[1])
-                # var mane
-                self.__eat_by_type(IDENTIFIER)
-        self.depth -= 1
-        self.to_output_file.append(INDENTATION * self.depth + "</parameterList>")
+                # advance pass the comma:
+                self.next_token()
+                par_type = self.next_token()
+                par_name = self.next_token()
+                self.symbol_table.define(par_name, par_type, ARG)
         return
 
     def compile_subroutine_body(self):
@@ -148,20 +156,18 @@ class CompilationEngine:
         :return:
         """
         # 'var' type varName (',' varName)* ';'
-        self.to_output_file.append(INDENTATION * self.depth + "<varDec>")
-        self.depth += 1
-        self.__eat("var")
-        # type
-        self.__eat(self.curr_token.split()[1])
-        # var mane
-        self.__eat_by_type(IDENTIFIER)
+        # advance passed "var"
+        self.next_token()
+        var_type = self.next_token()
+        var_name = self.next_token()
+        self.symbol_table.define(var_name, var_type, LCL)
         while self.curr_token.split()[1] == COMMA:
-            self.__eat(COMMA)
-            # var mane
-            self.__eat_by_type(IDENTIFIER)
-        self.__eat(SEMI_COLON)
-        self.depth -= 1
-        self.to_output_file.append(INDENTATION * self.depth + "</varDec>")
+            # advance passed COMMA
+            self.next_token()
+            var_name = self.next_token()
+            self.symbol_table.define(var_name, var_type, LCL)
+        # advance passed ;
+        self.next_token()
         return
 
     def compile_statements(self):
@@ -195,11 +201,17 @@ class CompilationEngine:
         Compiles a let statement.
         :return:
         """
-        self.to_output_file.append(INDENTATION * self.depth + "<letStatement>")
-        self.depth += 1
-        self.__eat("let")
+        # advances passed let
+        self.next_token()
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         # var name
-        self.__eat_by_type(IDENTIFIER)
+        var_name = self.next_token()
+        var_type = self.symbol_table.type_of(var_name)
+        var_kind = self.symbol_table.kind_of(var_name)
+        if var_kind is "field":
+            var_kind = "this"
+        var_index = self.symbol_table.index_of(var_name)
+        # self.vm_writer.write_push(var_kind, var_index)
         if self.curr_token.split()[1] == LEFT_SQUARE_BRACKETS:
             self.__eat(LEFT_SQUARE_BRACKETS)
             self.compile_expression()
@@ -298,15 +310,12 @@ class CompilationEngine:
         Compiles a do statement.
         :return:
         """
-        self.to_output_file.append(INDENTATION * self.depth + "<expression>")
-        self.depth += 1
+
         self.compile_term()
         while self.curr_token.split()[1] in Syntax.operators:
             # op
             self.__eat(self.curr_token.split()[1])
             self.compile_term()
-        self.depth -= 1
-        self.to_output_file.append(INDENTATION * self.depth + "</expression>")
         return
 
     def compile_term(self):
@@ -324,9 +333,6 @@ class CompilationEngine:
         this term and should not be advanced over.
             :return:
         """
-        self.to_output_file.append(INDENTATION * self.depth + "<term>")
-        self.depth += 1
-        # header, val, ender = self.curr_token.split()
         all = self.curr_token.split()
         header = all[0]
         val = all[1]
@@ -400,6 +406,11 @@ class CompilationEngine:
             if not self.curr_token:
                 return
 
+    def next_token(self):
+        to_return = self.curr_token.split()[1]
+        self.curr_token = self.jack_tokens.advance()
+        return to_return
+
     def __eat_by_type(self, param):
         """
         checks that the right token is the next one- by type, adds it to the output file,
@@ -414,13 +425,13 @@ class CompilationEngine:
             self.to_output_file.append(INDENTATION * self.depth + self.curr_token)
             self.curr_token = self.jack_tokens.advance()
 
-    def export_file(self, output_file):
-        """
-        exports the file with the given path
-        :param output_file: the path
-        :return:
-        """
-        with open(output_file, "w") as file:
-            for line in self.to_output_file:
-                file.write(line + "\n")
-        return
+    # def export_file(self, output_file):
+    #     """
+    #     exports the file with the given path
+    #     :param output_file: the path
+    #     :return:
+    #     """
+    #     with open(output_file, "w") as file:
+    #         for line in self.to_output_file:
+    #             file.write(line + "\n")
+    #     return
