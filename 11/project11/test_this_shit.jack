@@ -22,7 +22,15 @@ class Main {
 	method int liliililili(int yo, String yoyo) {
 	    var boolean caffe;
 		var int pilpelon, melafefon;
-		
+		if (x>3){
+			return 5;
+		}
+		else{
+			return 2;
+		}
+		while (x<5){
+			x = x + 1;
+		}
 	    return;
 	}
 

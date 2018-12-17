@@ -22,6 +22,7 @@ SEMI_COLON = ";"
 ONARY_OP = ["-", "~"]
 ARG = "argument"
 LCL = "local"
+NEG = "neg"
 
 
 class CompilationEngine:
@@ -35,6 +36,7 @@ class CompilationEngine:
         :param input_file: the jack file that the user want to compile
         :param output_file: the path for the output xml file
         """
+        self.label_count = 0
         self.file_reader = JackFileReader(input_file)
         self.jack_tokens = JackTokenizer(self.file_reader.get_one_liner())
         self.curr_token = self.jack_tokens.advance()
@@ -105,13 +107,12 @@ class CompilationEngine:
         return_type = self.next_token()
         # subroutine name
         subroutine_name = self.next_token()
-
-        self.__eat(LEFT_BRACKETS)
+        # advance the left brackets
+        self.next_token()
         self.compile_parameters_list()
-        self.__eat(RIGHT_BRACKETS)
+        # advance the right brackets
+        self.next_token()
         self.compile_subroutine_body()
-        self.depth -= 1
-        self.to_output_file.append(INDENTATION * self.depth + "</subroutineDec>")
         return
 
     def compile_parameters_list(self):
@@ -139,15 +140,13 @@ class CompilationEngine:
         :return:
         """
         # '{' varDec* statements '}'
-        self.to_output_file.append(INDENTATION * self.depth + "<subroutineBody>")
-        self.depth += 1
-        self.__eat(LEFT_CURLY_BRACKETS)
+        # pass the left curly brackets
+        self.next_token()
         while self.curr_token.split()[1] == "var":
             self.compile_var_dec()
         self.compile_statements()
-        self.__eat(RIGHT_CURLY_BRACKETS)
-        self.depth -= 1
-        self.to_output_file.append(INDENTATION * self.depth + "</subroutineBody>")
+        # pass the right curly brackets
+        self.next_token()
         return
 
     def compile_var_dec(self):
@@ -175,8 +174,6 @@ class CompilationEngine:
         Compiles a sequence of statements, not including the enclosing “{}”.
         :return:
         """
-        self.to_output_file.append(INDENTATION * self.depth + "<statements>")
-        self.depth += 1
         statements = True
         while statements:
             statement_type = self.curr_token.split()[1]
@@ -192,9 +189,6 @@ class CompilationEngine:
                 self.compile_return()
             else:
                 statements = False
-        self.depth -= 1
-        self.to_output_file.append(INDENTATION * self.depth + "</statements>")
-        return
 
     def compile_let(self):
         """
@@ -228,41 +222,62 @@ class CompilationEngine:
         Compiles a if statement.
         :return:
         """
-        self.to_output_file.append(INDENTATION * self.depth + "<ifStatement>")
-        self.depth += 1
-        self.__eat("if")
-        self.__eat(LEFT_BRACKETS)
+        # advance the if
+        self.next_token()
+        # advance the left brackets
+        self.next_token()
         self.compile_expression()
-        self.__eat(RIGHT_BRACKETS)
-        self.__eat(LEFT_CURLY_BRACKETS)
+        self.vm_writer.write_arithmetic(NEG)
+        label_1 = self.next_label()
+        self.vm_writer.write_if(label_1)
+        # advance the right brackets
+        self.next_token()
+
+        # advance the left curly brackets
+        self.next_token()
+
         self.compile_statements()
-        self.__eat(RIGHT_CURLY_BRACKETS)
+
+        # advance the right curly brackets
+        self.next_token()
+
         if self.curr_token.split()[1] == "else":
-            self.__eat("else")
-            self.__eat(LEFT_CURLY_BRACKETS)
+            # advance the else
+            self.next_token()
+            label_2 = self.next_label()
+            self.vm_writer.write_goto(label_2)
+            self.vm_writer.write_label(label_1)
+            # advance the left curly brackets
+            self.next_token()
             self.compile_statements()
-            self.__eat(RIGHT_CURLY_BRACKETS)
-        self.depth -= 1
-        self.to_output_file.append(INDENTATION * self.depth + "</ifStatement>")
-        return
+            self.vm_writer.write_label(label_2)
+            # advance the right curly brackets
+            self.next_token()
 
     def compile_while(self):
         """
         Compiles a while statement.
         :return:
         """
-        self.to_output_file.append(INDENTATION * self.depth + "<whileStatement>")
-        self.depth += 1
-        self.__eat('while')
-        self.__eat('(')
+        # advance the while
+        self.next_token()
+        # advance the left brackets
+        self.next_token()
+        label_1 = self.next_label()
+        self.vm_writer.write_label(label_1)
         self.compile_expression()
-        self.__eat(')')
-        self.__eat('{')
+        self.vm_writer.write_arithmetic(NEG)
+        label_2 = self.next_label()
+        self.vm_writer.write_if(label_2)
+        # advance the right brackets
+        self.next_token()
+        # advance the left curly brackets
+        self.next_token()
         self.compile_statements()
-        self.__eat('}')
-        self.depth -= 1
-        self.to_output_file.append(INDENTATION * self.depth + "</whileStatement>")
-        return
+        self.vm_writer.write_goto(label_1)
+        self.vm_writer.write_label(label_2)
+        # advance the right curly brackets
+        self.next_token()
 
     def compile_do(self):
         """
@@ -270,9 +285,8 @@ class CompilationEngine:
         :return:
         """
         # 'do' subroutineCall ';'
-        self.to_output_file.append(INDENTATION * self.depth + "<doStatement>")
-        self.depth += 1
-        self.__eat("do")
+        # advance the do
+        self.next_token()
 
         # subroutine call:
         # subroutine name
@@ -285,25 +299,22 @@ class CompilationEngine:
         self.__eat(RIGHT_BRACKETS)
 
         self.__eat(SEMI_COLON)
-        self.depth -= 1
-        self.to_output_file.append(INDENTATION * self.depth + "</doStatement>")
-        return
 
     def compile_return(self):
         """
         Compiles a return statement.
         :return:
         """
-        # 'return' expression? ';'
-        self.to_output_file.append(INDENTATION * self.depth + "<returnStatement>")
-        self.depth += 1
-        self.__eat("return")
+        # advance the return
+        self.next_token()
+
         if self.curr_token.split()[1] != SEMI_COLON:
             self.compile_expression()
-        self.__eat(SEMI_COLON)
-        self.depth -= 1
-        self.to_output_file.append(INDENTATION * self.depth + "</returnStatement>")
-        return
+
+        self.vm_writer.write_return()
+
+        # advance the semi colon
+        self.next_token()
 
     def compile_expression(self):
         """
@@ -425,13 +436,7 @@ class CompilationEngine:
             self.to_output_file.append(INDENTATION * self.depth + self.curr_token)
             self.curr_token = self.jack_tokens.advance()
 
-    # def export_file(self, output_file):
-    #     """
-    #     exports the file with the given path
-    #     :param output_file: the path
-    #     :return:
-    #     """
-    #     with open(output_file, "w") as file:
-    #         for line in self.to_output_file:
-    #             file.write(line + "\n")
-    #     return
+    def next_label(self):
+        count = self.label_count
+        self.label_count += 1
+        return "LABEL" + str(count)

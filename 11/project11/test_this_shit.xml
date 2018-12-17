@@ -1,0 +1,11 @@
+neg
+if-goto LABEL0
+goto LABEL1
+label LABEL0
+label LABEL1
+label writing while:
+label LABEL2
+neg
+if-goto LABEL3
+goto LABEL2
+label LABEL3
