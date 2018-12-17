@@ -11,4 +11,4 @@
 # The "all" rule is what runs when we call "make":
 # all it does is grant execution permissions for your run time executable
 all:
-	chmod a+x VMtranslator
+	chmod a+x JackAnalyzer
