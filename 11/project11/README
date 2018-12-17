@@ -23,7 +23,13 @@ Submitted Files
 
 5. Syntax.py - A help class containing several regexs and arrays used by the CompilationEngine class.
 
+6. SymbolTable - A symbol table that associates names with information needed for Jack compilation:
+                type, kind, and running index. The symbol table has 2 nested scopes (class/subroutine).
+
+7. VMWriter - Emits VM commands into a file
+
 Remarks
+
 -------
 None
 
