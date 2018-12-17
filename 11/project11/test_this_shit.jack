@@ -20,8 +20,8 @@ class Main {
 	    return;
 	}
 	method int liliililili(int yo, String yoyo) {
-	    var boolean caffe;
-		var int pilpelon, melafefon;
+		var int x1, x2, x3;
+		let x1 = x1<((x3+5)-6);
 		
 	    return;
 	}
