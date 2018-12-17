@@ -30,25 +30,26 @@ class CompilationEngine:
     generates the compilers output
     """
 
-    def __init__(self, input_file, output_file):
-        """
-        the constructor of the class
-        :param input_file: the jack file that the user want to compile
-        :param output_file: the path for the output xml file
-        """
-        self.label_count = 0
-        self.file_reader = JackFileReader(input_file)
-        self.jack_tokens = JackTokenizer(self.file_reader.get_one_liner())
-        self.curr_token = self.jack_tokens.advance()
-        self.to_output_file = []
-        self.symbol_table = SymbolTable()
-        self.vm_writer = VMWriter(output_file)
-        self.depth = 0
-        self.class_name = None
-        self.compile_class()
-        print(self.symbol_table.class_symbol_table)
-        print(self.symbol_table.subroutine_symbol_table)
-        self.vm_writer.close()
+
+def __init__(self, input_file, output_file):
+    """
+    the constructor of the class
+    :param input_file: the jack file that the user want to compile
+    :param output_file: the path for the output xml file
+    """
+    self.label_count = 0
+    self.file_reader = JackFileReader(input_file)
+    self.jack_tokens = JackTokenizer(self.file_reader.get_one_liner())
+    self.curr_token = self.jack_tokens.advance()
+    self.to_output_file = []
+    self.symbol_table = SymbolTable()
+    self.vm_writer = VMWriter(output_file)
+    self.depth = 0
+    self.class_name = None
+    self.compile_class()
+    print(self.symbol_table.class_symbol_table)
+    print(self.symbol_table.subroutine_symbol_table)
+    self.vm_writer.close()
 
     def compile_class(self):
         """
@@ -59,9 +60,7 @@ class CompilationEngine:
         # assign class name
         self.class_name = self.next_token()
         # advancing beyond '{'
-        print(self.curr_token)
         self.next_token()
-        print(self.curr_token)
         # zero or more times
         while self.curr_token.split()[1] in VAR_DECS:
             self.compile_class_var_dec()
@@ -113,11 +112,10 @@ class CompilationEngine:
         # advance the right brackets
         self.next_token()
         self.compile_subroutine_body()
-        return
 
     def compile_parameters_list(self):
         """
-        Compiles a (possibly empty) parameter list, not including the enclosing “()”.
+        Compiles a (possibly empty) parameter list, not including the enclosing ().
         :return:
         """
         # ( (type varName) (',' type varName)*)?
@@ -132,7 +130,6 @@ class CompilationEngine:
                 par_type = self.next_token()
                 par_name = self.next_token()
                 self.symbol_table.define(par_name, par_type, ARG)
-        return
 
     def compile_subroutine_body(self):
         """
@@ -171,7 +168,7 @@ class CompilationEngine:
 
     def compile_statements(self):
         """
-        Compiles a sequence of statements, not including the enclosing “{}”.
+        Compiles a sequence of statements, not including the enclosing {{.
         :return:
         """
         statements = True
@@ -215,7 +212,6 @@ class CompilationEngine:
         self.__eat(SEMI_COLON)
         self.depth -= 1
         self.to_output_file.append(INDENTATION * self.depth + "</letStatement>")
-        return
 
     def compile_if(self):
         """
@@ -288,18 +284,6 @@ class CompilationEngine:
         # advance the do
         self.next_token()
 
-        # subroutine call:
-        # subroutine name
-        self.__eat_by_type(IDENTIFIER)
-        if self.curr_token.split()[1] == ".":
-            self.__eat(".")
-            self.__eat_by_type(IDENTIFIER)
-        self.__eat(LEFT_BRACKETS)
-        self.compile_expression_list()
-        self.__eat(RIGHT_BRACKETS)
-
-        self.__eat(SEMI_COLON)
-
     def compile_return(self):
         """
         Compiles a return statement.
@@ -321,43 +305,44 @@ class CompilationEngine:
         Compiles a do statement.
         :return:
         """
-
         self.compile_term()
         while self.curr_token.split()[1] in Syntax.operators:
-            # op
-            self.__eat(self.curr_token.split()[1])
+            op = self.curr_token.split()[1]
+            self.next_token()
             self.compile_term()
+            self.compile_op(op)
         return
+
+    def compile_op(self, op):
+        print(Syntax.op_name[op])
 
     def compile_term(self):
         """
-        Compiles a term. This routine is faced with a
-        slight difficulty when trying to decide
-        between some of the alternative parsing rules.
-        Specifically, if the current token is an
-        identifier, the routine must distinguish
-        between a variable, an array entry, and a
-        subroutine call. A single look-ahead token,
-        which may be one of “[“, “(“, or “.”
-        suffices to distinguish between the three
-        possibilities. Any other token is not part of
-        this term and should not be advanced over.
-            :return:
+        Compiles a term. This routine is faced with a slight difficulty when trying to decide between
+        some of the alternative parsing rules. Specifically, if the current token is an
+        identifier, the routine must distinguish between a variable, an array entry, and a
+        subroutine call. A single look-ahead token, which may be one of [, (, or .  suffices to distinguish
+        between the three possibilities. Any other token is not part of this term and should not be advanced over.
+        :return:
         """
         all = self.curr_token.split()
         header = all[0]
         val = all[1]
         # handle case of stringConstant, integerConstant, keyword
-        if header in END_TERMS:
-            self.__eat(val)
+        if header == "<integerConstant>":
+            print("push", val)
+            self.next_token()
         # handle in case of (expression)
         elif val == LEFT_BRACKETS:
-            self.__eat(LEFT_BRACKETS)
+            # advance passed "("
+            self.next_token()
             self.compile_expression()
-            self.__eat(RIGHT_BRACKETS)
+            # advance passed ")"
+            self.next_token()
         # case of  onary Op
         elif val in ONARY_OP:
-            self.__eat(val)
+            print(val)
+            self.next_token()
             self.compile_term()
         elif header == IDENTIFIER:
             next_token = self.jack_tokens.peek().split()[1]
@@ -381,9 +366,8 @@ class CompilationEngine:
                 self.compile_expression_list()
                 self.__eat(RIGHT_BRACKETS)
             else:
-                self.__eat(val)
-        self.depth -= 1
-        self.to_output_file.append(INDENTATION * self.depth + "</term>")
+                print("push", val)
+                self.next_token()
         return
 
     def compile_expression_list(self):
