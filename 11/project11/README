@@ -1,0 +1,29 @@
+ellonet, zoharb
+===============================================================================
+Ella Duvdevan, ID 305564866, ella.duvdevan@mail.huji.ac.il
+Zohar Bouchnik, ID 311142293, zohar.bouchnik@mail.huji.ac.il
+===============================================================================
+
+                               Unit 11 - Compiler II - Code Generation
+                               ---------------------
+
+Submitted Files
+---------------
+1. Main.py - The main file running this code. The script can be given either a path of a JACK file,
+             or a path to a directory containing multiple JACK files.
+
+2. CompilationEngine.py - A class representing the full JACK language compiler. The class is initialized with
+                          a path to one JACK file, and creates an XML file containing the complied jack code.
+
+3. JackTokenizer.py - A class which receives a string representing the pure jack code and tokenizes it.
+                      Allows advancing through the tokens one at a time.
+
+4. JackFileReader - A class which receives a path to a given JACK file and turns it in to a string containing only
+                    the pure jack code - without comments, redundant white spaces and documentation.
+
+5. Syntax.py - A help class containing several regexs and arrays used by the CompilationEngine class.
+
+Remarks
+-------
+None
+
