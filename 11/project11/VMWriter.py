@@ -24,7 +24,7 @@ class VMWriter:
         :param index:
         :return:
         """
-        self.VM_file.write("push" + " " + segment + " " + index + "\n")
+        self.VM_file.write("push" + " " + segment + " " + str(index) + "\n")
         return
 
     def write_pop(self, segment, index):
@@ -34,7 +34,7 @@ class VMWriter:
         :param index:
         :return:
         """
-        self.VM_file.write("pop" + " " + segment + " " + index + "\n")
+        self.VM_file.write("pop" + " " + segment + " " + str(index) + "\n")
         return
 
     def write_arithmetic(self, command):
@@ -76,7 +76,7 @@ class VMWriter:
         :param nArgs:
         :return:
         """
-        self.VM_file.write("call" + " " + name + " " + nArgs + "\n")
+        self.VM_file.write("call" + " " + name + " " + str(nArgs) + "\n")
         return
 
     def write_function(self, name, nLocals):
@@ -86,7 +86,7 @@ class VMWriter:
         :param nLocals:
         :return:
         """
-        self.VM_file.write("function" + " " + name + " " + nLocals + "\n")
+        self.VM_file.write("function" + " " + name + " " + str(nLocals) + "\n")
 
     def write_return(self):
         """

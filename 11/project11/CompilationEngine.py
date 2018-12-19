@@ -30,26 +30,25 @@ class CompilationEngine:
     generates the compilers output
     """
 
-
-def __init__(self, input_file, output_file):
-    """
-    the constructor of the class
-    :param input_file: the jack file that the user want to compile
-    :param output_file: the path for the output xml file
-    """
-    self.label_count = 0
-    self.file_reader = JackFileReader(input_file)
-    self.jack_tokens = JackTokenizer(self.file_reader.get_one_liner())
-    self.curr_token = self.jack_tokens.advance()
-    self.to_output_file = []
-    self.symbol_table = SymbolTable()
-    self.vm_writer = VMWriter(output_file)
-    self.depth = 0
-    self.class_name = None
-    self.compile_class()
-    print(self.symbol_table.class_symbol_table)
-    print(self.symbol_table.subroutine_symbol_table)
-    self.vm_writer.close()
+    def __init__(self, input_file, output_file):
+        """
+        the constructor of the class
+        :param input_file: the jack file that the user want to compile
+        :param output_file: the path for the output xml file
+        """
+        self.label_count = 0
+        self.file_reader = JackFileReader(input_file)
+        self.jack_tokens = JackTokenizer(self.file_reader.get_one_liner())
+        self.curr_token = self.jack_tokens.advance()
+        self.to_output_file = []
+        self.symbol_table = SymbolTable()
+        self.vm_writer = VMWriter(output_file)
+        self.depth = 0
+        self.class_name = None
+        self.compile_class()
+        print(self.symbol_table.class_symbol_table)
+        print(self.symbol_table.subroutine_symbol_table)
+        self.vm_writer.close()
 
     def compile_class(self):
         """
@@ -102,6 +101,13 @@ def __init__(self, input_file, output_file):
 
         # constructor \ function \ method
         subroutine_type = self.next_token()
+
+        if subroutine_type == "constructor":
+            field_vars_num = self.get_num_of_field_vars()
+            self.vm_writer.write_push("constant", field_vars_num)
+            self.vm_writer.write_call("Memory.alloc", 1)
+            self.vm_writer.write_pop("pointer", 0)
+
         # take the return type
         return_type = self.next_token()
         # subroutine name
@@ -112,6 +118,15 @@ def __init__(self, input_file, output_file):
         # advance the right brackets
         self.next_token()
         self.compile_subroutine_body()
+        print(self.curr_token)
+
+
+    def get_num_of_field_vars(self):
+        field_vars_num = 0
+        for var in self.symbol_table.class_symbol_table.values():
+            if var[1] == "field":
+                field_vars_num += 1
+        return field_vars_num
 
     def compile_parameters_list(self):
         """
@@ -144,7 +159,6 @@ def __init__(self, input_file, output_file):
         self.compile_statements()
         # pass the right curly brackets
         self.next_token()
-        return
 
     def compile_var_dec(self):
         """
@@ -168,7 +182,7 @@ def __init__(self, input_file, output_file):
 
     def compile_statements(self):
         """
-        Compiles a sequence of statements, not including the enclosing {{.
+        Compiles a sequence of statements, not including the enclosing {}.
         :return:
         """
         statements = True
@@ -194,24 +208,39 @@ def __init__(self, input_file, output_file):
         """
         # advances passed let
         self.next_token()
-        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         # var name
         var_name = self.next_token()
-        var_type = self.symbol_table.type_of(var_name)
         var_kind = self.symbol_table.kind_of(var_name)
-        if var_kind is "field":
+        if var_kind == "field":
             var_kind = "this"
         var_index = self.symbol_table.index_of(var_name)
-        # self.vm_writer.write_push(var_kind, var_index)
+
+        # for varName[] case
+        list_flag = False
         if self.curr_token.split()[1] == LEFT_SQUARE_BRACKETS:
-            self.__eat(LEFT_SQUARE_BRACKETS)
+            list_flag = True
+            # advance brackets
+            self.next_token()
+            self.vm_writer.write_push(var_kind, var_index)
             self.compile_expression()
-            self.__eat(RIGHT_SQUARE_BRACKETS)
-        self.__eat(EQUAL_SIGN)
+            self.vm_writer.write_arithmetic("add")
+            # advance brackets
+            self.next_token()
+
+        # advance equal sign
+        self.next_token()
         self.compile_expression()
-        self.__eat(SEMI_COLON)
-        self.depth -= 1
-        self.to_output_file.append(INDENTATION * self.depth + "</letStatement>")
+        if list_flag:
+            # the value of expression 2
+            self.vm_writer.write_pop("temp", 0)
+            self.vm_writer.write_pop("pointer", 1)
+            self.vm_writer.write_push("temp", 0)
+            self.vm_writer.write_pop("that", 0)
+        else:
+            self.vm_writer.write_pop(var_kind, var_index)
+
+        # advance semi colon
+        self.next_token()
 
     def compile_if(self):
         """
@@ -280,9 +309,23 @@ def __init__(self, input_file, output_file):
         Compiles a do statement.
         :return:
         """
-        # 'do' subroutineCall ';'
         # advance the do
         self.next_token()
+
+        # subroutine call:
+        subroutine_name = self.next_token()
+        if self.curr_token.split()[1] == ".":
+            # advance the dot
+            self.next_token()
+            subroutine_name = subroutine_name + "." + self.next_token()
+        # advance the brackets
+        self.next_token()
+        num_of_arguments = self.compile_expression_list()
+        # advance the brackets
+        self.next_token()
+        # advance the semi colon
+        self.next_token()
+        self.vm_writer.write_call(subroutine_name, num_of_arguments)
 
     def compile_return(self):
         """
@@ -294,10 +337,9 @@ def __init__(self, input_file, output_file):
 
         if self.curr_token.split()[1] != SEMI_COLON:
             self.compile_expression()
-
         self.vm_writer.write_return()
-
         # advance the semi colon
+        print(self.curr_token, "Rwe")
         self.next_token()
 
     def compile_expression(self):
@@ -375,16 +417,16 @@ def __init__(self, input_file, output_file):
         Compiles a (possibly empty) comma separated list of expressions.
         :return:
         """
-        self.to_output_file.append(INDENTATION * self.depth + "<expressionList>")
-        self.depth += 1
+        num_of_arguments = 0
         if self.curr_token.split()[1] != RIGHT_BRACKETS:
+            num_of_arguments += 1
             self.compile_expression()
             while self.curr_token.split()[1] == COMMA:
-                self.__eat(COMMA)
+                num_of_arguments += 1
+                # advance comma
+                self.next_token()
                 self.compile_expression()
-        self.depth -= 1
-        self.to_output_file.append(INDENTATION * self.depth + "</expressionList>")
-        return
+        return num_of_arguments
 
     def __eat(self, param):
         """

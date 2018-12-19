@@ -13,14 +13,10 @@ class Main {
 	field Array arr;
 	static int count, two;
 
-	method int blablabla(int la, String li) {
-	    var boolean shoko;
-		var int oo, ii;
-		
-	    return;
+	constructor int blablabla(int la, String li) {
+	    return this;
 	}
 	method int liliililili(int yo, String yoyo) {
-<<<<<<< HEAD
 	    var boolean caffe;
 		var int pilpelon, melafefon;
 		if (x>3){
@@ -32,11 +28,6 @@ class Main {
 		while (x<5){
 			x = x + 1;
 		}
-=======
-		var int x1, x2, x3;
-		let x1 = x1<((x3+5)-6);
-		
->>>>>>> 22b47b2c3629eeeca835adf403cf10c2988f6faa
 	    return;
 	}
 

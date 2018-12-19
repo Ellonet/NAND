@@ -1,4 +1,8 @@
 push constant 3
 call Memory.alloc 1
 pop pointer 0
+pop this 0
+pop this 1
+pop this 2
+call draw 0
 return
