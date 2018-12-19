@@ -120,7 +120,6 @@ class CompilationEngine:
         self.compile_subroutine_body()
         print(self.curr_token)
 
-
     def get_num_of_field_vars(self):
         field_vars_num = 0
         for var in self.symbol_table.class_symbol_table.values():
