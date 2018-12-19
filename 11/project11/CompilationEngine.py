@@ -95,16 +95,15 @@ class CompilationEngine:
         Compiles a complete method, function, or constructor.
         :return:
         """
-        # ('constructor' | 'function' | 'method') ('void' | type) subroutineName '(' parameterList ')' subroutineBody
         self.symbol_table.start_subroutine()
         self.symbol_table.define("this", self.class_name, ARG)
 
         # constructor \ function \ method
         subroutine_type = self.next_token()
-        # take the return type
+        # advance the return type
         self.next_token()
         # subroutine name
-        subroutine_name = self.next_token()
+        self.next_token()
         # advance the left brackets
         self.next_token()
 
@@ -117,7 +116,6 @@ class CompilationEngine:
         elif subroutine_type == "method":
             self.vm_writer.write_push("argument", 0)
             self.vm_writer.write_pop("pointer", 0)
-            subroutine_name = self.class_name + "." + subroutine_name
 
         self.compile_parameters_list()
         # advance the right brackets
@@ -154,7 +152,6 @@ class CompilationEngine:
         compiles the subroutine body
         :return:
         """
-        # '{' varDec* statements '}'
         # pass the left curly brackets
         self.next_token()
         while self.curr_token.split()[1] == "var":
@@ -168,7 +165,6 @@ class CompilationEngine:
         Compiles a var declaration.
         :return:
         """
-        # 'var' type varName (',' varName)* ';'
         # advance passed "var"
         self.next_token()
         var_type = self.next_token()
