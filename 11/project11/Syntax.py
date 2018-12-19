@@ -16,7 +16,7 @@ string_constant_reg = "\"[^\n\"]*\""
 identifier_regex = "[a-zA-Z]\w*"
 
 # ADD, SUB, NEG, EQ, GT, LT, AND, OR, NOT
-op_name = {"&lt;": "lt", "&gt;": "gt", "+": "add", "-": "sub", "=":"eq"}
+op_name = {"&lt;": "lt", "&gt;": "gt", "+": "add", "-": "sub", "=": "eq", "neg": "neg", "~": "not"}
 
 tokens = [(keyword, "keyword"), (symbol, "symbol"), (integer_constant_reg, "integerConstant"),
 		  (string_constant_reg, "stringConstant"), (identifier_regex, "identifier")]

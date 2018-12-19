@@ -13,21 +13,15 @@ class Main {
 	field Array arr;
 	static int count, two;
 
-	constructor int blablabla(int la, String li) {
-	    return this;
-	}
-	method int liliililili(int yo, String yoyo) {
-	    var boolean caffe;
-		var int pilpelon, melafefon;
-		if (x>3){
-			return 5;
-		}
-		else{
-			return 2;
-		}
-		while (x<5){
-			x = x + 1;
-		}
+//	constructor int blablabla(int la, String li) {
+//	    return this;
+//	}
+
+	method int blabla(int yo) {
+	    var int x1, x2;
+	    let x1 = -10;
+	    let x2 = -x1;
+	    let x1 = ~yo;
 	    return;
 	}
 
