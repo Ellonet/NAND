@@ -1,3 +1,5 @@
+push argument 0
+pop pointer 0
 push constant 10
 neg
 pop local 0
@@ -7,4 +9,5 @@ pop local 1
 push argument 1
 not
 pop local 0
+push constant 0
 return
