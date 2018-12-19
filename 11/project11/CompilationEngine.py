@@ -219,7 +219,7 @@ class CompilationEngine:
 			self.next_token()
 			self.vm_writer.write_push(var_kind, var_index)
 			self.compile_expression()
-			self.vm_writer.write_arithmetic("add")
+			self.vm_writer.write_arithmetic("+")
 			# advance brackets
 			self.next_token()
 
@@ -233,6 +233,7 @@ class CompilationEngine:
 			self.vm_writer.write_push("temp", 0)
 			self.vm_writer.write_pop("that", 0)
 		else:
+			print(var_kind, var_index, var_name)
 			self.vm_writer.write_pop(var_kind, var_index)
 
 		# advance semi colon
@@ -395,30 +396,35 @@ class CompilationEngine:
 		elif header == IDENTIFIER:
 			next_token = self.jack_tokens.peek().split()[1]
 			if next_token == LEFT_SQUARE_BRACKETS:
-				print("[", self.curr_token)
-				print("[", self.curr_token)
-				self.__eat(val)
-				self.__eat(LEFT_SQUARE_BRACKETS)
+				self.vm_writer.write_push(self.symbol_table.kind_of(val), self.symbol_table.index_of(val))
+				# skip name and "["
+				self.next_token()
+				self.next_token()
 				self.compile_expression()
-				self.__eat(RIGHT_SQUARE_BRACKETS)
+				self.vm_writer.write_arithmetic("+")
+				# skip over "]"
+				self.next_token()
+				self.vm_writer.write_pop("pointer", 1)
+				self.vm_writer.write_push("that", 0)
+
 			# subroutine call: subroutineName(expressionList)
 			elif next_token == LEFT_BRACKETS:
-				print("(", self.curr_token)
-				print("(", self.curr_token)
-				self.__eat(val)
-				self.__eat(LEFT_BRACKETS)
-				self.compile_expression_list()
-				self.__eat(RIGHT_BRACKETS)
+				func_name = self.next_token()
+				# skip over "("
+				self.next_token()
+				num_of_args = self.compile_expression_list()
+				# skip over ")"
+				self.next_token()
+				self.vm_writer.write_call(func_name, num_of_args)
 			# subroutine call: (className|varName).subroutineName(expressionList)
 			elif next_token == ".":
-				print(".", self.curr_token)
-				print(".", self.curr_token)
-				self.__eat(val)
-				self.__eat(".")
-				self.__eat_by_type(IDENTIFIER)
-				self.__eat(LEFT_BRACKETS)
-				self.compile_expression_list()
-				self.__eat(RIGHT_BRACKETS)
+				func_name = self.next_token() + self.next_token() + self.next_token()
+				# skip over "("
+				self.next_token()
+				num_of_args = self.compile_expression_list()
+				# skip over ")"
+				self.next_token()
+				self.vm_writer.write_call(func_name, num_of_args)
 			else:
 				self.vm_writer.write_push(self.symbol_table.kind_of(val), self.symbol_table.index_of(val))
 				self.next_token()

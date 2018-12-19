@@ -1,13 +1,19 @@
 push argument 0
 pop pointer 0
-push constant 10
-neg
-pop local 0
-push local 0
-neg
-pop local 1
-push argument 1
-not
-pop local 0
-push constant 0
-return
+push local 1
+push local 3
+add
+push constant 1000
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 1
+push local 3
+add
+pop pointer 1
+push that 0
+pop local 2
+push constant 100
+call Draw 1
+pop local 4

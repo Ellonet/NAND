@@ -9,20 +9,19 @@
 class Main {
     static boolean test;    // Added for testing -- there is no static keyword
                             // in the Square files.
-	field int ella, zohar;
-	field Array arr;
-	static int count, two;
 
 //	constructor int blablabla(int la, String li) {
 //	    return this;
 //	}
 
 	method int blabla(int yo) {
-	    var int x1, x2;
-	    let x1 = -10;
-	    let x2 = -x1;
-	    let x1 = ~yo;
-	    return;
+        var Array a, b;
+        var int i, j;
+        var Square x;
+        //let i = 10;
+        //let j = 100;
+        let b[j] = 1000;
+        let i = b[j];
+        let x = Draw(100);
 	}
-
 }
