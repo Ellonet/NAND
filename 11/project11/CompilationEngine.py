@@ -101,6 +101,12 @@ class CompilationEngine:
 
         # constructor \ function \ method
         subroutine_type = self.next_token()
+        # take the return type
+        self.next_token()
+        # subroutine name
+        subroutine_name = self.next_token()
+        # advance the left brackets
+        self.next_token()
 
         if subroutine_type == "constructor":
             field_vars_num = self.get_num_of_field_vars()
@@ -108,17 +114,15 @@ class CompilationEngine:
             self.vm_writer.write_call("Memory.alloc", 1)
             self.vm_writer.write_pop("pointer", 0)
 
-        # take the return type
-        return_type = self.next_token()
-        # subroutine name
-        subroutine_name = self.next_token()
-        # advance the left brackets
-        self.next_token()
+        elif subroutine_type == "method":
+            self.vm_writer.write_push("argument", 0)
+            self.vm_writer.write_pop("pointer", 0)
+            subroutine_name = self.class_name + "." + subroutine_name
+
         self.compile_parameters_list()
         # advance the right brackets
         self.next_token()
         self.compile_subroutine_body()
-        print(self.curr_token)
 
     def get_num_of_field_vars(self):
         field_vars_num = 0
@@ -325,6 +329,7 @@ class CompilationEngine:
         # advance the semi colon
         self.next_token()
         self.vm_writer.write_call(subroutine_name, num_of_arguments)
+        self.vm_writer.write_pop("temp", 0)
 
     def compile_return(self):
         """
@@ -335,10 +340,16 @@ class CompilationEngine:
         self.next_token()
 
         if self.curr_token.split()[1] != SEMI_COLON:
-            self.compile_expression()
+            if self.curr_token.split()[1] == "this":
+                self.vm_writer.write_push("pointer", 0)
+                self.next_token()
+            else:
+                self.compile_expression()
+        else:
+            # default
+            self.vm_writer.write_push("constant", 0)
         self.vm_writer.write_return()
         # advance the semi colon
-        print(self.curr_token, "Rwe")
         self.next_token()
 
     def compile_expression(self):
