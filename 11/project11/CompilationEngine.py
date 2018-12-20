@@ -38,6 +38,7 @@ class CompilationEngine:
 		:param output_file: the path for the output xml file
 		"""
 		self.label_count = 0
+		self.var_counter = 0
 		self.file_reader = JackFileReader(input_file)
 		self.jack_tokens = JackTokenizer(self.file_reader.get_one_liner())
 		self.curr_token = self.jack_tokens.advance()
@@ -47,8 +48,6 @@ class CompilationEngine:
 		self.depth = 0
 		self.class_name = None
 		self.compile_class()
-		print(self.symbol_table.class_symbol_table)
-		print(self.symbol_table.subroutine_symbol_table)
 		self.vm_writer.close()
 
 	def compile_class(self):
@@ -97,16 +96,17 @@ class CompilationEngine:
 		:return:
 		"""
 		self.symbol_table.start_subroutine()
-		self.symbol_table.define("this", self.class_name, ARG)
-
 		# constructor \ function \ method
 		subroutine_type = self.next_token()
 		# advance the return type
 		self.next_token()
 		# subroutine name
-		self.next_token()
+		subroutine_name = self.class_name + "." + self.next_token()
 		# advance the left brackets
 		self.next_token()
+		self.compile_parameters_list()
+		##### fix! !!!!!!!!!!!!!!!!!!
+		self.vm_writer.write_function(subroutine_name, self.var_counter)
 
 		if subroutine_type == "constructor":
 			field_vars_num = self.get_num_of_field_vars()
@@ -114,14 +114,14 @@ class CompilationEngine:
 			self.vm_writer.write_call("Memory.alloc", 1)
 			self.vm_writer.write_pop("pointer", 0)
 
-		elif subroutine_type == "method":
+		if subroutine_type == "method":
+			self.symbol_table.define("this", self.class_name, ARG)
 			self.vm_writer.write_push("argument", 0)
 			self.vm_writer.write_pop("pointer", 0)
 
-		self.compile_parameters_list()
 		# advance the right brackets
 		self.next_token()
-		self.compile_subroutine_body()
+		var_count = self.compile_subroutine_body()
 
 	def get_num_of_field_vars(self):
 		field_vars_num = 0
@@ -135,18 +135,21 @@ class CompilationEngine:
 		Compiles a (possibly empty) parameter list, not including the enclosing ().
 		:return:
 		"""
-		# ( (type varName) (',' type varName)*)?
+		num_of_par = 0
 		if self.curr_token.split()[1] != RIGHT_BRACKETS:
 			# type
+			num_of_par += 1
 			par_type = self.next_token()
 			par_name = self.next_token()
 			self.symbol_table.define(par_name, par_type, ARG)
 			while self.curr_token.split()[1] == COMMA:
 				# advance pass the comma:
+				num_of_par += 1
 				self.next_token()
 				par_type = self.next_token()
 				par_name = self.next_token()
 				self.symbol_table.define(par_name, par_type, ARG)
+		return num_of_par
 
 	def compile_subroutine_body(self):
 		"""
@@ -157,6 +160,7 @@ class CompilationEngine:
 		self.next_token()
 		while self.curr_token.split()[1] == "var":
 			self.compile_var_dec()
+			self.var_counter += 1
 		self.compile_statements()
 		# pass the right curly brackets
 		self.next_token()
@@ -210,7 +214,6 @@ class CompilationEngine:
 		if var_kind == "field":
 			var_kind = "this"
 		var_index = self.symbol_table.index_of(var_name)
-
 		# for varName[] case
 		list_flag = False
 		if self.curr_token.split()[1] == LEFT_SQUARE_BRACKETS:
@@ -233,7 +236,6 @@ class CompilationEngine:
 			self.vm_writer.write_push("temp", 0)
 			self.vm_writer.write_pop("that", 0)
 		else:
-			print(var_kind, var_index, var_name)
 			self.vm_writer.write_pop(var_kind, var_index)
 
 		# advance semi colon
@@ -311,10 +313,21 @@ class CompilationEngine:
 
 		# subroutine call:
 		subroutine_name = self.next_token()
+		kind = self.symbol_table.kind_of(subroutine_name)
+		index = self.symbol_table.index_of(subroutine_name)
+
+		from_class = False
 		if self.curr_token.split()[1] == ".":
 			# advance the dot
 			self.next_token()
-			subroutine_name = subroutine_name + "." + self.next_token()
+			type_ = self.symbol_table.type_of(subroutine_name)
+			if type_:
+				subroutine_name = type_ + "." + self.next_token()
+			else:
+				subroutine_name = subroutine_name + "." + self.next_token()
+		else:
+			from_class = True
+			subroutine_name = self.class_name + "." + subroutine_name
 		# advance the brackets
 		self.next_token()
 		num_of_arguments = self.compile_expression_list()
@@ -322,6 +335,12 @@ class CompilationEngine:
 		self.next_token()
 		# advance the semi colon
 		self.next_token()
+		if kind is not None and index is not None:
+			self.vm_writer.write_push(kind, index)
+			num_of_arguments += 1
+		if from_class:
+			self.vm_writer.write_push("pointer", 0)
+			num_of_arguments += 1
 		self.vm_writer.write_call(subroutine_name, num_of_arguments)
 		self.vm_writer.write_pop("temp", 0)
 
@@ -332,7 +351,6 @@ class CompilationEngine:
 		"""
 		# advance the return
 		self.next_token()
-
 		if self.curr_token.split()[1] != SEMI_COLON:
 			if self.curr_token.split()[1] == "this":
 				self.vm_writer.write_push("pointer", 0)
@@ -360,7 +378,12 @@ class CompilationEngine:
 		return
 
 	def compile_op(self, op):
-		self.vm_writer.write_arithmetic(op)
+		if (op == "*"):
+			self.vm_writer.write_call("Math.multiply", 2)
+		elif (op == "/"):
+			self.vm_writer.write_call("Math.divide", 2)
+		else:
+			self.vm_writer.write_arithmetic(op)
 
 	def compile_term(self):
 		"""
@@ -418,7 +441,9 @@ class CompilationEngine:
 				self.vm_writer.write_call(func_name, num_of_args)
 			# subroutine call: (className|varName).subroutineName(expressionList)
 			elif next_token == ".":
+				# self.vm_writer.
 				func_name = self.next_token() + self.next_token() + self.next_token()
+				print(func_name)
 				# skip over "("
 				self.next_token()
 				num_of_args = self.compile_expression_list()
@@ -426,8 +451,29 @@ class CompilationEngine:
 				self.next_token()
 				self.vm_writer.write_call(func_name, num_of_args)
 			else:
-				self.vm_writer.write_push(self.symbol_table.kind_of(val), self.symbol_table.index_of(val))
+				kind = self.symbol_table.kind_of(val)
+				if kind == "field":
+					kind = "this"
+				self.vm_writer.write_push(kind, self.symbol_table.index_of(val))
 				self.next_token()
+
+		elif header == "<keyword>":
+			if (val == "this"):
+				self.vm_writer.write_push("pointer", 0)
+			else:
+				self.vm_writer.write_push("constant", 0)
+				if (val == "true"):
+					self.vm_writer.write_arithmetic(NOT)
+			self.next_token()
+
+		elif header == "<stringConstant>":
+			self.vm_writer.write_push("constant", len(val))
+			self.vm_writer.write_call("String.new", 1)
+			for char in val:
+				self.vm_writer.write_push("constant", ord(char))
+				self.vm_writer.write_call("String.appendChar", 2)
+			self.next_token()
+
 		return
 
 	def compile_expression_list(self):
@@ -446,39 +492,10 @@ class CompilationEngine:
 				self.compile_expression()
 		return num_of_arguments
 
-	def __eat(self, param):
-		"""
-		checks that the right token is the next one, adds it to the output file, and advances the token pointer
-		:param param: the param to compare with the next token
-		:return: throws exception for wrong input
-		"""
-		token = self.curr_token.split()
-		if token[1] != param:
-			raise Exception
-		else:
-			self.to_output_file.append(INDENTATION * self.depth + self.curr_token)
-			self.curr_token = self.jack_tokens.advance()
-			if not self.curr_token:
-				return
-
 	def next_token(self):
 		to_return = self.curr_token.split()[1]
 		self.curr_token = self.jack_tokens.advance()
 		return to_return
-
-	def __eat_by_type(self, param):
-		"""
-		checks that the right token is the next one- by type, adds it to the output file,
-		and advances the token pointer
-		:param param: the param to compare with the next token
-		:return: throws exception for wrong input
-		"""
-		type_ = self.curr_token.split()[0]
-		if type_ != param:
-			raise Exception
-		else:
-			self.to_output_file.append(INDENTATION * self.depth + self.curr_token)
-			self.curr_token = self.jack_tokens.advance()
 
 	def next_label(self):
 		count = self.label_count

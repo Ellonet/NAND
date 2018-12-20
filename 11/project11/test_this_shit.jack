@@ -14,14 +14,10 @@ class Main {
 //	    return this;
 //	}
 
-	method int blabla(int yo) {
-        var Array a, b;
-        var int i, j;
-        var Square x;
-        //let i = 10;
-        //let j = 100;
-        let b[j] = 1000;
-        let i = b[j];
-        let x = Draw(100);
+	method int blabla(int a, int b) {
+        var String x;
+        let x = "lalalala";
+
+
 	}
 }
