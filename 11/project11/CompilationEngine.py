@@ -236,8 +236,8 @@ class CompilationEngine:
             list_flag = True
             # advance brackets
             self.next_token()
-            self.vm_writer.write_push(var_kind, var_index)
             self.compile_expression()
+            self.vm_writer.write_push(var_kind, var_index)
             self.vm_writer.write_arithmetic("+")
             # advance brackets
             self.next_token()
@@ -328,6 +328,7 @@ class CompilationEngine:
         self.next_token()
 
     def compile_subroutine_call(self):
+
         subroutine_name = self.next_token()
         kind = self.symbol_table.kind_of(subroutine_name)
         if kind == "field":
@@ -356,12 +357,10 @@ class CompilationEngine:
             self.vm_writer.write_push(kind, index)
             num_of_arguments = 1
         num_of_arguments += self.compile_expression_list()
-        self.vm_writer.write_call(subroutine_name, num_of_arguments)
-        self.vm_writer.write_pop("temp", 0)
         # advance the brackets
         self.next_token()
-        # advance the semi colon
-        self.next_token()
+
+        self.vm_writer.write_call(subroutine_name, num_of_arguments)
 
     def compile_do(self):
         """
@@ -373,6 +372,9 @@ class CompilationEngine:
 
         # subroutine call:
         self.compile_subroutine_call()
+        self.vm_writer.write_pop("temp", 0)
+        # advance the semi colon
+        self.next_token()
 
     def compile_return(self):
         """
@@ -408,9 +410,9 @@ class CompilationEngine:
         return
 
     def compile_op(self, op):
-        if (op == "*"):
+        if op == "*":
             self.vm_writer.write_call("Math.multiply", 2)
-        elif (op == "/"):
+        elif op == "/":
             self.vm_writer.write_call("Math.divide", 2)
         else:
             self.vm_writer.write_arithmetic(op)
@@ -424,9 +426,9 @@ class CompilationEngine:
         between the three possibilities. Any other token is not part of this term and should not be advanced over.
         :return:
         """
-        all = self.curr_token.split()
-        header = all[0]
-        val = all[1]
+        all_ = self.curr_token.split()
+        header = all_[0]
+        val = all_[1]
         # handle case of stringConstant, integerConstant, keyword
         if header == "<integerConstant>":
             self.vm_writer.write_push("constant", val)
@@ -449,11 +451,11 @@ class CompilationEngine:
         elif header == IDENTIFIER:
             next_token = self.jack_tokens.peek().split()[1]
             if next_token == LEFT_SQUARE_BRACKETS:
-                self.vm_writer.write_push(self.symbol_table.kind_of(val), self.symbol_table.index_of(val))
                 # skip name and "["
                 self.next_token()
                 self.next_token()
                 self.compile_expression()
+                self.vm_writer.write_push(self.symbol_table.kind_of(val), self.symbol_table.index_of(val))
                 self.vm_writer.write_arithmetic("+")
                 # skip over "]"
                 self.next_token()
@@ -461,31 +463,8 @@ class CompilationEngine:
                 self.vm_writer.write_push("that", 0)
 
             # subroutine call: subroutineName(expressionList)
-            elif next_token == LEFT_BRACKETS:
-
-                func_name = self.next_token()
-                kind = self.symbol_table.kind_of(func_name)
-                index = self.symbol_table.index_of(func_name)
-
-                # skip over "("
-                self.next_token()
-                num_of_args = self.compile_expression_list()
-                # skip over ")"
-                self.next_token()
-                print(func_name, " (func name)")
-                print(num_of_args, " num of args ")
-                self.vm_writer.write_call(func_name, num_of_args)
-            # subroutine call: (className|varName).subroutineName(expressionList)
-            elif next_token == ".":
-                # self.vm_writer.
-                func_name = self.next_token() + self.next_token() + self.next_token()
-                print(func_name, " func name")
-                # skip over "("
-                self.next_token()
-                num_of_args = self.compile_expression_list()
-                # skip over ")"
-                self.next_token()
-                self.vm_writer.write_call(func_name, num_of_args)
+            elif next_token == LEFT_BRACKETS or next_token == ".":
+                self.compile_subroutine_call()
             else:
                 kind = self.symbol_table.kind_of(val)
                 if kind == "field":

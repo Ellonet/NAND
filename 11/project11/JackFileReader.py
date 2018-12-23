@@ -1,9 +1,11 @@
 import re
 
 # ________________________constants___________________________
-COMMAND_MARK = "//"
+COMMENT_MARK = "//"
 QUOTE_MARK = '"'
-DOCUMENTATION = ".*(\/\*\*[^\n]*\*\/)"
+DOCUMENTATION1 = ".*((\/\*\*)[^\n].*?(\*\/))"
+DOCUMENTATION2 = ".*((\/\*)[^\n].*?(\*\/))"
+
 SPACE = " "
 TAB = "\t"
 EMPTY_STR = ""
@@ -29,23 +31,36 @@ class JackFileReader:
         with open(self._path, "r") as file:
             all_lines = file.read().splitlines()
         for line in all_lines:
+            if line.startswith(COMMENT_MARK):
+                continue;
             quote = line.find(QUOTE_MARK)
             if quote >= 0:
                 temp = line.split('"')
-                temp[0] = " ".join(temp[0].split())
-                # temp[0] = temp[0].replace(TAB, EMPTY_STR)
-                temp[2] = " ".join(temp[2].split())
-                # temp[2] = temp[2].replace(TAB, EMPTY_STR)
-                line = '"'.join(temp)
+                qoute_2 = temp[2].find(COMMENT_MARK)
+                if qoute_2 >= 0:
+                    temp[2] = temp[2][:qoute_2]
+                qoute_1 = temp[0].find(COMMENT_MARK)
+                if qoute_1 >= 0:
+                    line = temp[0][:qoute_1]
+                else:
+                    line = '"'.join(temp)
             else:
-                # line = line.replace(SPACE, EMPTY_STR)
-                # line = line.replace(TAB, EMPTY_STR)
-                line = " ".join(line.split())
-            if not (line.startswith(COMMAND_MARK)) and line != EMPTY_STR:
-                in_line_command = line.find(COMMAND_MARK)
-                if in_line_command >= 0:
-                    line = line[0:in_line_command]
+                temp = line.find(COMMENT_MARK)
+                if temp >= 0:
+                    line = line[:temp]
+            line = " ".join(line.split())
+
+            semi = line.find(";")
+            if semi >= 0:
+                ender = line.find("}")
+                if ender > semi:
+                    line = line[:ender+1]
+                else:
+                    line = line[:semi+1]
+
+            if not (line.startswith(COMMENT_MARK)) and line != EMPTY_STR:
                 self.__allLines.append(line)
+
         self.__oneLiner = "".join(self.__allLines)
 
     def remove_documentation(self):
@@ -53,11 +68,18 @@ class JackFileReader:
         cleans the input from comments
         :return:
         """
-        documentation_reg = re.compile(DOCUMENTATION)
+        documentation_reg = re.compile(DOCUMENTATION1)
+        documentation_reg2 = re.compile(DOCUMENTATION2)
+
         matching = re.match(documentation_reg, self.__oneLiner)
         while matching:
             self.__oneLiner = self.__oneLiner.replace(matching.group(1), "")
             matching = re.match(documentation_reg, self.__oneLiner)
+
+        matching = re.match(documentation_reg2, self.__oneLiner)
+        while matching:
+            self.__oneLiner = self.__oneLiner.replace(matching.group(1), "")
+            matching = re.match(documentation_reg2, self.__oneLiner)
 
     def get_lines(self):
         """
