@@ -1,0 +1,21 @@
+@10
+        D = A
+        M[20] = <D
+        M[SCREEN] = < M
+        D = <M[KBD]
+        M[lalal]                   ;JLE
+        @i
+        M = < D
+        M[i] = D+M
+        M[j] = < D|M
+        M[A] = D
+        M[30] = D + A
+        D = A
+        A = i
+        D = < D&A
+        M[i] = -M
+        M[i] = < -M
+        A = M[j]+1
+        A = < M[R15]
+        A = R15
+        (lalal)
