@@ -13,7 +13,7 @@ Submitted Files
              or a path to a directory containing multiple JACK files.
 
 2. CompilationEngine.py - A class representing the full JACK language compiler. The class is initialized with
-                          a path to one JACK file, and creates an XML file containing the complied jack code.
+                          a path to one JACK file, and creates an VM file containing the complied jack code.
 
 3. JackTokenizer.py - A class which receives a string representing the pure jack code and tokenizes it.
                       Allows advancing through the tokens one at a time.

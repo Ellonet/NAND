@@ -15,7 +15,7 @@ class SymbolTable:
 
 	def start_subroutine(self):
 		"""
-		Starts a new subroutine scope (i.e. erases all names in the previous subroutine’s scope.)
+		Starts a new subroutine scope (i.e. erases all names in the previous subroutine's scope.)
 		:return:
 		"""
 		self.subroutine_symbol_table.clear()
