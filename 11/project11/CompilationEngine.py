@@ -417,53 +417,53 @@ class CompilationEngine:
         else:
             self.vm_writer.write_arithmetic(op)
 
-	def compile_term(self):
-		"""
-		Compiles a term. This routine is faced with a slight difficulty when trying to decide between
-		some of the alternative parsing rules. Specifically, if the current token is an
-		identifier, the routine must distinguish between a variable, an array entry, and a
-		subroutine call. A single look-ahead token, which may be one of [, (, or .  suffices to distinguish
-		between the three possibilities. Any other token is not part of this term and should not be advanced over.
-		:return:
-		"""
-		all_ = self.curr_token.split()
-		header = all_[0]
-		val = all_[1]
-		# handle case of stringConstant, integerConstant, keyword
-		if header == "<integerConstant>":
-			self.vm_writer.write_push("constant", val)
-			self.next_token()
-		# handle in case of (expression)
-		elif val == LEFT_BRACKETS:
-			# advance passed "("
-			self.next_token()
-			self.compile_expression()
-			# advance passed ")"
-			self.next_token()
-		# case of  onary Op
-		elif val in ONARY_OP:
-			self.next_token()
-			self.compile_term()
-			if val == "-":
-				self.vm_writer.write_arithmetic(NEG)
-			else:
-				self.vm_writer.write_arithmetic(NOT)
-		elif header == IDENTIFIER:
-			next_token = self.jack_tokens.peek().split()[1]
-			if next_token == LEFT_SQUARE_BRACKETS:
-				# skip name and "["
-				self.next_token()
-				self.next_token()
-				self.compile_expression()
-				kind = self.symbol_table.kind_of(val)
-				if kind == "field":
-					kind = "this"
-				self.vm_writer.write_push(kind, self.symbol_table.index_of(val))
-				self.vm_writer.write_arithmetic("+")
-				# skip over "]"
-				self.next_token()
-				self.vm_writer.write_pop("pointer", 1)
-				self.vm_writer.write_push("that", 0)
+    def compile_term(self):
+        """
+        Compiles a term. This routine is faced with a slight difficulty when trying to decide between
+        some of the alternative parsing rules. Specifically, if the current token is an
+        identifier, the routine must distinguish between a variable, an array entry, and a
+        subroutine call. A single look-ahead token, which may be one of [, (, or .  suffices to distinguish
+        between the three possibilities. Any other token is not part of this term and should not be advanced over.
+        :return:
+        """
+        all_ = self.curr_token.split()
+        header = all_[0]
+        val = all_[1]
+        # handle case of stringConstant, integerConstant, keyword
+        if header == "<integerConstant>":
+            self.vm_writer.write_push("constant", val)
+            self.next_token()
+        # handle in case of (expression)
+        elif val == LEFT_BRACKETS:
+            # advance passed "("
+            self.next_token()
+            self.compile_expression()
+            # advance passed ")"
+            self.next_token()
+        # case of  onary Op
+        elif val in ONARY_OP:
+            self.next_token()
+            self.compile_term()
+            if val == "-":
+                self.vm_writer.write_arithmetic(NEG)
+            else:
+                self.vm_writer.write_arithmetic(NOT)
+        elif header == IDENTIFIER:
+            next_token = self.jack_tokens.peek().split()[1]
+            if next_token == LEFT_SQUARE_BRACKETS:
+                # skip name and "["
+                self.next_token()
+                self.next_token()
+                self.compile_expression()
+                kind = self.symbol_table.kind_of(val)
+                if kind == "field":
+                    kind = "this"
+                self.vm_writer.write_push(kind, self.symbol_table.index_of(val))
+                self.vm_writer.write_arithmetic("+")
+                # skip over "]"
+                self.next_token()
+                self.vm_writer.write_pop("pointer", 1)
+                self.vm_writer.write_push("that", 0)
 
             # subroutine call: subroutineName(expressionList)
             elif next_token == LEFT_BRACKETS or next_token == ".":
