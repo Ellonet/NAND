@@ -18,15 +18,15 @@ Submitted Files
 3. JackTokenizer.py - A class which receives a string representing the pure jack code and tokenizes it.
                       Allows advancing through the tokens one at a time.
 
-4. JackFileReader - A class which receives a path to a given JACK file and turns it in to a string containing only
+4. JackFileReader.py - A class which receives a path to a given JACK file and turns it in to a string containing only
                     the pure jack code - without comments, redundant white spaces and documentation.
 
 5. Syntax.py - A help class containing several regexs and arrays used by the CompilationEngine class.
 
-6. SymbolTable - A symbol table that associates names with information needed for Jack compilation:
+6. SymbolTable.py - A symbol table that associates names with information needed for Jack compilation:
                 type, kind, and running index. The symbol table has 2 nested scopes (class/subroutine).
 
-7. VMWriter - Emits VM commands into a file
+7. VMWriter.py - Emits VM commands into a file
 
 Remarks
 
