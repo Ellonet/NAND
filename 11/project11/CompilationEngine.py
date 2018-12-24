@@ -455,7 +455,10 @@ class CompilationEngine:
 				self.next_token()
 				self.next_token()
 				self.compile_expression()
-				self.vm_writer.write_push(self.symbol_table.kind_of(val), self.symbol_table.index_of(val))
+				kind = self.symbol_table.kind_of(val)
+				if kind == "field":
+					kind = "this"
+				self.vm_writer.write_push(kind, self.symbol_table.index_of(val))
 				self.vm_writer.write_arithmetic("+")
 				# skip over "]"
 				self.next_token()
