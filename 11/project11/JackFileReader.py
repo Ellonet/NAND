@@ -36,19 +36,24 @@ class JackFileReader:
 			quote = line.find(QUOTE_MARK)
 			if quote >= 0:
 				temp = line.split('"')
+				temp[0] = " ".join(temp[0].split())
+				temp[2] = " ".join(temp[2].split())
 				qoute_2 = temp[2].find(COMMENT_MARK)
 				if qoute_2 >= 0:
 					temp[2] = temp[2][:qoute_2]
+
 				qoute_1 = temp[0].find(COMMENT_MARK)
 				if qoute_1 >= 0:
 					line = temp[0][:qoute_1]
+
 				else:
 					line = '"'.join(temp)
+
 			else:
 				temp = line.find(COMMENT_MARK)
 				if temp >= 0:
 					line = line[:temp]
-			line = " ".join(line.split())
+				line = " ".join(line.split())
 
 			semi = line.rfind(";")
 			if semi >= 0:
