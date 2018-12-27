@@ -1,0 +1,167 @@
+function SquareGame_ExpSquare.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push this 0
+pop this 0
+push this 1
+pop this 1
+push pointer 0
+return
+function SquareGame_ExpSquare.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Square.dispose 1
+pop temp 0
+push this 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function SquareGame_ExpSquare.run 2
+push argument 0
+pop pointer 0
+label LOOP.69
+push local 1
+not
+if-goto BRAKE.72
+label LOOP.74
+push local 0
+not
+if-goto BRAKE.77
+push local 0
+pop local 0
+push pointer 0
+call SquareGame_ExpSquare.moveSquare 1
+pop temp 0
+goto LOOP.74
+label BRAKE.77
+push local 0
+if-goto IF_TRUE.92
+goto IF_FALSE.92
+label IF_TRUE.92
+push local 1
+pop local 1
+goto END.92
+label IF_FALSE.92
+label END.92
+push local 0
+if-goto IF_TRUE.103
+goto IF_FALSE.103
+label IF_TRUE.103
+push this 0
+call Square.decSize 1
+pop temp 0
+goto END.103
+label IF_FALSE.103
+label END.103
+push local 0
+if-goto IF_TRUE.116
+goto IF_FALSE.116
+label IF_TRUE.116
+push this 0
+call Square.incSize 1
+pop temp 0
+goto END.116
+label IF_FALSE.116
+label END.116
+push local 0
+if-goto IF_TRUE.129
+goto IF_FALSE.129
+label IF_TRUE.129
+push constant 123
+pop this 1
+goto END.129
+label IF_FALSE.129
+label END.129
+push local 0
+if-goto IF_TRUE.140
+goto IF_FALSE.140
+label IF_TRUE.140
+push constant 321
+pop this 1
+goto END.140
+label IF_FALSE.140
+label END.140
+push local 0
+if-goto IF_TRUE.151
+goto IF_FALSE.151
+label IF_TRUE.151
+push this 0
+pop this 1
+goto END.151
+label IF_FALSE.151
+label END.151
+push local 0
+if-goto IF_TRUE.162
+goto IF_FALSE.162
+label IF_TRUE.162
+push this 1
+pop this 1
+goto END.162
+label IF_FALSE.162
+label END.162
+label LOOP.171
+push local 0
+not
+if-goto BRAKE.174
+push local 0
+pop local 0
+push pointer 0
+call SquareGame_ExpSquare.moveSquare 1
+pop temp 0
+goto LOOP.171
+label BRAKE.174
+goto LOOP.69
+label BRAKE.72
+push constant 0
+return
+function SquareGame_ExpSquare.moveSquare 0
+push argument 0
+pop pointer 0
+push this 1
+if-goto IF_TRUE.199
+goto IF_FALSE.199
+label IF_TRUE.199
+push this 0
+call Square.moveUp 1
+pop temp 0
+goto END.199
+label IF_FALSE.199
+label END.199
+push this 1
+if-goto IF_TRUE.212
+goto IF_FALSE.212
+label IF_TRUE.212
+push this 0
+call Square.moveDown 1
+pop temp 0
+goto END.212
+label IF_FALSE.212
+label END.212
+push this 1
+if-goto IF_TRUE.225
+goto IF_FALSE.225
+label IF_TRUE.225
+push this 0
+call Square.moveLeft 1
+pop temp 0
+goto END.225
+label IF_FALSE.225
+label END.225
+push this 1
+if-goto IF_TRUE.238
+goto IF_FALSE.238
+label IF_TRUE.238
+push this 0
+call Square.moveRight 1
+pop temp 0
+goto END.238
+label IF_FALSE.238
+label END.238
+push this 1
+call Sys.wait 1
+pop temp 0
+push constant 0
+return

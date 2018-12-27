@@ -1,0 +1,968 @@
+function Frog.new 0
+push constant 3
+call Memory.alloc 1
+pop pointer 0
+push constant 15
+pop this 0
+push constant 239
+pop this 1
+push constant 1
+pop this 2
+push pointer 0
+call Frog.draw 1
+pop temp 0
+push pointer 0
+return
+function Frog.x 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Frog.y 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Frog.jumpAhead 0
+push argument 0
+pop pointer 0
+push this 1
+push constant 1
+add
+pop this 1
+push constant 0
+return
+function Frog.jumpRight 0
+push argument 0
+pop pointer 0
+push this 0
+push constant 1
+add
+pop this 0
+push constant 0
+return
+function Frog.jumpLeft 0
+push argument 0
+pop pointer 0
+push this 0
+push constant 1
+sub
+pop this 0
+push constant 0
+return
+function Frog.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Frog.draw 0
+push argument 0
+pop pointer 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 2
+push constant 1
+eq
+if-goto LABEL0
+goto LABEL1
+label LABEL0
+push this 0
+push this 1
+push this 0
+push constant 8
+sub
+push this 1
+push constant 10
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 8
+add
+push this 1
+push constant 10
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 7
+sub
+push this 1
+push constant 11
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 7
+add
+push this 1
+push constant 11
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 5
+add
+push this 1
+push constant 10
+add
+push this 0
+push constant 13
+add
+push this 1
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 5
+sub
+push this 1
+push constant 10
+add
+push this 0
+push constant 13
+sub
+push this 1
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 5
+add
+push this 1
+push constant 11
+add
+push this 0
+push constant 13
+add
+push this 1
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 5
+sub
+push this 1
+push constant 11
+add
+push this 0
+push constant 13
+sub
+push this 1
+call Screen.drawLine 4
+pop temp 0
+label LABEL1
+push this 2
+push constant 2
+eq
+if-goto LABEL2
+goto LABEL3
+label LABEL2
+push this 0
+push this 1
+push this 0
+push constant 10
+add
+push this 1
+push constant 8
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 10
+add
+push this 1
+push constant 8
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 11
+add
+push this 1
+push constant 7
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 11
+add
+push this 1
+push constant 7
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 10
+sub
+push this 1
+push constant 5
+sub
+push this 0
+push this 1
+push constant 13
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 10
+sub
+push this 1
+push constant 5
+add
+push this 0
+push this 1
+push constant 13
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 11
+sub
+push this 1
+push constant 5
+sub
+push this 0
+push this 1
+push constant 13
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 11
+sub
+push this 1
+push constant 5
+add
+push this 0
+push this 1
+push constant 13
+add
+call Screen.drawLine 4
+pop temp 0
+label LABEL3
+push this 2
+push constant 3
+eq
+if-goto LABEL4
+goto LABEL5
+label LABEL4
+push this 0
+push this 1
+push this 0
+push constant 10
+sub
+push this 1
+push constant 8
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 10
+sub
+push this 1
+push constant 8
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 11
+sub
+push this 1
+push constant 7
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 11
+sub
+push this 1
+push constant 7
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 10
+add
+push this 1
+push constant 5
+sub
+push this 0
+push this 1
+push constant 13
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 10
+add
+push this 1
+push constant 5
+add
+push this 0
+push this 1
+push constant 13
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 11
+add
+push this 1
+push constant 5
+sub
+push this 0
+push this 1
+push constant 13
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 11
+add
+push this 1
+push constant 5
+add
+push this 0
+push this 1
+push constant 13
+add
+call Screen.drawLine 4
+pop temp 0
+label LABEL5
+push this 2
+push constant 4
+eq
+if-goto LABEL6
+goto LABEL7
+label LABEL6
+push this 0
+push this 1
+push this 0
+push constant 8
+sub
+push this 1
+push constant 10
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 8
+add
+push this 1
+push constant 10
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 7
+sub
+push this 1
+push constant 11
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 7
+add
+push this 1
+push constant 11
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 5
+add
+push this 1
+push constant 10
+sub
+push this 0
+push constant 13
+add
+push this 1
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 5
+sub
+push this 1
+push constant 10
+sub
+push this 0
+push constant 13
+sub
+push this 1
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 5
+add
+push this 1
+push constant 11
+sub
+push this 0
+push constant 13
+add
+push this 1
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 5
+sub
+push this 1
+push constant 11
+sub
+push this 0
+push constant 13
+sub
+push this 1
+call Screen.drawLine 4
+pop temp 0
+label LABEL7
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push constant 10
+call Screen.drawCircle 3
+pop temp 0
+push constant 0
+return
+function Frog.erase 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push constant 10
+call Screen.drawCircle 3
+pop temp 0
+push constant 0
+return
+function Frog.coverTracks 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 2
+push constant 1
+eq
+if-goto LABEL8
+goto LABEL9
+label LABEL8
+push this 0
+push this 1
+push this 0
+push constant 8
+sub
+push this 1
+push constant 10
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 8
+add
+push this 1
+push constant 10
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 7
+sub
+push this 1
+push constant 11
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 7
+add
+push this 1
+push constant 11
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 5
+add
+push this 1
+push constant 10
+add
+push this 0
+push constant 13
+add
+push this 1
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 5
+sub
+push this 1
+push constant 10
+add
+push this 0
+push constant 13
+sub
+push this 1
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 5
+add
+push this 1
+push constant 11
+add
+push this 0
+push constant 13
+add
+push this 1
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 5
+sub
+push this 1
+push constant 11
+add
+push this 0
+push constant 13
+sub
+push this 1
+call Screen.drawLine 4
+pop temp 0
+label LABEL9
+push this 2
+push constant 2
+eq
+if-goto LABEL10
+goto LABEL11
+label LABEL10
+push this 0
+push this 1
+push this 0
+push constant 10
+add
+push this 1
+push constant 8
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 10
+add
+push this 1
+push constant 8
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 11
+add
+push this 1
+push constant 7
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 11
+add
+push this 1
+push constant 7
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 10
+sub
+push this 1
+push constant 5
+sub
+push this 0
+push this 1
+push constant 13
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 10
+sub
+push this 1
+push constant 5
+add
+push this 0
+push this 1
+push constant 13
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 11
+sub
+push this 1
+push constant 5
+sub
+push this 0
+push this 1
+push constant 13
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 11
+sub
+push this 1
+push constant 5
+add
+push this 0
+push this 1
+push constant 13
+add
+call Screen.drawLine 4
+pop temp 0
+label LABEL11
+push this 2
+push constant 3
+eq
+if-goto LABEL12
+goto LABEL13
+label LABEL12
+push this 0
+push this 1
+push this 0
+push constant 10
+sub
+push this 1
+push constant 8
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 10
+sub
+push this 1
+push constant 8
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 11
+sub
+push this 1
+push constant 7
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 11
+sub
+push this 1
+push constant 7
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 10
+add
+push this 1
+push constant 5
+sub
+push this 0
+push this 1
+push constant 13
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 10
+add
+push this 1
+push constant 5
+add
+push this 0
+push this 1
+push constant 13
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 11
+add
+push this 1
+push constant 5
+sub
+push this 0
+push this 1
+push constant 13
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 11
+add
+push this 1
+push constant 5
+add
+push this 0
+push this 1
+push constant 13
+add
+call Screen.drawLine 4
+pop temp 0
+label LABEL13
+push this 2
+push constant 4
+eq
+if-goto LABEL14
+goto LABEL15
+label LABEL14
+push this 0
+push this 1
+push this 0
+push constant 8
+sub
+push this 1
+push constant 10
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 8
+add
+push this 1
+push constant 10
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 7
+sub
+push this 1
+push constant 11
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 7
+add
+push this 1
+push constant 11
+add
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 5
+add
+push this 1
+push constant 10
+sub
+push this 0
+push constant 13
+add
+push this 1
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 5
+sub
+push this 1
+push constant 10
+sub
+push this 0
+push constant 13
+sub
+push this 1
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 5
+add
+push this 1
+push constant 11
+sub
+push this 0
+push constant 13
+add
+push this 1
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 5
+sub
+push this 1
+push constant 11
+sub
+push this 0
+push constant 13
+sub
+push this 1
+call Screen.drawLine 4
+pop temp 0
+label LABEL15
+push this 0
+push this 1
+push constant 10
+call Screen.drawCircle 3
+pop temp 0
+push constant 0
+return
+function Frog.moveDown 0
+push argument 0
+pop pointer 0
+push this 1
+push constant 15
+add
+push constant 254
+lt
+if-goto LABEL16
+goto LABEL17
+label LABEL16
+push pointer 0
+call Frog.coverTracks 1
+pop temp 0
+push constant 4
+pop this 2
+push this 1
+push constant 5
+add
+pop this 1
+push pointer 0
+call Frog.draw 1
+pop temp 0
+label LABEL17
+push constant 0
+return
+function Frog.moveUp 0
+push argument 0
+pop pointer 0
+push this 1
+push constant 15
+sub
+push constant 5
+gt
+if-goto LABEL18
+goto LABEL19
+label LABEL18
+push pointer 0
+call Frog.coverTracks 1
+pop temp 0
+push constant 1
+pop this 2
+push this 1
+push constant 5
+sub
+pop this 1
+push pointer 0
+call Frog.draw 1
+pop temp 0
+label LABEL19
+push constant 0
+return
+function Frog.moveLeft 0
+push argument 0
+pop pointer 0
+push this 0
+push constant 15
+sub
+push constant 1
+gt
+if-goto LABEL20
+goto LABEL21
+label LABEL20
+push pointer 0
+call Frog.coverTracks 1
+pop temp 0
+push constant 3
+pop this 2
+push this 0
+push constant 5
+sub
+pop this 0
+push pointer 0
+call Frog.draw 1
+pop temp 0
+label LABEL21
+push constant 0
+return
+function Frog.moveRight 0
+push argument 0
+pop pointer 0
+push this 0
+push constant 15
+add
+push constant 510
+lt
+if-goto LABEL22
+goto LABEL23
+label LABEL22
+push pointer 0
+call Frog.coverTracks 1
+pop temp 0
+push constant 2
+pop this 2
+push this 0
+push constant 5
+add
+pop this 0
+push pointer 0
+call Frog.draw 1
+pop temp 0
+label LABEL23
+push constant 0
+return

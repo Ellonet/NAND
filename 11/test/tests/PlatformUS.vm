@@ -1,0 +1,193 @@
+function Platform.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 2
+push argument 1
+pop this 1
+push argument 2
+pop this 3
+push constant 0
+pop this 0
+push argument 3
+pop static 0
+push pointer 0
+return
+function Platform.drawPlatform 1
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+label LOOP.84
+push local 0
+push constant 10
+lt
+not
+if-goto BRAKE.89
+push local 0
+push constant 1
+add
+pop local 0
+goto LOOP.84
+label BRAKE.89
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 2
+push this 3
+push this 1
+push this 3
+push constant 1
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Platform.hasNext 0
+push argument 0
+pop pointer 0
+push this 0
+push constant 0
+eq
+if-goto IF_TRUE.136
+goto IF_FALSE.136
+label IF_TRUE.136
+push constant 0
+return
+goto END.136
+label IF_FALSE.136
+label END.136
+push constant 0
+not
+return
+function Platform.setNext 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 0
+push constant 0
+return
+function Platform.getNext 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Platform.moveUp 0
+push argument 0
+pop pointer 0
+push this 3
+push constant 0
+gt
+if-goto IF_TRUE.183
+goto IF_FALSE.183
+label IF_TRUE.183
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 2
+push this 3
+push this 1
+push this 3
+push constant 1
+add
+call Screen.drawRectangle 4
+pop temp 0
+push this 3
+push constant 1
+sub
+pop this 3
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 2
+push this 3
+push this 1
+push this 3
+push constant 1
+add
+call Screen.drawRectangle 4
+pop temp 0
+goto END.183
+label IF_FALSE.183
+push pointer 0
+call Platform.disposePlatform 1
+pop temp 0
+label END.183
+push constant 0
+return
+function Platform.disposePlatform 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 2
+push this 3
+push this 1
+push this 3
+push constant 10
+add
+call Screen.drawRectangle 4
+pop temp 0
+push static 0
+call PlatformsList.removePlatform 1
+pop temp 0
+push constant 0
+return
+function Platform.isOnPlatform 0
+push argument 0
+pop pointer 0
+push argument 2
+push constant 7
+add
+push this 3
+lt
+if-goto IF_TRUE.310
+goto IF_FALSE.310
+label IF_TRUE.310
+push constant 0
+return
+goto END.310
+label IF_FALSE.310
+label END.310
+push argument 2
+push constant 3
+add
+push this 3
+gt
+if-goto IF_TRUE.323
+goto IF_FALSE.323
+label IF_TRUE.323
+push constant 0
+return
+goto END.323
+label IF_FALSE.323
+label END.323
+push argument 1
+push this 2
+lt
+if-goto IF_TRUE.334
+goto IF_FALSE.334
+label IF_TRUE.334
+push constant 0
+return
+goto END.334
+label IF_FALSE.334
+label END.334
+push argument 1
+push this 1
+gt
+if-goto IF_TRUE.345
+goto IF_FALSE.345
+label IF_TRUE.345
+push constant 0
+return
+goto END.345
+label IF_FALSE.345
+label END.345
+push constant 0
+not
+return

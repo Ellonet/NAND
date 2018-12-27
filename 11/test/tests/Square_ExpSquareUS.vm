@@ -1,0 +1,219 @@
+function Square_ExpSquare.new 0
+push constant 3
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 1
+pop this 1
+push argument 2
+pop this 2
+push pointer 0
+call Square_ExpSquare.draw 1
+pop temp 0
+push pointer 0
+return
+function Square_ExpSquare.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Square_ExpSquare.draw 0
+push argument 0
+pop pointer 0
+push this 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 1
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Square_ExpSquare.erase 0
+push argument 0
+pop pointer 0
+push this 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 1
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Square_ExpSquare.incSize 0
+push argument 0
+pop pointer 0
+push this 0
+if-goto IF_TRUE.138
+goto IF_FALSE.138
+label IF_TRUE.138
+push pointer 0
+call Square_ExpSquare.erase 1
+pop temp 0
+push this 2
+pop this 2
+push pointer 0
+call Square_ExpSquare.draw 1
+pop temp 0
+goto END.138
+label IF_FALSE.138
+label END.138
+push constant 0
+return
+function Square_ExpSquare.decSize 0
+push argument 0
+pop pointer 0
+push this 2
+if-goto IF_TRUE.168
+goto IF_FALSE.168
+label IF_TRUE.168
+push pointer 0
+call Square_ExpSquare.erase 1
+pop temp 0
+push this 2
+pop this 2
+push pointer 0
+call Square_ExpSquare.draw 1
+pop temp 0
+goto END.168
+label IF_FALSE.168
+label END.168
+push constant 0
+return
+function Square_ExpSquare.moveUp 0
+push argument 0
+pop pointer 0
+push this 1
+if-goto IF_TRUE.198
+goto IF_FALSE.198
+label IF_TRUE.198
+push this 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 1
+call Screen.drawRectangle 4
+pop temp 0
+push this 1
+pop this 1
+push this 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 1
+call Screen.drawRectangle 4
+pop temp 0
+goto END.198
+label IF_FALSE.198
+label END.198
+push constant 0
+return
+function Square_ExpSquare.moveDown 0
+push argument 0
+pop pointer 0
+push this 1
+if-goto IF_TRUE.262
+goto IF_FALSE.262
+label IF_TRUE.262
+push this 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 1
+call Screen.drawRectangle 4
+pop temp 0
+push this 1
+pop this 1
+push this 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 1
+call Screen.drawRectangle 4
+pop temp 0
+goto END.262
+label IF_FALSE.262
+label END.262
+push constant 0
+return
+function Square_ExpSquare.moveLeft 0
+push argument 0
+pop pointer 0
+push this 0
+if-goto IF_TRUE.326
+goto IF_FALSE.326
+label IF_TRUE.326
+push this 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 1
+call Screen.drawRectangle 4
+pop temp 0
+push this 0
+pop this 0
+push this 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 1
+call Screen.drawRectangle 4
+pop temp 0
+goto END.326
+label IF_FALSE.326
+label END.326
+push constant 0
+return
+function Square_ExpSquare.moveRight 0
+push argument 0
+pop pointer 0
+push this 0
+if-goto IF_TRUE.390
+goto IF_FALSE.390
+label IF_TRUE.390
+push this 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 1
+call Screen.drawRectangle 4
+pop temp 0
+push this 0
+pop this 0
+push this 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 1
+call Screen.drawRectangle 4
+pop temp 0
+goto END.390
+label IF_FALSE.390
+label END.390
+push constant 0
+return

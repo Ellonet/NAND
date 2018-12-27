@@ -1,0 +1,310 @@
+function Math.init 2
+push constant 16
+call Array.new 1
+pop temp 0
+pop static 0
+push constant 1
+pop local 0
+push constant 0
+pop local 1
+label LOOP.39
+push local 1
+push constant 16
+lt
+not
+if-goto BRAKE.44
+push local 1
+push static 0
+add
+push local 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push local 0
+add
+pop local 0
+push local 1
+push constant 1
+add
+pop local 1
+goto LOOP.39
+label BRAKE.44
+push constant 0
+return
+function Math.abs 0
+push argument 0
+push constant 0
+lt
+if-goto IF_TRUE.84
+goto IF_FALSE.84
+label IF_TRUE.84
+push argument 0
+neg
+return
+goto END.84
+label IF_FALSE.84
+push argument 0
+return
+label END.84
+function Math.multiply 4
+push argument 0
+push constant 0
+eq
+push argument 1
+push constant 0
+eq
+or
+if-goto IF_TRUE.134
+goto IF_FALSE.134
+label IF_TRUE.134
+push constant 0
+return
+goto END.134
+label IF_FALSE.134
+label END.134
+push constant 0
+pop local 2
+push constant 0
+pop local 0
+push argument 0
+pop local 1
+label LOOP.156
+push local 2
+push constant 16
+lt
+not
+if-goto BRAKE.161
+push argument 1
+push local 2
+call Math.bitValueAt 2
+pop temp 0
+if-goto IF_TRUE.172
+goto IF_FALSE.172
+label IF_TRUE.172
+push local 0
+push local 1
+add
+pop local 0
+goto END.172
+label IF_FALSE.172
+label END.172
+push local 1
+push local 1
+add
+pop local 1
+push local 2
+push constant 1
+add
+pop local 2
+goto LOOP.156
+label BRAKE.161
+push local 0
+return
+function Math.divide 2
+push argument 0
+push constant 0
+eq
+push argument 1
+push constant 0
+eq
+or
+if-goto IF_TRUE.233
+goto IF_FALSE.233
+label IF_TRUE.233
+push constant 0
+return
+goto END.233
+label IF_FALSE.233
+label END.233
+push argument 0
+push constant 0
+lt
+push argument 1
+push constant 0
+gt
+and
+push argument 1
+push constant 0
+lt
+push argument 0
+push constant 0
+gt
+and
+or
+pop local 1
+push argument 0
+call Math.abs 1
+pop temp 0
+pop argument 0
+push argument 1
+call Math.abs 1
+pop temp 0
+pop argument 1
+push argument 0
+push argument 1
+call Math.divideHelper 2
+pop temp 0
+pop local 0
+push local 1
+if-goto IF_TRUE.307
+goto IF_FALSE.307
+label IF_TRUE.307
+push local 0
+neg
+return
+goto END.307
+label IF_FALSE.307
+push local 0
+return
+label END.307
+function Math.divideHelper 1
+push argument 1
+push argument 0
+gt
+if-goto IF_TRUE.341
+goto IF_FALSE.341
+label IF_TRUE.341
+push constant 0
+return
+goto END.341
+label IF_FALSE.341
+label END.341
+push argument 0
+push argument 1
+push argument 1
+add
+call Math.divideHelper 2
+pop temp 0
+pop local 0
+push argument 0
+push local 0
+push local 0
+add
+push argument 1
+call Math.multiply 2
+pop temp 0
+sub
+push argument 1
+lt
+if-goto IF_TRUE.379
+goto IF_FALSE.379
+label IF_TRUE.379
+push local 0
+push local 0
+add
+return
+goto END.379
+label IF_FALSE.379
+push local 0
+push local 0
+add
+push constant 1
+add
+return
+label END.379
+function Math.sqrt 3
+push constant 0
+pop local 0
+push constant 7
+pop local 1
+label LOOP.425
+push local 1
+push constant 1
+neg
+gt
+not
+if-goto BRAKE.431
+push local 0
+push local 1
+push static 0
+add
+pop pointer 1
+push that 0
+add
+pop local 2
+push local 2
+push local 2
+call Math.multiply 2
+pop temp 0
+pop local 2
+push local 2
+push argument 0
+gt
+not
+push local 2
+push constant 0
+gt
+and
+if-goto IF_TRUE.468
+goto IF_FALSE.468
+label IF_TRUE.468
+push local 0
+push local 1
+push static 0
+add
+pop pointer 1
+push that 0
+add
+pop local 0
+goto END.468
+label IF_FALSE.468
+label END.468
+push local 1
+push constant 1
+sub
+pop local 1
+goto LOOP.425
+label BRAKE.431
+push local 0
+return
+function Math.max 0
+push argument 0
+push argument 1
+gt
+if-goto IF_TRUE.509
+goto IF_FALSE.509
+label IF_TRUE.509
+push argument 0
+return
+goto END.509
+label IF_FALSE.509
+push argument 1
+return
+label END.509
+function Math.min 0
+push argument 0
+push argument 1
+lt
+if-goto IF_TRUE.538
+goto IF_FALSE.538
+label IF_TRUE.538
+push argument 0
+return
+goto END.538
+label IF_FALSE.538
+push argument 1
+return
+label END.538
+function Math.bitValueAt 0
+push argument 0
+push argument 1
+push static 0
+add
+pop pointer 1
+push that 0
+and
+push constant 0
+eq
+if-goto IF_TRUE.574
+goto IF_FALSE.574
+label IF_TRUE.574
+push constant 0
+return
+goto END.574
+label IF_FALSE.574
+push constant 0
+not
+return
+label END.574

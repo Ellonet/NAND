@@ -1,0 +1,148 @@
+function PlatformsList.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+pop this 0
+push constant 0
+pop this 1
+push pointer 0
+return
+function PlatformsList.moveUp 1
+push argument 0
+pop pointer 0
+push this 0
+push constant 0
+eq
+if-goto IF_TRUE.45
+goto IF_FALSE.45
+label IF_TRUE.45
+push constant 0
+return
+goto END.45
+label IF_FALSE.45
+label END.45
+push this 0
+pop local 0
+label LOOP.56
+push local 0
+call Platform.hasNext 1
+pop temp 0
+not
+if-goto BRAKE.63
+push local 0
+call Platform.moveUp 1
+pop temp 0
+push local 0
+call Platform.getNext 1
+pop temp 0
+pop local 0
+goto LOOP.56
+label BRAKE.63
+push constant 0
+return
+function PlatformsList.add 0
+push argument 0
+pop pointer 0
+push this 0
+push constant 0
+eq
+if-goto IF_TRUE.97
+goto IF_FALSE.97
+label IF_TRUE.97
+push argument 1
+pop this 0
+push argument 1
+pop this 1
+push constant 0
+return
+goto END.97
+label IF_FALSE.97
+label END.97
+push this 1
+push argument 1
+call Platform.setNext 2
+pop temp 0
+push argument 1
+pop this 1
+push constant 0
+return
+function PlatformsList.removePlatform 0
+push argument 0
+pop pointer 0
+push this 0
+push constant 0
+eq
+if-goto IF_TRUE.139
+goto IF_FALSE.139
+label IF_TRUE.139
+push constant 0
+return
+goto END.139
+label IF_FALSE.139
+label END.139
+push this 0
+call Platform.hasNext 1
+pop temp 0
+if-goto IF_TRUE.151
+goto IF_FALSE.151
+label IF_TRUE.151
+push this 0
+call Platform.getNext 1
+pop temp 0
+pop this 0
+push constant 0
+return
+goto END.151
+label IF_FALSE.151
+label END.151
+push constant 0
+pop this 0
+push constant 0
+pop this 1
+push constant 0
+return
+function PlatformsList.isOnPlatform 1
+push argument 0
+pop pointer 0
+push this 0
+push constant 0
+eq
+if-goto IF_TRUE.198
+goto IF_FALSE.198
+label IF_TRUE.198
+push constant 0
+return
+goto END.198
+label IF_FALSE.198
+label END.198
+push this 0
+pop local 0
+label LOOP.210
+push local 0
+call Platform.hasNext 1
+pop temp 0
+not
+if-goto BRAKE.217
+push local 0
+push argument 1
+push argument 2
+call Platform.isOnPlatform 3
+pop temp 0
+if-goto IF_TRUE.228
+goto IF_FALSE.228
+label IF_TRUE.228
+push constant 0
+not
+return
+goto END.228
+label IF_FALSE.228
+label END.228
+push local 0
+call Platform.getNext 1
+pop temp 0
+pop local 0
+goto LOOP.210
+label BRAKE.217
+push constant 0
+return
