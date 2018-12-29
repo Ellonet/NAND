@@ -34,14 +34,12 @@ class JackFileReader:
 				self.__oneLiner += line
 
 	def remove_documentation(self):
-		i = 0
 		string_flag = False
 		comment_flag = False
 		length = len(self.__oneLiner)
+		i = 0
 		while (i < length):
-
 			curr = self.__oneLiner[i]
-
 			if curr is QUOTE_MARK and not comment_flag:
 				string_flag = not string_flag
 
