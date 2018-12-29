@@ -42,12 +42,12 @@ class JackFileReader:
 		i = 0
 		while (i < length):
 			curr = self.__oneLiner[i]
-			if curr is QUOTE_MARK and not comment_flag:
+			if curr is QUOTE_MARK and not comment_flag: # got " out side a comment
 				string_flag = not string_flag
 
-			if not string_flag:
+			if not string_flag: # not in string
 				if self.__oneLiner[i:].startswith(COMMENT_MARK):
-					new_line = self.__oneLiner[i:].find("\n")
+					new_line = self.__oneLiner[i:].find(NEW_LINE)
 					self.__oneLiner = self.__oneLiner[:i] + self.__oneLiner[i + new_line + 1:]
 					length -= new_line + 1
 
@@ -57,6 +57,7 @@ class JackFileReader:
 					length -= doc + 2
 				else:
 					i += 1
+			# case of string "..."
 			else:
 				i += 1
 		self.__oneLiner = self.__oneLiner.replace(NEW_LINE, SPACE)
