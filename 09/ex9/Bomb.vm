@@ -279,9 +279,9 @@ pop pointer 0
 push this 1
 push constant 230
 lt
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL0
+goto LABEL1
+label LABEL0
 push pointer 0
 call Bomb.erase 1
 pop temp 0
@@ -295,8 +295,8 @@ pop temp 0
 push constant 5
 call Sys.wait 1
 pop temp 0
-goto IF_END0
-label IF_FALSE0
+goto LABEL2
+label LABEL1
 push pointer 0
 call Bomb.erase 1
 pop temp 0
@@ -305,21 +305,21 @@ pop this 1
 push this 0
 push constant 15
 gt
-if-goto IF_TRUE1
-goto IF_FALSE1
-label IF_TRUE1
+if-goto LABEL3
+goto LABEL4
+label LABEL3
 push constant 31
 push this 0
 sub
 pop this 0
-goto IF_END1
-label IF_FALSE1
+goto LABEL5
+label LABEL4
 push constant 15
 push this 0
 add
 pop this 0
-label IF_END1
-label IF_END0
+label LABEL5
+label LABEL2
 push constant 0
 return
 function Bomb.getX 0
