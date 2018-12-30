@@ -3,103 +3,79 @@ import re
 # ________________________constants___________________________
 COMMENT_MARK = "//"
 QUOTE_MARK = '"'
-DOCUMENTATION1 = ".*((\/\*\*)[^\n].*?(\*\/))"
-DOCUMENTATION2 = ".*((\/\*)[^\n].*?(\*\/))"
-
+DOC_START = "/*"
+DOC_END = "*/"
 SPACE = " "
 TAB = "\t"
-EMPTY_STR = ""
+NEW_LINE = "\n"
 
 
 class JackFileReader:
-    """
-    reads the file while ignoring spaces and comments
-    """
+	"""
+	given a jack file path - it reads the file and generates a one liner containing the pure jack code.
+	"""
+	def __init__(self, path):
+		self._path = path
+		self.__allLines = []
+		self.__oneLiner = ""
+		self._read_file()
 
-    def __init__(self, path):
-        self._path = path
-        self.__allLines = []
-        self.__oneLiner = ""
-        self.read_file()
-        self.remove_documentation()
+	def _read_file(self):
+		"""
+		The main method running this class.
+		:return:
+		"""
+		with open(self._path, "r") as file:
+			for line in file:
+				self.__oneLiner += line
+		self._remove_documentation()
+		self._clean_spaces()
 
-    def read_file(self):
-        """
-        the main function of the class
-        :return:
-        """
-        with open(self._path, "r") as file:
-            all_lines = file.read().splitlines()
-        for line in all_lines:
-            if line.startswith(COMMENT_MARK):
-                continue
-            quote = line.find(QUOTE_MARK)
-            if quote >= 0:
-                temp = line.split('"')
-                if len(temp) < 3:
-                    print(self._path)
-                    print(line)
-                    print(temp)
-                temp[0] = " ".join(temp[0].split())
-                temp[2] = " ".join(temp[2].split())
-                qoute_2 = temp[2].find(COMMENT_MARK)
-                if qoute_2 >= 0:
-                    temp[2] = temp[2][:qoute_2]
+	def _remove_documentation(self):
+		"""
+		Removes all the possible documentations from the one liner holding the code.
+		:return:
+		"""
+		string_flag = False
+		comment_flag = False
+		length = len(self.__oneLiner)
+		i = 0
+		while (i < length):
+			curr = self.__oneLiner[i]
+			if curr is QUOTE_MARK and not comment_flag: # got " out side a comment
+				string_flag = not string_flag
 
-                qoute_1 = temp[0].find(COMMENT_MARK)
-                if qoute_1 >= 0:
-                    line = temp[0][:qoute_1]
+			if not string_flag: # not in string
+				if self.__oneLiner[i:].startswith(COMMENT_MARK):
+					new_line = self.__oneLiner[i:].find(NEW_LINE)
+					self.__oneLiner = self.__oneLiner[:i] + self.__oneLiner[i + new_line + 1:]
+					length -= new_line + 1
 
-                else:
-                    line = '"'.join(temp)
+				elif self.__oneLiner[i:].startswith(DOC_START):
+					doc = self.__oneLiner[i:].find(DOC_END)
+					self.__oneLiner = self.__oneLiner[:i] + SPACE + self.__oneLiner[i + doc + 2:]
+					length -= doc + 2
+				else:
+					i += 1
+			# case of string "..."
+			else:
+				i += 1
+		self.__oneLiner = self.__oneLiner.replace(NEW_LINE, SPACE)
 
-            else:
-                temp = line.find(COMMENT_MARK)
-                if temp >= 0:
-                    line = line[:temp]
-                line = " ".join(line.split())
+	def _clean_spaces(self):
+		"""
+		Cleans all the unnecessary white spaces and tabs.
+		:return:
+		"""
+		split_by_quotes = self.__oneLiner.split(QUOTE_MARK)
+		for i in range(len(split_by_quotes)):
+			if (not i % 2):
+				split_by_quotes[i] = " ".join(split_by_quotes[i].split())
+		self.__oneLiner = QUOTE_MARK.join(split_by_quotes)
 
-            semi = line.rfind(";")
-            if semi >= 0:
-                ender = line.rfind("}")
-                if ender > semi:
-                    line = line[:ender + 1]
-                else:
-                    line = line[:semi + 1]
-
-            if not (line.startswith(COMMENT_MARK)) and line != EMPTY_STR:
-                self.__allLines.append(line)
-
-        self.__oneLiner = "".join(self.__allLines)
-
-    def remove_documentation(self):
-        """
-        cleans the input from comments
-        :return:
-        """
-        documentation_reg = re.compile(DOCUMENTATION1)
-        documentation_reg2 = re.compile(DOCUMENTATION2)
-
-        matching = re.match(documentation_reg, self.__oneLiner)
-        while matching:
-            self.__oneLiner = self.__oneLiner.replace(matching.group(1), "")
-            matching = re.match(documentation_reg, self.__oneLiner)
-
-        matching = re.match(documentation_reg2, self.__oneLiner)
-        while matching:
-            self.__oneLiner = self.__oneLiner.replace(matching.group(1), "")
-            matching = re.match(documentation_reg2, self.__oneLiner)
-
-    def get_lines(self):
-        """
-        getter for the parsed lines of the file
-        :return:
-        """
-        return self.__allLines
-
-    def get_one_liner(self):
-        """
-        getter for the big string holding all the lines one after the other
-        :return:
-        """
-        return self.__oneLiner
+	def get_one_liner(self):
+		"""
+		getter for the big string holding the "pure" parsed code with no documentation and unnecessary spaces.
+		:return: a string
+		"""
+		return self.__oneLiner

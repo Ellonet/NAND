@@ -1,10 +1,10 @@
 import os
 
 # path of your python script jackCompiler.py
-pythonPath = "/cs/usr/zoharb/Desktop/untitled_folder/nand-ex1/11/project11/Main.py"
+pythonPath = r"D:\SCHOOL\שנה_ב\NAND\nand2tetris\projects\nand-ex1\10\project10\Main.py"
 
 # path of folder in which there are folders.... in which there are jack files
-testingPath = "/cs/usr/zoharb/Desktop/untitled_folder/nand-ex1/11/test/p11"
+testingPath = r"D:\SCHOOL\שנה_ב\NAND\nand2tetris\projects\nand-ex1\10\testers\p11"
 
 def runTest(path):
     if os.path.isdir(path):

@@ -227,9 +227,9 @@ pop pointer 0
 push this 0
 push constant 1
 gt
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL0
+goto LABEL1
+label LABEL0
 push constant 0
 call Screen.setColor 1
 pop temp 0
@@ -441,7 +441,7 @@ push constant 25
 add
 call Screen.drawRectangle 4
 pop temp 0
-label IF_FALSE0
+label LABEL1
 push constant 0
 return
 function Basket.moveRight 0
@@ -452,9 +452,9 @@ push constant 50
 add
 push constant 510
 lt
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL2
+goto LABEL3
+label LABEL2
 push constant 0
 call Screen.setColor 1
 pop temp 0
@@ -666,7 +666,7 @@ push constant 25
 add
 call Screen.drawRectangle 4
 pop temp 0
-label IF_FALSE0
+label LABEL3
 push constant 0
 return
 function Basket.blink 0

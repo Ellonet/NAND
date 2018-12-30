@@ -35,9 +35,9 @@ pop local 0
 push this 2
 push constant 1
 eq
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL0
+goto LABEL1
+label LABEL0
 push local 0
 push constant 0
 add
@@ -162,13 +162,13 @@ add
 push constant 7280
 call Memory.poke 2
 pop temp 0
-label IF_FALSE0
+label LABEL1
 push this 2
 push constant 2
 eq
-if-goto IF_TRUE1
-goto IF_FALSE1
-label IF_TRUE1
+if-goto LABEL2
+goto LABEL3
+label LABEL2
 push local 0
 push constant 0
 add
@@ -283,13 +283,13 @@ add
 push constant 7168
 call Memory.poke 2
 pop temp 0
-label IF_FALSE1
+label LABEL3
 push this 2
 push constant 3
 eq
-if-goto IF_TRUE2
-goto IF_FALSE2
-label IF_TRUE2
+if-goto LABEL4
+goto LABEL5
+label LABEL4
 push local 0
 push constant 0
 add
@@ -409,7 +409,7 @@ add
 push constant 126
 call Memory.poke 2
 pop temp 0
-label IF_FALSE2
+label LABEL5
 push constant 0
 return
 function Fruit.erase 1
@@ -545,9 +545,9 @@ pop pointer 0
 push this 1
 push constant 230
 lt
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL6
+goto LABEL7
+label LABEL6
 push pointer 0
 call Fruit.erase 1
 pop temp 0
@@ -561,8 +561,8 @@ pop temp 0
 push constant 5
 call Sys.wait 1
 pop temp 0
-goto IF_END0
-label IF_FALSE0
+goto LABEL8
+label LABEL7
 push pointer 0
 call Fruit.erase 1
 pop temp 0
@@ -571,21 +571,21 @@ pop this 1
 push this 0
 push constant 15
 gt
-if-goto IF_TRUE1
-goto IF_FALSE1
-label IF_TRUE1
+if-goto LABEL9
+goto LABEL10
+label LABEL9
 push constant 31
 push this 0
 sub
 pop this 0
-goto IF_END1
-label IF_FALSE1
+goto LABEL11
+label LABEL10
 push constant 15
 push this 0
 add
 pop this 0
-label IF_END1
-label IF_END0
+label LABEL11
+label LABEL8
 push constant 0
 return
 function Fruit.getX 0
