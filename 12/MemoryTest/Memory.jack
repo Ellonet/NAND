@@ -49,7 +49,6 @@ class Memory {
 				return -1;
 			}
 		}
-
 		// case of matching block:
 		let block = curr + 2;
 		// set the remainder of the block as new "free black" in the free list
