@@ -49,13 +49,13 @@ push argument 1
 push constant 0
 eq
 or
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL0
+goto LABEL1
+label LABEL0
 push argument 0
 pop local 0
-goto IF_END0
-label IF_FALSE0
+goto LABEL2
+label LABEL1
 push argument 0
 push argument 1
 push argument 0
@@ -64,7 +64,7 @@ call Math.divide 2
 call Math.multiply 2
 sub
 pop local 0
-label IF_END0
+label LABEL2
 push local 0
 return
 function Utils.moduloPower2 0
@@ -96,12 +96,12 @@ pop local 2
 push local 2
 push constant 0
 lt
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL3
+goto LABEL4
+label LABEL3
 push static 3
 pop local 2
-label IF_FALSE0
+label LABEL4
 push local 2
 call Math.sqrt 1
 return

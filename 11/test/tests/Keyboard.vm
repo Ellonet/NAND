@@ -14,40 +14,40 @@ return
 function Keyboard.readChar 2
 push constant 0
 pop local 0
-label WHILE_EXP0
+label LABEL0
 push local 0
 push constant 0
 eq
 not
-if-goto WHILE_END0
+if-goto LABEL1
 call Keyboard.keyPressed 0
 pop local 0
-goto WHILE_EXP0
-label WHILE_END0
+goto LABEL0
+label LABEL1
 push local 0
 pop local 1
-label WHILE_EXP1
+label LABEL2
 push local 0
 push constant 0
 eq
 not
 not
-if-goto WHILE_END1
+if-goto LABEL3
 call Keyboard.keyPressed 0
 pop local 0
-goto WHILE_EXP1
-label WHILE_END1
+goto LABEL2
+label LABEL3
 push local 1
 call String.backSpace 0
 eq
 not
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL4
+goto LABEL5
+label LABEL4
 push local 1
 call Output.printChar 1
 pop temp 0
-label IF_FALSE0
+label LABEL5
 push local 1
 return
 function Keyboard.readLine 3
@@ -61,13 +61,13 @@ pop local 2
 push argument 0
 call Output.printString 1
 pop temp 0
-label WHILE_EXP0
+label LABEL6
 push local 0
 call String.newLine 0
 eq
 not
 not
-if-goto WHILE_END0
+if-goto LABEL7
 call Keyboard.readChar 0
 pop local 0
 push local 0
@@ -79,9 +79,9 @@ call String.newLine 0
 eq
 not
 and
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL8
+goto LABEL9
+label LABEL8
 push local 1
 push local 0
 call String.appendChar 2
@@ -90,8 +90,8 @@ push local 2
 push constant 1
 add
 pop local 2
-goto IF_END0
-label IF_FALSE0
+goto LABEL10
+label LABEL9
 push local 0
 call String.backSpace 0
 eq
@@ -99,9 +99,9 @@ push local 2
 push constant 0
 gt
 and
-if-goto IF_TRUE1
-goto IF_FALSE1
-label IF_TRUE1
+if-goto LABEL11
+goto LABEL12
+label LABEL11
 push local 1
 call String.eraseLastChar 1
 pop temp 0
@@ -111,10 +111,10 @@ push local 2
 push constant 1
 sub
 pop local 2
-label IF_FALSE1
-label IF_END0
-goto WHILE_EXP0
-label WHILE_END0
+label LABEL12
+label LABEL10
+goto LABEL6
+label LABEL7
 call Output.println 0
 pop temp 0
 push local 1
