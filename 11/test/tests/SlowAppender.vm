@@ -22,14 +22,14 @@ function SlowAppender.getIntValue 0
 push argument 0
 pop pointer 0
 push this 2
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL0
+goto LABEL1
+label LABEL0
 push constant 0
 pop this 2
 push constant 1
 return
-label IF_FALSE0
+label LABEL1
 push constant 0
 return
 function SlowAppender.addSlices 0
@@ -42,9 +42,9 @@ pop this 0
 push this 0
 push this 1
 gt
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL2
+goto LABEL3
+label LABEL2
 push this 0
 push this 1
 sub
@@ -52,6 +52,6 @@ pop this 0
 push constant 0
 not
 pop this 2
-label IF_FALSE0
+label LABEL3
 push constant 0
 return

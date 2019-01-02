@@ -42,7 +42,7 @@ class Math {
         var int sum, shiftedX, i;
         var boolean isNeg;
 		if((x=0)|(y=0)){
-			return 0;
+			return 0; 
 		}
 		let isNeg = ((x<0)|(y<0))&(~((x<0) & (y<0)));
 		let sum = 0;
@@ -79,6 +79,7 @@ class Math {
 			return (-result);
 		}
 		return result;
+		
     }
 	
 	/**helper function for the division operation*/

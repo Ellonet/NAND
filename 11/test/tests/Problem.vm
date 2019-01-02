@@ -3,12 +3,12 @@ call Fruit.new 0
 pop local 2
 push constant 0
 pop local 4
-label WHILE_EXP0
+label LABEL0
 push local 4
 push local 1
 lt
 not
-if-goto WHILE_END0
+if-goto LABEL1
 push local 4
 push local 0
 add
@@ -20,21 +20,21 @@ call Fruit.getLetter 1
 push local 3
 call Fruit.getLetter 1
 eq
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL2
+goto LABEL3
+label LABEL2
 push local 2
 call Fruit.dispose 1
 pop temp 0
 push constant 0
 return
-label IF_FALSE0
+label LABEL3
 push local 4
 push constant 1
 add
 pop local 4
-goto WHILE_EXP0
-label WHILE_END0
+goto LABEL0
+label LABEL1
 push local 1
 push local 0
 add

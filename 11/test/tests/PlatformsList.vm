@@ -14,27 +14,27 @@ pop pointer 0
 push this 0
 push constant 0
 eq
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL0
+goto LABEL1
+label LABEL0
 push constant 0
 return
-label IF_FALSE0
+label LABEL1
 push this 0
 pop local 0
-label WHILE_EXP0
+label LABEL2
 push local 0
 call Platform.hasNext 1
 not
-if-goto WHILE_END0
+if-goto LABEL3
 push local 0
 call Platform.moveUp 1
 pop temp 0
 push local 0
 call Platform.getNext 1
 pop local 0
-goto WHILE_EXP0
-label WHILE_END0
+goto LABEL2
+label LABEL3
 push constant 0
 return
 function PlatformsList.add 0
@@ -43,16 +43,16 @@ pop pointer 0
 push this 0
 push constant 0
 eq
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL4
+goto LABEL5
+label LABEL4
 push argument 1
 pop this 0
 push argument 1
 pop this 1
 push constant 0
 return
-label IF_FALSE0
+label LABEL5
 push this 1
 push argument 1
 call Platform.setNext 2
@@ -67,23 +67,23 @@ pop pointer 0
 push this 0
 push constant 0
 eq
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL6
+goto LABEL7
+label LABEL6
 push constant 0
 return
-label IF_FALSE0
+label LABEL7
 push this 0
 call Platform.hasNext 1
-if-goto IF_TRUE1
-goto IF_FALSE1
-label IF_TRUE1
+if-goto LABEL8
+goto LABEL9
+label LABEL8
 push this 0
 call Platform.getNext 1
 pop this 0
 push constant 0
 return
-label IF_FALSE1
+label LABEL9
 push constant 0
 pop this 0
 push constant 0
@@ -96,34 +96,34 @@ pop pointer 0
 push this 0
 push constant 0
 eq
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL10
+goto LABEL11
+label LABEL10
 push constant 0
 return
-label IF_FALSE0
+label LABEL11
 push this 0
 pop local 0
-label WHILE_EXP0
+label LABEL12
 push local 0
 call Platform.hasNext 1
 not
-if-goto WHILE_END0
+if-goto LABEL13
 push local 0
 push argument 1
 push argument 2
 call Platform.isOnPlatform 3
-if-goto IF_TRUE1
-goto IF_FALSE1
-label IF_TRUE1
+if-goto LABEL14
+goto LABEL15
+label LABEL14
 push constant 0
 not
 return
-label IF_FALSE1
+label LABEL15
 push local 0
 call Platform.getNext 1
 pop local 0
-goto WHILE_EXP0
-label WHILE_END0
+goto LABEL12
+label LABEL13
 push constant 0
 return

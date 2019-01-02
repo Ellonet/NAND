@@ -31,40 +31,40 @@ push constant 100
 add
 push constant 255
 gt
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL0
+goto LABEL1
+label LABEL0
 push constant 255
 pop local 2
-goto IF_END0
-label IF_FALSE0
+goto LABEL2
+label LABEL1
 push local 0
 push constant 100
 add
 pop local 2
-label IF_END0
+label LABEL2
 push local 0
 push constant 0
 lt
-if-goto IF_TRUE1
-goto IF_FALSE1
-label IF_TRUE1
+if-goto LABEL3
+goto LABEL4
+label LABEL3
 push constant 460
 pop local 0
 push constant 500
 pop local 2
-label IF_FALSE1
+label LABEL4
 push local 2
 push constant 0
 lt
-if-goto IF_TRUE2
-goto IF_FALSE2
-label IF_TRUE2
+if-goto LABEL5
+goto LABEL6
+label LABEL5
 push constant 10
 pop local 0
 push constant 80
 pop local 2
-label IF_FALSE2
+label LABEL6
 push this 0
 push this 1
 push local 0
@@ -74,14 +74,14 @@ pop local 1
 push local 0
 push local 1
 gt
-if-goto IF_TRUE3
-goto IF_FALSE3
-label IF_TRUE3
+if-goto LABEL7
+goto LABEL8
+label LABEL7
 push constant 350
 pop local 0
 push constant 400
 pop local 1
-label IF_FALSE3
+label LABEL8
 push local 0
 push local 1
 push constant 245

@@ -53,9 +53,9 @@ function Square_ExpSquare.incSize 0
 push argument 0
 pop pointer 0
 push this 0
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL0
+goto LABEL1
+label LABEL0
 push pointer 0
 call Square_ExpSquare.erase 1
 pop temp 0
@@ -64,16 +64,16 @@ pop this 2
 push pointer 0
 call Square_ExpSquare.draw 1
 pop temp 0
-label IF_FALSE0
+label LABEL1
 push constant 0
 return
 function Square_ExpSquare.decSize 0
 push argument 0
 pop pointer 0
 push this 2
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL2
+goto LABEL3
+label LABEL2
 push pointer 0
 call Square_ExpSquare.erase 1
 pop temp 0
@@ -82,16 +82,16 @@ pop this 2
 push pointer 0
 call Square_ExpSquare.draw 1
 pop temp 0
-label IF_FALSE0
+label LABEL3
 push constant 0
 return
 function Square_ExpSquare.moveUp 0
 push argument 0
 pop pointer 0
 push this 1
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL4
+goto LABEL5
+label LABEL4
 push this 0
 call Screen.setColor 1
 pop temp 0
@@ -112,16 +112,16 @@ push this 0
 push this 1
 call Screen.drawRectangle 4
 pop temp 0
-label IF_FALSE0
+label LABEL5
 push constant 0
 return
 function Square_ExpSquare.moveDown 0
 push argument 0
 pop pointer 0
 push this 1
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL6
+goto LABEL7
+label LABEL6
 push this 0
 call Screen.setColor 1
 pop temp 0
@@ -142,16 +142,16 @@ push this 0
 push this 1
 call Screen.drawRectangle 4
 pop temp 0
-label IF_FALSE0
+label LABEL7
 push constant 0
 return
 function Square_ExpSquare.moveLeft 0
 push argument 0
 pop pointer 0
 push this 0
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL8
+goto LABEL9
+label LABEL8
 push this 0
 call Screen.setColor 1
 pop temp 0
@@ -172,16 +172,16 @@ push this 0
 push this 1
 call Screen.drawRectangle 4
 pop temp 0
-label IF_FALSE0
+label LABEL9
 push constant 0
 return
 function Square_ExpSquare.moveRight 0
 push argument 0
 pop pointer 0
 push this 0
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL10
+goto LABEL11
+label LABEL10
 push this 0
 call Screen.setColor 1
 pop temp 0
@@ -202,6 +202,6 @@ push this 0
 push this 1
 call Screen.drawRectangle 4
 pop temp 0
-label IF_FALSE0
+label LABEL11
 push constant 0
 return

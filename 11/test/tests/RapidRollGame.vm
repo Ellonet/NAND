@@ -24,11 +24,11 @@ push constant 0
 pop local 1
 push constant 0
 pop local 2
-label WHILE_EXP0
+label LABEL0
 push local 3
 not
 not
-if-goto WHILE_END0
+if-goto LABEL1
 push this 0
 call Ball.isOnPlatform 1
 pop temp 0
@@ -40,12 +40,12 @@ push local 1
 push constant 1
 add
 pop local 1
-label WHILE_EXP1
+label LABEL2
 push local 0
 push constant 0
 eq
 not
-if-goto WHILE_END1
+if-goto LABEL3
 push local 1
 push constant 1
 add
@@ -69,8 +69,8 @@ push this 0
 push local 4
 call Ball.move 2
 pop temp 0
-goto WHILE_EXP1
-label WHILE_END1
+goto LABEL2
+label LABEL3
 push pointer 0
 push local 1
 push local 5
@@ -78,9 +78,9 @@ call RapidRollGame.makePlatform 3
 pop temp 0
 push local 2
 not
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL4
+goto LABEL5
+label LABEL4
 push this 4
 push local 1
 push constant 10
@@ -93,7 +93,7 @@ pop temp 0
 push constant 0
 not
 pop local 2
-label IF_FALSE0
+label LABEL5
 push local 1
 pop local 5
 push pointer 0
@@ -104,36 +104,36 @@ pop temp 0
 push local 0
 push constant 130
 eq
-if-goto IF_TRUE1
-goto IF_FALSE1
-label IF_TRUE1
+if-goto LABEL6
+goto LABEL7
+label LABEL6
 push constant 1
 pop local 4
 push this 0
 push local 4
 call Ball.move 2
 pop temp 0
-label IF_FALSE1
+label LABEL7
 push local 0
 push constant 132
 eq
-if-goto IF_TRUE2
-goto IF_FALSE2
-label IF_TRUE2
+if-goto LABEL8
+goto LABEL9
+label LABEL8
 push constant 2
 pop local 4
 push this 0
 push local 4
 call Ball.move 2
 pop temp 0
-label IF_FALSE2
-label WHILE_EXP2
+label LABEL9
+label LABEL10
 push local 0
 push constant 0
 eq
 not
 not
-if-goto WHILE_END2
+if-goto LABEL11
 push local 1
 push constant 1
 add
@@ -155,15 +155,15 @@ push this 0
 push local 4
 call Ball.move 2
 pop temp 0
-goto WHILE_EXP2
-label WHILE_END2
+goto LABEL10
+label LABEL11
 push pointer 0
 push local 1
 push local 5
 call RapidRollGame.makePlatform 3
 pop temp 0
-goto WHILE_EXP0
-label WHILE_END0
+goto LABEL0
+label LABEL1
 push constant 0
 return
 function RapidRollGame.makePlatform 2
@@ -183,9 +183,9 @@ pop local 1
 push local 1
 push constant 0
 eq
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto LABEL12
+goto LABEL13
+label LABEL12
 push this 3
 push local 0
 call PlatformsGenerator.setSeed 2
@@ -195,7 +195,7 @@ push this 3
 call PlatformsGenerator.generatePlatform 1
 call RapidRollGame.addPlatform 2
 pop temp 0
-label IF_FALSE0
+label LABEL13
 push constant 0
 return
 function RapidRollGame.gameOver 0
