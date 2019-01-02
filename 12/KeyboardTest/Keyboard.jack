@@ -6,10 +6,14 @@
 /**
  * A library for handling user input from the keyboard.
  */
+ 
 class Keyboard {
-
+	static int BUFFER, KEYBORD;
+	
     /** Initializes the keyboard. */
     function void init() {
+		let KEYBORD = 24576;
+		let BUFFER = 1000;
 		return;
     } 
 
@@ -35,7 +39,7 @@ class Keyboard {
      */
     function char keyPressed() {
 		var int c;
-		let c = Memory.peek(24576);
+		let c = Memory.peek(KEYBORD);
 		return c;
     }
 
@@ -62,7 +66,7 @@ class Keyboard {
     function String readLine(String message) {
 		var String str, temp;
 		var char c;
-		let str = String.new(1000);
+		let str = String.new(BUFFER);
 		do Output.printString(message);
 		
 		let c = Keyboard.readChar();
@@ -84,11 +88,10 @@ class Keyboard {
      * and returns its integer value (until the first non-digit character in the
      * entered text is detected). Also handles user backspaces. 
      */
-    function int readInt(String message) 
+    function int readInt(String message) {
 		var String str;
 		var int res;
-		do Output.printString(message);
-		let str = Keyboard.readLine("");
+		let str = Keyboard.readLine(message);
 		let res = str.intValue();
 		return res;
     }

@@ -18,7 +18,7 @@ class Memory {
     function void init() {
 		let ram = 0;
 		let heap = 2048;
-		let freeList = 2048;
+		let freeList = 0;
 		let heap[0] = 0;		// next
 		let heap[1] = 14335;	// size
 		return;
@@ -38,32 +38,43 @@ class Memory {
     /** Finds an available RAM block of the given size and returns
      *  a reference to its base address. */
     function int alloc(int size) {
-		var int curr, prev, block;
+		var int curr, prev, block, temp, nextAddr;
 		let curr = freeList;
-		let prev = freeList;
+		let prev = 0;
 		// advance while no matching block
-		while(heap[curr+1] < size + 2) {
+		while(~(heap[curr+1] > size)) {
 			let prev = curr;
 			let curr = heap[curr];
+			// reached null check
 			if (curr = 0) {
 				return -1;
 			}
 		}
 		// case of matching block:
-		let block = curr + 2;
-		// set the remainder of the block as new "free black" in the free list
-		let heap[curr + size + 2] = heap[curr];
-		let heap[curr + size + 3] = heap[curr+1] - size - 2;
+		let block = heap + curr + 2;
+		// the remainder of the block
+		let temp = heap[curr + 1] - size - 2;
+		if (temp > 0) {
+			// case of remainder to use
+			let nextAddr = curr + size + 2;
+			let heap[nextAddr] = heap[curr];
+			let heap[nextAddr + 1] = temp;
+			if(curr = freeList) {
+				let freeList = nextAddr;
+			} else {
+				let heap[prev] = heap[nextAddr];			
+			}
+		} else {
+			// delete block from list
+			if(curr = freeList) {
+				let freeList = heap[curr];
+			} else {
+				let heap[prev] = heap[curr];
+			}
+		}
 		// set the returned block:
 		let heap[curr] = 0;
 		let heap[curr + 1] = size;
-		// if block was at end of freeList - restart freeList to new segment made from the remainder. 
-		// otherwise - update prev to point the to new segment made from the remainder:
-		if (prev = 0) {
-			let freeList = curr + size + 2;
-		} else {
-			let heap[prev] = curr + size + 2;
-		}
 		return block;
     }
 
