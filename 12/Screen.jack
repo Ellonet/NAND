@@ -10,10 +10,15 @@
  * the screen is indexed (0,0).
  */
 class Screen {
-
+	
+	static boolean color;
+	static int SCREEN;
+	
     /** Initializes the Screen. */
     function void init() {
-    }
+		let color = true;
+		let SCREEN = 16384;
+	}
 
     /** Erases the entire screen. */
     function void clearScreen() {
@@ -22,15 +27,123 @@ class Screen {
     /** Sets the current color, to be used for all subsequent drawXXX commands.
      *  Black is represented by true, white by false. */
     function void setColor(boolean b) {
+		let color = b;
+		return;
     }
 
     /** Draws the (x,y) pixel, using the current color. */
     function void drawPixel(int x, int y) {
-    }
+		var int address, value ,i ,temp1, temp2, bit;
+		
+		// calculate y*32
+		let i=0;
+		let temp1 = y;
+		while(i<5){
+			let temp1 = temp1 + temp1;
+			let i = i+1;
+		}
+		
+		// calculate x/16
+		let temp2 = Math.divide(x,16);
+		
+		let address = temp1 + temp2;
+		let value = Memory.peek((SCREEN + address));
+		let bit = x&15;
+		if (color) {
+			let value = (value|Math.byteArr[bit]);
+    	} else {
+    		let value = (value&(~Math.byteArr[bit]));
+    	}
+		do Memory.poke(address,value);
+		return;
+	}
+	
+	/** Draws an horizontal line from pixel (x1,y1) to pixel (x2,y2), using the current color. */
+	function void drawHorizontalLine(int x1, int y1, int x2, int y2){
+	}
+	
+	/** Draws a vertical line from pixel (x1,y1) to pixel (x2,y2), using the current color. */
+	function void drawVerticalLine(int x1, int y1, int x2, int y2){
+	}
+	
+	
+	/** Draws a line from pixel (x1,y1) to pixel (x2,y2), using the current color.*/
+	function void drawLineTopDown(int x1, int y1, int x2, int y2){
+		var int x, y, dx, dy, a ,b ,diff;
+		
+		let x = x1;
+		let y = y1;
+		let dx = x2-x1;
+		let dy = y2-y1;		
+		let a=0;
+		let b=0;
+		let diff = 0;
 
+		while((~(a>dx)) & (~(b>dy))){
+			do drawPixel((x+a),(y+b));
+			if(diff<0){
+				let a = a+1;
+				let diff = diff + dy;
+			}else{
+				let b = b+1;
+				let diff = diff - dx;
+			}
+		}
+		
+	}
+	
+	/** Draws a line from pixel (x1,y1) to pixel (x2,y2), using the current color.*/
+	function void drawLineDownTop(int x1, int y1, int x2, int y2){
+		var int x, y, dx, dy, a ,b ,diff;
+		
+		let x = x1;
+		let y = y1;
+		let dx = x2-x1;
+		let dy = y1-y2;		
+		let a=0;
+		let b=0;
+		let diff = 0;
+
+		while((~(a>dx)) & (~(b>dy))){
+			do drawPixel((x+a),(y-b));
+			if(diff<0){
+				let a = a+1;
+				let diff = diff + dy;
+			}else{
+				let b = b+1;
+				let diff = diff - dx;
+			}
+		}
+		
+	}
+	
     /** Draws a line from pixel (x1,y1) to pixel (x2,y2), using the current color. */
     function void drawLine(int x1, int y1, int x2, int y2) {
-    }
+		
+		
+		// horizontal
+		if(y1 = y2){
+			return drawHorizontalLine(x1,y1,x2,y2);
+		}
+		// vertical
+		if(x1 = x2){
+			return drawVerticalLine(x1,y1,x2,y2);
+		}
+		// top down
+		if(x1<x2 & y1<y2){
+				return drawLineTopDown(x1,y1,x2,y2);
+		}
+		// reverse top down
+		if(x1>x2 & y1>y2){
+			return drawLineTopDown(x2,y2,x1,y1);
+		}
+		// down up
+		if((x2>x1) & (y2<y1)){
+			return drawLineDownTop(x1,y1,x2,y2);
+		}
+		// reverse down up
+		return drawLineDownTop(x2,y2,x1,y1);
+	}
 
     /** Draws a filled rectangle whose top left corner is (x1, y1)
      * and bottom right corner is (x2,y2), using the current color. */

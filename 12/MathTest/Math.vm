@@ -241,6 +241,10 @@ push local 2
 push argument 0
 gt
 not
+push local 2
+push constant 0
+gt
+and
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
