@@ -10,21 +10,30 @@
  * for appending a character to the string's end, and more typical
  * string-oriented operations.
  */
+ 
 class String {
-	
 	field Array str;
 	field int length;
+	field int maxLen;
 	
     /** constructs a new empty string with a maximum length of maxLength
      *  and initial length of 0. */
     constructor String new(int maxLength) {
-		let str = Array.new(maxLength);
-		let length = 0;
-		return this;
+		let maxLen = maxLength;
+		if (maxLen = 0) {
+			return this;
+		} else {
+			let str = Array.new(maxLength);
+			let length = 0;
+			return this;
+		}
 	}
 
     /** Disposes this string. */
     method void dispose() {
+		if (maxLen = 0) {
+			return;	
+		}
 		do str.dispose();
 		return;
     }
@@ -62,34 +71,64 @@ class String {
      *  until a non-digit character is detected. */
     method int intValue() {
 		var int i, val ,d;
+		var boolean neg;
+		let neg = false;
 		let i = 0;
 		let val = 0;
+		if (str[0] = 45) {
+			let neg = true;
+			let i = 1;			
+		}
 		while(i<length){
-			let d = str[i];
-			if((d>57)|(d<48)){
+			let d = str[i] - 48;
+			if((d>9)|(d<0)){
 				return val;
 			}
 			let val = (val*10) + d;
-			let i = i+1;
+			let i = i + 1;
+		}
+		if (neg) {
+			let val = 0 - val;
 		}
 		return val;
     }
 
     /** Sets this string to hold a representation of the given value. */
     method void setInt(int val) {
+		if (length > 0) {
+			let str = Array.new(maxLen);
+			let length = 0;
+		}
+		if (val < 0) {
+			let val = 0 - val;
+			let str[0] = 45;
+			let length = 1;
+		}
+		do setIntHelp(val);
+		return;
+    }
+	
+	/** A helper function for the setInt function. handles the recursive call */
+    method void setIntHelp(int val) {
 		var int lastDigit;
-		var char c;
-		var String str;
-		let lastDigit = (val&9);
+		var int c;
+
+		let lastDigit = (val - ((val/10)*10));
 		let c = lastDigit + 48;
-		if(val<10){
-			let str = String.new(7);
-			do str.appendChar(c);
-			return str;
-		}else{
-			return String.setInt(val/10).appendChar(c);
+		if(val < 10){
+			let str[length] = c;
+			let length = length + 1;
+			return;
+		} 
+		else {
+			do setIntHelp(val/10);
+			let str[length] = c;
+			let length = length + 1;
+			return;
 		}
     }
+	
+	
 
     /** Returns the new line character. */
     function char newLine() {
