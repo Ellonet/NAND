@@ -138,4 +138,20 @@ class Math {
     function int bit(int x, int n) {
         return (x&byteArr[n]);
     }
+	
+	
+    /** Moves the bits one step to the right (divides the number by 2). */
+    function int shiftRight(int num) {
+		var int shifted, i,currBit;
+		let shifted = 0;
+		let i = 1; // skip first bit
+		while(i<16){
+			let currBit = Math.bit(num,i);
+			if (currBit){
+				let shifted = shifted | (byteArr[i-1]);
+			}
+			let i = i+1;
+		}
+		return shifted;
+	}
 }

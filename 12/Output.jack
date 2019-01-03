@@ -18,10 +18,19 @@ class Output {
 
     // Character map for displaying characters
     static Array charMaps; 
-
+	static Array cursor;
+	static int SCREEN;
+	
     /** Initializes the screen, and locates the cursor at the screen's top-left. */
     function void init() {
-    }
+		let cursor = Array.new(2);
+		let cursor[0]= 0; // line between 0 to 22
+		let cursor[1]= 0; // column between 0 to 63
+		let SCREEN = 16384;
+		do Output.initMap();
+		
+		return;
+	}
 
     // Initializes the character map array
     function void initMap() {
@@ -71,7 +80,7 @@ class Output {
         do Output.create(64,30,51,51,59,59,59,27,3,30,0,0);  // @
         do Output.create(63,30,51,51,24,12,12,0,12,12,0,0);  // ?
 
-        do Output.create(65,0,0,0,0,0,0,0,0,0,0,0);          // A ** TO BE FILLED **
+        do Output.create(65,12,30,51,51,63,51,51,51,51,0,0);          // A ** TO BE FILLED **
         do Output.create(66,31,51,51,51,31,51,51,51,31,0,0); // B
         do Output.create(67,28,54,35,3,3,3,35,54,28,0,0);    // C
         do Output.create(68,15,27,51,51,51,51,51,27,15,0,0); // D
@@ -176,28 +185,137 @@ class Output {
     /** Moves the cursor to the j-th column of the i-th row,
      *  and erases the character displayed there. */
     function void moveCursor(int i, int j) {
-    }
+		var int i, x, y, second, value, address;
+		let cursor[0] = i; // row
+		let cursor[1] = j; // column
+		
+		// delete char there
+		let i = 0;
+		let y = Math.multiply((cursor[0]),11);
+		let x = Math.multiply((cursor[1]),8);
+		let second = Math.bit(cursor[1], 0); // true for odd and false for even
+		let address = SCREEN + Screen.getRegisterAdd(x,y);
+		while(i<11){
+			let value = Memory.peek(address);
+			if(second){ // right box
+				let value = (value&255); // delete the letter written there
+			} else { // left box
+				let value = (value&(-256)); // delete the letter written there
+			}
+			do Memory.poke(address,value);
+			let address = address + 32;
+			let i = i+1;
+			}
+		return;
+	}
 
     /** Displays the given character at the cursor location,
-     *  and advances the cursor one column forward. */
+	*  and advances the cursor one column forward. */
     function void printChar(char c) {
-    }
+		var int i,j,x,y, second, value, address,shifted;
+		var Array map;
+		let map = Output.getMap(c);
+		let i = 0;
+		let y = Math.multiply((cursor[0]),11);
+		let x = Math.multiply((cursor[1]),8);
+		let second = Math.bit(cursor[1], 0); // true for odd and false for even
+		let address = SCREEN + Screen.getRegisterAdd(x,y);
+		while(i<11){
+			let value = Memory.peek(address);
+			if(second){ // right box
+				let value = (value&255); // delete the letter written there
+				let j = 0;
+				let shifted = map[i];
+				while(j<8){
+				let shifted = shifted + shifted; // shift left;
+				let j = j+1;
+				}
+				let value = (value|shifted); // write the letter we want
+			} else { // left box
+				let value = (value&(-256)); // delete the letter written there
+				let value = (value|(map[i])); // write the letter we want
+			}
+			do Memory.poke(address,value);
+			let address = address + 32;
+			let i = i+1;
+		}
+	
+	// move cursor 
+	let cursor[1] = cursor[1]+1;
+	if(cursor[1]>63){
+		let cursor[0] = cursor[0]+1;
+		if(cursor[0]>22){
+			let cursor[0] = 0;
+		}
+		let cursor[1] = 0;
+	}
+	return;
+	}
 
     /** displays the given string starting at the cursor location,
      *  and advances the cursor appropriately. */
     function void printString(String s) {
-    }
+		var int i, size;
+		let i = 0;
+		let size = s.length();
+		
+		while(i<size){
+			do Output.printChar(s.charAt(i));
+			let i = i + 1;
+		}
+		return;
+	}
 
     /** Displays the given integer starting at the cursor location,
      *  and advances the cursor appropriately. */
     function void printInt(int i) {
-    }
+		var String s;
+		let s = String.new(10);
+		do s.setInt(i);
+		do Output.printString(s);
+		return;
+	}
 
     /** Advances the cursor to the beginning of the next line. */
     function void println() {
-    }
+		let cursor[0] = cursor[0] + 1; // next row
+		if(cursor[0] > 22){
+			let cursor[0] = 0; // back to first row
+		}
+		let cursor[1] = 0;
+		return;
+	}
 
     /** Moves the cursor one column back. */
     function void backSpace() {
-    }
+		var int i,y,x,second,address,value;
+		
+		let cursor[1] = cursor[1]-1;
+		if((cursor[1]<0)&(cursor[0]>0)){
+			let cursor[0] = cursor[0] -1;
+			let cursor[1] = 63;
+		} 
+		if((cursor[1]<0)&(cursor[0]=0)){ // cant go back
+			let cursor[1] = 0;
+		}
+		
+		// delete char there
+		let i = 0;
+		let y = Math.multiply((cursor[0]),11);
+		let x = Math.multiply((cursor[1]),8);
+		let second = Math.bit(cursor[1], 0); // true for odd and false for even
+		let address = SCREEN + Screen.getRegisterAdd(x,y);
+		while(i<11){
+			let value = Memory.peek(address);
+			if(second){ // right box
+				let value = (value&255); // delete the letter written there
+			} else { // left box
+				let value = (value&(-256)); // delete the letter written there
+			}
+			do Memory.poke(address,value);
+			let address = address + 32;
+			let i = i+1;
+			}
+		return;
+	}
 }

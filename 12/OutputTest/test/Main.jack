@@ -1,0 +1,23 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/OutputTest/Main.jack
+
+/** Test program for the OS Output class. */
+class Main {
+
+    /** Outputs the entire character set to the screen using all the
+     *  methods of the Output class. */
+    function void main() {
+        do Output.moveCursor(0, 63);
+        do Output.printChar(66); //B
+        do Output.moveCursor(22, 0);
+        do Output.printChar(67);//C
+        do Output.moveCursor(22, 63);
+        do Output.printChar(68); //D
+        do Output.printChar(65); //A
+        do Output.printString(" LOVE ");
+		do Output.printInt(4567);
+        return;
+    }
+}
