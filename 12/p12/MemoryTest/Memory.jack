@@ -84,8 +84,8 @@ class Memory {
 		// freeList is the beginning of the free ones!
 		var int temp;
 		let temp = freeList;
-		let freeList = (o-2);
-		let heap[(o-2)] = temp;
+		let freeList = o[-2];
+		let o[-2] = temp;
 		return;
     }    
 }
