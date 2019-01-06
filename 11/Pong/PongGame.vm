@@ -90,12 +90,12 @@ return
 function PongGame.run 1
 push argument 0
 pop pointer 0
-label LABEL0
+label WHILE_EXP0
 push this 3
 not
 not
-if-goto LABEL1
-label LABEL2
+if-goto WHILE_END0
+label WHILE_EXP1
 push local 0
 push constant 0
 eq
@@ -103,7 +103,7 @@ push this 3
 not
 and
 not
-if-goto LABEL3
+if-goto WHILE_END1
 call Keyboard.keyPressed 0
 pop local 0
 push this 0
@@ -115,45 +115,45 @@ pop temp 0
 push constant 50
 call Sys.wait 1
 pop temp 0
-goto LABEL2
-label LABEL3
+goto WHILE_EXP1
+label WHILE_END1
 push local 0
 push constant 130
 eq
-if-goto LABEL4
-goto LABEL5
-label LABEL4
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
 push this 0
 push constant 1
 call Bat.setDirection 2
 pop temp 0
-goto LABEL6
-label LABEL5
+goto IF_END0
+label IF_FALSE0
 push local 0
 push constant 132
 eq
-if-goto LABEL7
-goto LABEL8
-label LABEL7
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
 push this 0
 push constant 2
 call Bat.setDirection 2
 pop temp 0
-goto LABEL9
-label LABEL8
+goto IF_END1
+label IF_FALSE1
 push local 0
 push constant 140
 eq
-if-goto LABEL10
-goto LABEL11
-label LABEL10
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
 push constant 0
 not
 pop this 3
-label LABEL11
-label LABEL9
-label LABEL6
-label LABEL12
+label IF_FALSE2
+label IF_END1
+label IF_END0
+label WHILE_EXP2
 push local 0
 push constant 0
 eq
@@ -162,7 +162,7 @@ push this 3
 not
 and
 not
-if-goto LABEL13
+if-goto WHILE_END2
 call Keyboard.keyPressed 0
 pop local 0
 push this 0
@@ -174,14 +174,14 @@ pop temp 0
 push constant 50
 call Sys.wait 1
 pop temp 0
-goto LABEL12
-label LABEL13
-goto LABEL0
-label LABEL1
+goto WHILE_EXP2
+label WHILE_END2
+goto WHILE_EXP0
+label WHILE_END0
 push this 3
-if-goto LABEL14
-goto LABEL15
-label LABEL14
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
 push constant 10
 push constant 27
 call Output.moveCursor 2
@@ -208,7 +208,7 @@ push constant 114
 call String.appendChar 2
 call Output.printString 1
 pop temp 0
-label LABEL15
+label IF_FALSE3
 push constant 0
 return
 function PongGame.moveBall 5
@@ -225,9 +225,9 @@ push this 5
 eq
 not
 and
-if-goto LABEL16
-goto LABEL17
-label LABEL16
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
 push this 2
 pop this 5
 push constant 0
@@ -247,9 +247,9 @@ pop local 4
 push this 2
 push constant 4
 eq
-if-goto LABEL18
-goto LABEL19
-label LABEL18
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
 push local 1
 push local 4
 gt
@@ -260,34 +260,34 @@ or
 pop this 3
 push this 3
 not
-if-goto LABEL20
-goto LABEL21
-label LABEL20
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
 push local 4
 push local 1
 push constant 10
 add
 lt
-if-goto LABEL22
-goto LABEL23
-label LABEL22
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
 push constant 1
 neg
 pop local 0
-goto LABEL24
-label LABEL23
+goto IF_END3
+label IF_FALSE3
 push local 3
 push local 2
 push constant 10
 sub
 gt
-if-goto LABEL25
-goto LABEL26
-label LABEL25
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
 push constant 1
 pop local 0
-label LABEL26
-label LABEL24
+label IF_FALSE4
+label IF_END3
 push this 6
 push constant 2
 sub
@@ -307,12 +307,12 @@ pop temp 0
 push this 4
 call Output.printInt 1
 pop temp 0
-label LABEL21
-label LABEL19
+label IF_FALSE2
+label IF_FALSE1
 push this 1
 push local 0
 call Ball.bounce 2
 pop temp 0
-label LABEL17
+label IF_FALSE0
 push constant 0
 return

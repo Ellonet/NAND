@@ -1,0 +1,157 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Math.jack
+
+/**
+ * A library of commonly used mathematical functions.
+ * Note: Jack compilers implement multiplication and division using OS method calls.
+ */
+class Math {
+    
+	static Array byteArr;
+    
+	/** Initializes the library. */
+    function void init() {
+        var int cur,i;
+        let byteArr = Array.new(16);
+        let cur = 1;
+    	let i = 0;
+    	while(i < 16) {
+    		let byteArr[i] = cur;
+    		let cur = cur + cur;
+    		let i = i + 1;
+    	}
+		return; 
+    }
+	
+	/** returns the bit mask of the given index */
+	function int getBitMask(int i){
+		return byteArr[i];
+	}
+	
+    /** Returns the absolute value of x. */
+    function int abs(int x) {
+        if(x<0){
+            return -x;
+        }
+        return x;
+    }
+
+    /** Returns the product of x and y. 
+     *  When a Jack compiler detects the multiplication operator '*' in the 
+     *  program's code, it handles it by invoking this method. In other words,
+     *  the Jack expressions x*y and multiply(x,y) return the same value.
+     */
+    function int multiply(int x, int y) {
+        var int sum, shiftedX, i;
+        var boolean isNeg;
+		if((x=0)|(y=0)){
+			return 0; 
+		}
+		let isNeg = ((x<0)|(y<0))&(~((x<0) & (y<0)));
+		let sum = 0;
+        let shiftedX = Math.abs(x);
+        let y = Math.abs(y);
+		let i = 0;
+        while (i<16){
+            if(Math.bit(y,i)){
+                let sum = sum + shiftedX;            
+            }
+            let shiftedX = shiftedX + shiftedX;
+            let i = i + 1;
+        }
+		if(isNeg){
+			return (-sum);
+		}
+        return sum;     
+    }
+
+    /** Returns the integer part of x/y.
+     *  When a Jack compiler detects the multiplication operator '/' in the 
+     *  program's code, it handles it by invoking this method. In other words,
+     *  the Jack expressions x/y and divide(x,y) return the same value.
+     */
+    function int divide(int x, int y) {
+        var int result;        
+        var boolean isNeg;
+		if(x=0 | y=0){
+			return 0;
+		}
+		let isNeg = ((x<0)|(y<0))&(~((x<0) & (y<0)));
+		let result = Math.divideHelper(Math.abs(x),Math.abs(y));
+		if(isNeg){
+			return (-result);
+		}
+		return result;
+		
+    }
+	
+	/**helper function for the division operation*/
+	function int divideHelper(int x, int y){
+		var int q;
+		if((y>x)|(y<0)){
+            return 0;
+        }
+		
+        let q = Math.divide(x,(y+y));
+        if(x - Math.multiply((q+q),y) < y){
+            return (q+q);
+        }
+        return (q+q+1);        
+            
+	}
+	
+    /** Returns the integer part of the square root of x. */
+    function int sqrt(int x) {
+        var int y,i,temp;
+        let y = 0;
+        let i = 7;
+        while(i>(-1)){
+            let temp = y+byteArr[i];           
+            let temp = Math.multiply(temp,temp); 
+			if(~(temp>x)&(temp > 0)){            
+                let y = y+byteArr[i];
+            }
+            let i = i-1;
+        }
+        return y;
+    }
+
+    /** Returns the greater number. */
+    function int max(int a, int b) {
+        if(a > b){
+            return a;
+        }
+        return b;     
+    }
+
+    /** Returns the smaller number. */
+    function int min(int a, int b) {
+           if(a < b){
+            return a;
+        }
+        return b;     
+    }
+
+    /** Returns the n-th (0 to 15) bit of the num x*/
+    function int bit(int x, int n) {
+        return (x&byteArr[n]);
+    }
+	
+	
+    /** Moves the bits one step to the right (divides the number by 2). */
+    function int shiftRight(int num) {
+		var int shifted, i,currBit;
+		let shifted = 0;
+		let i = 1; // skip first bit
+		while(i<16){
+			let currBit = Math.bit(num,i);
+			if (currBit){
+				let shifted = shifted | (byteArr[i-1]);
+			}
+			let i = i+1;
+		}
+		return shifted;
+	}
+}

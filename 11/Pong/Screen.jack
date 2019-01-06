@@ -11,13 +11,23 @@
  */
 class Screen {
 	
+	static Array byteArr;
 	static boolean color;
 	static int SCREEN;
 	
     /** Initializes the Screen. */
     function void init() {
+		var int cur,i;
 		let color = true;
 		let SCREEN = 16384;
+        let byteArr = Array.new(16);
+        let cur = 1;
+    	let i = 0;
+    	while(i < 16) {
+    		let byteArr[i] = cur;
+    		let cur = cur + cur;
+    		let i = i + 1;
+    	}
 		return;
 	}
 
@@ -69,9 +79,9 @@ class Screen {
 		let value = Memory.peek((SCREEN + address));
 		let bit = (x&15); // modulo 16
 		if (color) {
-			let value = value|Math.getBitMask(bit);
+			let value = value|byteArr[bit];
     	} else {
-    		let value = (value & (~Math.getBitMask(bit)));
+    		let value = (value & (~byteArr[bit]));
     	}
 		do Memory.poke(SCREEN + address,value);
 		return;
@@ -93,8 +103,13 @@ class Screen {
 	/** Draws an horizontal line from pixel (x1,y1) to pixel (x2,y2), using the current color. */
 	function void drawHorizontalLine(int x1, int x2, int y){
 		var int startReg, endReg, s, t, mask, i, value, diff, bit, curColor;
-		let s = Math.min(x1,x2);
-		let t = Math.max(x1,x2);
+		if(x1<x2){
+			let s = x1;
+			let t = x2;
+		}else{
+			let s = x2;
+			let t = x1;
+		}
 		if(color){
 			let curColor = -1;
 		}else{
@@ -103,20 +118,20 @@ class Screen {
 		let startReg = Screen.getRegisterAdd(s,y);
 		let endReg = Screen.getRegisterAdd(t,y);
 		if(startReg = endReg){
-			let diff = t-s+1;
-			let mask = Math.getBitMask(diff+1)-1;
-			let i = 15;
-			let bit = t&15;
-			while(i > bit){
+			let diff = t-s;
+			let mask = byteArr[diff+1]-1;
+			let i = 0;
+			let bit = s&15;
+			while(i < bit){
 				// shift left
 				let mask = mask + mask;
-				let i = i-1;
+				let i = i+1;
 			}
 			do Screen.colorReg(startReg,mask);
 			
 		} else {
 			let bit = s&15;
-			let mask = ~(Math.getBitMask(bit)-1);	
+			let mask = ~(byteArr[bit]-1);	
 			do Screen.colorReg(startReg, mask);
 			let startReg = startReg + 1;
 			while(startReg<endReg){
@@ -128,7 +143,7 @@ class Screen {
 			if(bit=15){
 				let mask = -1;			
 			}else{
-				let mask = (Math.getBitMask(bit+1)-1);			
+				let mask = (byteArr[bit+1]-1);			
 			}
 			do Screen.colorReg(endReg, mask);
 		}
@@ -140,8 +155,14 @@ class Screen {
 	/** Draws a vertical line from pixel (x1,y1) to pixel (x2,y2), using the current color. */
 	function void drawVerticalLine(int x, int y1, int y2){
 		var int start, end;
-		let start = Math.min(y1,y2);
-		let end = Math.max(y1,y2);
+		if(y1<y2){
+		let start = y1;
+		let end = y2;
+		} else {
+			let start = y2;
+			let end = y1;
+		}
+		
 		while(~(start > end)){
 			do Screen.drawPixel(x ,start);
 			let start = start + 1;
